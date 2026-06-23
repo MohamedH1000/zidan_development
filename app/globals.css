@@ -1,0 +1,169 @@
+@import "tailwindcss";
+
+/*
+ * Zidan Development — design tokens (Tailwind v4, CSS-first config).
+ * Palette mirrors the brand: warm stone façades, marble entrances, dark glass
+ * and champagne-gold accents.
+ */
+@theme {
+  /* Typography — variables are wired in app/layout.tsx via next/font. */
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-display: var(--font-playfair), Georgia, "Times New Roman", serif;
+  --font-script: var(--font-great-vibes), "Brush Script MT", cursive;
+
+  /* Ink — near-black charcoal scale. */
+  --color-ink-950: #0a0a0a;
+  --color-ink-900: #111111;
+  --color-ink-800: #1a1a1a;
+  --color-ink-700: #262626;
+  --color-ink-600: #3a3a3a;
+  --color-ink-500: #525252;
+
+  /* Gold — champagne accent. 500 is the brand primary. */
+  --color-gold-200: #f0e4c7;
+  --color-gold-300: #e6d2a4;
+  --color-gold-400: #d9bc7a;
+  --color-gold-500: #c8a45c;
+  --color-gold-600: #b8924a;
+  --color-gold-700: #9c7a38;
+
+  /* Warm neutrals. */
+  --color-cream: #f7f3ec;
+  --color-ivory: #fbf8f2;
+  --color-sand: #efe9dd;
+  --color-stone: #e0d8c8;
+  --color-mist: #c9c2b5;
+
+  /* Semantic surface tokens. */
+  --color-background: var(--color-ivory);
+  --color-foreground: var(--color-ink-900);
+
+  /* Radii & elevation tokens. */
+  --radius-xl: 1.25rem;
+  --radius-2xl: 1.75rem;
+
+  /* Custom animations. */
+  --animate-marquee: marquee 38s linear infinite;
+  --animate-marquee-reverse: marquee-reverse 38s linear infinite;
+  --animate-shimmer: shimmer 2.4s linear infinite;
+  --animate-float: float 7s ease-in-out infinite;
+  --animate-pulse-soft: pulse-soft 3.2s ease-in-out infinite;
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+@keyframes marquee-reverse {
+  from { transform: translateX(-50%); }
+  to { transform: translateX(0); }
+}
+@keyframes shimmer {
+  from { background-position: -200% 0; }
+  to { background-position: 200% 0; }
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+@keyframes pulse-soft {
+  0%, 100% { opacity: 0.55; }
+  50% { opacity: 1; }
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background-color: var(--color-gold-500);
+    color: var(--color-ink-950);
+  }
+
+  /* Consistent, accessible focus ring. */
+  :focus-visible {
+    outline: 2px solid var(--color-gold-500);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+
+  /* Refined scrollbar for the luxury feel. */
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--color-cream);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-mist);
+    border-radius: 9999px;
+    border: 2px solid var(--color-cream);
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--color-gold-500);
+  }
+}
+
+@layer components {
+  /* Thin gold rule used as a section/eyebrow divider. */
+  .gold-rule {
+    background: linear-gradient(
+      90deg,
+      transparent,
+      var(--color-gold-500),
+      transparent
+    );
+  }
+
+  /* Subtle film-grain/texture overlay for dark hero sections. */
+  .grain-overlay {
+    background-image: radial-gradient(
+      rgba(200, 164, 92, 0.08) 1px,
+      transparent 1px
+    );
+    background-size: 22px 22px;
+  }
+
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  /* Animated gradient text used sparingly for emphasis. */
+  .text-gold-gradient {
+    background: linear-gradient(
+      100deg,
+      var(--color-gold-300),
+      var(--color-gold-600) 45%,
+      var(--color-gold-300)
+    );
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+}
+
+/* Honour user motion preferences. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}

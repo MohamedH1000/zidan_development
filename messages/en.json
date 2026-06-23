@@ -1,0 +1,234 @@
+{
+  "common": {
+    "getInTouch": "Get in touch",
+    "callUs": "Call us",
+    "call": "Call",
+    "exploreAvailability": "Explore availability",
+    "exploreProjects": "Explore projects",
+    "contactNow": "Contact now",
+    "viewAll": "View all areas",
+    "readMore": "Read more",
+    "backHome": "Back home",
+    "orCall": "or call",
+    "requestCallBack": "Request a call back",
+    "by": "By {author}",
+    "languageLabel": "Language",
+    "switchTo": "العربية"
+  },
+  "nav": {
+    "home": "Home",
+    "about": "About Us",
+    "careers": "Careers",
+    "projects": "Projects",
+    "delivery": "Delivery",
+    "blogs": "Blogs",
+    "faqs": "FAQs",
+    "viewAll": "View all areas"
+  },
+  "footer": {
+    "ctaTitle": "Find your address in New Cairo",
+    "ctaScript": "Let's build",
+    "explore": "Explore",
+    "districts": "Districts",
+    "contact": "Contact",
+    "rights": "All rights reserved.",
+    "privacy": "Privacy Policy"
+  },
+  "home": {
+    "heroScroll": "Scroll",
+    "excellence": {
+      "eyebrow": "About our company",
+      "title": "Excellence in every detail",
+      "cardLabel": "Quality",
+      "cardSub": "Our benchmark, not an option",
+      "cta": "Discover our story"
+    },
+    "projects": {
+      "eyebrow": "Curated & presented",
+      "title": "The most distinct projects in the best areas of New Cairo",
+      "description": "A focused portfolio across New Cairo's strongest districts — each chosen for the balance of investment strength and real lifestyle potential."
+    },
+    "values": {
+      "eyebrow": "What we stand for",
+      "title": "Principles built into every project",
+      "description": "Transparency, commitment and on-time delivery are not marketing claims — they are operational principles embedded in our process."
+    },
+    "delivery": {
+      "eyebrow": "Delivery specification",
+      "title": "Built for long-term value",
+      "description": "From structural integrity to finishing standards, every detail is supervised — and documented — so expectations are clear in writing.",
+      "cta": "Full specifications"
+    },
+    "cta": {
+      "title": "Ready to find your address in New Cairo?"
+    },
+    "contact": {
+      "eyebrow": "We're here to help",
+      "title": "Request a call back",
+      "description": "Leave your details and our team will contact you shortly with tailored options across New Cairo."
+    }
+  },
+  "pages": {
+    "about": {
+      "eyebrow": "About Zidan Development",
+      "title": "An owner-executor building New Cairo's next landmarks",
+      "description": "We are not just developers — we are owners and direct executors of our projects, maintaining full control over quality, timelines and delivery standards.",
+      "introEyebrow": "Who we are",
+      "introTitle": "Built on a clear vision, executed with discipline",
+      "chairmanEyebrow": "Chairman's message",
+      "chairmanTitle": "Building with purpose"
+    },
+    "careers": {
+      "eyebrow": "Careers",
+      "title": "Build what lasts",
+      "description": "Join a team that values precision, excellence and long-term vision. Your journey at Zidan Development begins here.",
+      "cultureEyebrow": "Build What Lasts",
+      "cultureTitle": "Join a team that values precision and long-term vision",
+      "cultureDescription": "At Zidan Development, we build more than properties — we create lasting communities. If you are ready to grow within a visionary, high-performance environment, your journey begins here.",
+      "perks": {
+        "build": { "title": "Build what lasts", "body": "Work on projects designed to stand for decades, not seasons. Quality is the standard, not the exception." },
+        "culture": { "title": "High-performance culture", "body": "Join a team that values precision, excellence and long-term vision over shortcuts and noise." },
+        "direction": { "title": "Clear direction", "body": "Disciplined planning and transparent communication mean you always know what good looks like." },
+        "grow": { "title": "Grow with intent", "body": "We invest in people who want to grow within a visionary, owner-led organisation." }
+      },
+      "applyEyebrow": "Join our journey",
+      "applyTitle": "Submit your application",
+      "applyDescription": "Share your details and CV. If your profile matches an open role, our team will reach out.",
+      "applyPoints": {
+        "review": "We review every application against current and upcoming roles.",
+        "formats": "PDF, DOC or DOCX — maximum 5MB.",
+        "privacy": "Your data is handled in line with our Privacy Policy."
+      }
+    },
+    "delivery": {
+      "eyebrow": "Delivery specification",
+      "title": "Built for long-term value",
+      "description": "With direct execution and strict supervision, every project is delivered to a documented standard — protecting quality and timelines."
+    },
+    "blog": {
+      "eyebrow": "Insights",
+      "title": "Perspectives on New Cairo real estate",
+      "description": "Market signals, decision frameworks and the details that protect value — written by the people who build it.",
+      "recentEyebrow": "Recent",
+      "recentTitle": "Latest articles",
+      "backToArticles": "Back to all articles",
+      "keepReading": "Keep reading",
+      "allArticles": "All articles"
+    },
+    "faqs": {
+      "eyebrow": "Frequently asked questions",
+      "title": "Buyer questions, answered",
+      "description": "Payment plans, delivery timelines, finishing specifications, maintenance fees, contracts and resale — everything you should verify before booking.",
+      "browseEyebrow": "Browse by topic",
+      "browseTitle": "Find the answer you need",
+      "shortlistTitle": "Need a tailored shortlist?",
+      "shortlistBody": "Share your budget, preferred area and whether you're buying for living or investment — then we'll recommend the best available option."
+    },
+    "contact": {
+      "eyebrow": "Get in touch",
+      "title": "We're here to help",
+      "description": "Leave your details and our team will contact you shortly with tailored options across New Cairo. Zidan units are not subject to the Social Housing Initiative.",
+      "callUs": "Call us",
+      "email": "Email",
+      "visitUs": "Visit us",
+      "hours": "Hours",
+      "openInMaps": "Open in Google Maps"
+    },
+    "privacy": {
+      "eyebrow": "Legal",
+      "title": "Privacy Policy",
+      "updated": "Last updated: June 2026",
+      "contactTitle": "Contact us",
+      "contactBody": "For any privacy-related questions, email <email>{emailAddr}</email> or call <phone>{phoneNum}</phone>.",
+      "sections": {
+        "intro": { "title": "1. Introduction", "body": "Zidan Development (\"we\", \"us\") respects your privacy. This policy explains what information we collect through this website, why we collect it, and how we keep it safe. By using this site, you agree to the practices described here." },
+        "collect": { "title": "2. Information we collect", "body": "We only collect the information you choose to share with us — typically your name, phone number, email and area of interest when you submit a form, or the contents of an application and CV when you apply for a role. We also collect limited technical data (such as browser type) needed to operate and secure the site." },
+        "use": { "title": "3. How we use your information", "body": "We use your information to respond to enquiries, share relevant project information, process applications, and improve our services. We do not sell your personal data to third parties." },
+        "security": { "title": "4. Data security", "body": "All submissions are validated on our servers and handled through secured channels. Access to personal data is restricted to authorised team members. While we work to protect your information, no method of transmission over the internet is completely secure." },
+        "cookies": { "title": "5. Cookies & analytics", "body": "We may use privacy-conscious analytics to understand how the site is used. You can control cookies through your browser settings at any time." },
+        "rights": { "title": "6. Your rights", "body": "You may request access to, correction of, or deletion of your personal data. To exercise any of these rights, contact us using the details below." }
+      }
+    },
+    "projects": {
+      "eyebrow": "Our portfolio",
+      "title": "Projects in the best areas of New Cairo",
+      "description": "A focused, curated portfolio — each location selected for the balance of investment strength and real lifestyle potential.",
+      "listEyebrow": "Curated & presented",
+      "listTitle": "Choose the most distinct projects",
+      "listDescription": "Filter by availability to find the right address for living or investment.",
+      "filters": { "all": "All", "available": "Available", "under": "Under Construction", "soon": "Coming Soon" }
+    }
+  },
+  "project": {
+    "highlights": "Highlights",
+    "unitTypes": "Unit types",
+    "specStatus": "Status",
+    "specDown": "Down payment",
+    "specInstallment": "Installment",
+    "specDelivery": "Delivery",
+    "enquire": "Enquire about {name}",
+    "exploreOther": "Explore other areas",
+    "status": {
+      "Available": "Available",
+      "Under Construction": "Under Construction",
+      "Delivered": "Delivered",
+      "Coming Soon": "Coming Soon"
+    }
+  },
+  "faqCategories": {
+    "All": "All",
+    "Buying": "Buying",
+    "Payment": "Payment",
+    "Delivery": "Delivery",
+    "Finishing": "Finishing",
+    "After-Sales": "After-Sales",
+    "Investment": "Investment"
+  },
+  "forms": {
+    "contact": {
+      "fullName": "Full name",
+      "fullNamePlaceholder": "Your full name",
+      "phone": "Phone number",
+      "phonePlaceholder": "+20 1X XXXX XXXX",
+      "email": "Email",
+      "emailPlaceholder": "you@example.com",
+      "area": "Area of interest",
+      "areaPlaceholder": "Select an area",
+      "message": "Message",
+      "messagePlaceholder": "I'm interested in a 3-bedroom apartment in Al Narges…",
+      "messageHint": "Optional — tell us what you're looking for.",
+      "submit": "Request a call back",
+      "sending": "Sending…",
+      "socialHousingNote": "Zidan units are not subject to the Social Housing Initiative.",
+      "successTitle": "Request received",
+      "successMessage": "Thank you — our team will contact you shortly."
+    },
+    "careers": {
+      "fullName": "Full name",
+      "fullNamePlaceholder": "Your full name",
+      "email": "Email address",
+      "emailPlaceholder": "you@example.com",
+      "phone": "Phone",
+      "phonePlaceholder": "+20 1X XXXX XXXX",
+      "jobTitle": "Job title",
+      "jobTitlePlaceholder": "e.g. Sales Executive",
+      "cv": "CV / Résumé",
+      "uploadCv": "Upload your CV",
+      "cvHint": "Max 5MB · PDF/DOC/DOCX",
+      "coverLetter": "Cover letter",
+      "coverLetterPlaceholder": "A short note about your experience and goals…",
+      "coverLetterHint": "Optional — tell us why you'd like to join.",
+      "consent": "I agree to the <link>Privacy Policy</link>.",
+      "consentLink": "Privacy Policy",
+      "submit": "Submit application",
+      "submitting": "Submitting…",
+      "successTitle": "Application received",
+      "successMessage": "Thank you for applying. If your profile matches an open role, we'll be in touch."
+    }
+  },
+  "notFound": {
+    "script": "Lost in New Cairo",
+    "title": "404",
+    "description": "The page you're looking for doesn't exist or has moved. Let's get you back on track."
+  }
+}
