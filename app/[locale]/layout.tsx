@@ -44,10 +44,11 @@ export async function generateMetadata({
     description: siteConfig.description,
     applicationName: siteConfig.name,
     alternates: {
-      canonical: absoluteUrl(locale === "en" ? "/" : `/${locale}`),
+      canonical: absoluteUrl(localizedPath(activeLocale, "/")),
       languages: {
-        en: absoluteUrl("/"),
-        ar: absoluteUrl("/ar"),
+        en: absoluteUrl(localizedPath("en", "/")),
+        ar: absoluteUrl(localizedPath("ar", "/")),
+        "x-default": absoluteUrl(localizedPath("en", "/")),
       },
     },
     openGraph: {

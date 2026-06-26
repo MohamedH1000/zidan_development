@@ -1,164 +1,96 @@
 # Architecture
 
 ## Overview
-This is a modern Next.js website for **Zidan Developments** — an Egyptian real estate development company specializing in premium residential projects in New Cairo.
 
-The architecture follows **Next.js App Router best practices**, emphasizes **type safety**, **performance**, **SEO**, and **scalability**. It is designed for easy future migration to a dedicated backend (NestJS) + Supabase.
-
-### Current Stack (Phase 1 — Next.js Only)
-| Layer              | Tool                          | Purpose |
-|--------------------|-------------------------------|---------|
-| Framework          | Next.js 15/16 (App Router)    | Full-stack React framework with SSR/SSG |
-| Styling            | Tailwind CSS + shadcn/ui      | Utility-first styling + accessible components |
-| Language           | TypeScript (strict)           | Type safety across the project |
-| State Management   | React Server Components + Server Actions | Primary data flow |
-| Forms              | React Hook Form + Zod         | Form handling & validation |
-| Database (future)  | Supabase (PostgreSQL)         | Auth, DB, Storage, Realtime |
-| Backend (future)   | NestJS                        | API layer, business logic, agents |
-| Image Optimization | Next.js Image + Cloudinary/Supabase | Fast image delivery |
-| Analytics          | PostHog / Vercel Analytics    | User behavior & performance |
-| SEO                | Next.js Metadata + sitemap    | Search engine optimization |
-| Deployment         | Vercel                        | Optimized for Next.js |
-
-### Future Stack (Phase 2)
-- **Frontend**: Next.js (kept as is)
-- **Backend**: NestJS (modular, clean architecture)
-- **Database**: Supabase (Postgres + Auth + Storage + Edge Functions)
-- **Realtime**: Supabase Realtime + optional WebSockets
-- **File Storage**: Supabase Storage or Cloudinary
-
----
+Next.js 16 **App Router** with **`[locale]` dynamic routing** driven by
+`next-intl`. Server Components by default; Client Components only where
+interactivity is required (forms, motion, header/dropdown/explorers).
+No database — content is a typed bilingual TS layer; UI strings are JSON
+message catalogs. Forms use Server Actions + Zod.
 
 ## Folder Structure
-/
-├── context/                  # CLI + developer context files
-│   ├── project-overview.md
-│   ├── architecture.md       # ← You are here
-│   ├── ui-tokens.md
-│   ├── ui-rules.md
-│   ├── ui-registry.md
-│   ├── code-standards.md
-│   ├── library-docs.md
-│   ├── build-plan.md
-│   └── progress-tracker.md
-├── app/                      # Next.js App Router
-│   ├── (marketing)/          # Public marketing pages
-│   │   ├── layout.tsx
-│   │   ├── page.tsx          # Homepage
-│   │   ├── projects/
-│   │   ├── about-us/
-│   │   └── contact/
-│   ├── (dashboard)/          # Protected area (future admin/CRM)
-│   │   └── layout.tsx
-│   ├── api/                  # Route Handlers (thin layer)
-│   │   └── webhooks/
-│   ├── globals.css
-│   └── layout.tsx            # Root layout + providers
-├── components/
-│   ├── ui/                   # shadcn/ui components only
-│   ├── layout/               # Navbar, Footer, Sidebar, etc.
-│   ├── marketing/
-│   │   ├── Hero.tsx
-│   │   ├── ProjectsGrid.tsx
-│   │   ├── ProjectCard.tsx
-│   │   ├── AboutSection.tsx
-│   │   └── ContactForm.tsx
-│   ├── project-detail/       # Dynamic project pages
-│   └── common/               # Reusable (Button, Modal, etc.)
-├── features/                 # Feature-sliced modules (recommended)
-│   ├── projects/
-│   │   ├── api.ts
-│   │   ├── components/
-│   │   ├── hooks/
-│   │   └── types.ts
-│   ├── contact/
-│   └── auth/                 # Future auth feature slice
-├── lib/
-│   ├── supabase/             # Client & server Supabase instances
-│   ├── utils.ts
-│   ├── constants.ts
-│   └── validations.ts        # Zod schemas
-├── hooks/                    # Custom React hooks
-├── types/                    # Global TypeScript definitions
-├── public/                   # Static assets
-├── styles/                   # Global styles if needed
-├── middleware.ts             # Auth, i18n, etc.
-└── next.config.mjs
 
-
----
+```
+zidandevelopment/
+├─ app/
+│  ├─ [locale]/                 # ALL routed pages live here (i18n segment)
+│  │  ├─ layout.tsx             # root <html lang dir>, fonts, providers, header/footer
+│  │  ├─ page.tsx               # home
+│  │  ├─ not-found.tsx          # localised 404
+│  │  ├─ about|careers|contact|delivery|faqs|privacy/page.tsx
+│  │  ├─ projects/page.tsx + [slug]/page.tsx
+│  │  └─ blog/page.tsx + [slug]/page.tsx
+│  ├─ actions/                  # "use server" — contact.ts, careers.ts
+│  ├─ globals.css               # Tailwind v4 @theme tokens + base layers
+│  ├─ sitemap.ts                # locale-aware, hreflang alternates
+│  ├─ robots.ts
+│  └─ icon.svg                  # favicon (Z monogram)
+├─ components/
+│  ├─ ui/                       # primitives: Container, Section, Button, SectionHeading,
+│  │                            #   Badge, Card, Field, Reveal/Stagger, Counter, Marquee
+│  ├─ layout/                   # Header, Footer, Logo, PageHero, ScrollProgress
+│  ├─ sections/                 # page sections (Hero, Stats, Excellence, FeaturedProjects,
+│  │                            #   Values, DeliveryPreview, CtaBand, ContactSection, …)
+│  ├─ forms/                    # ContactForm, CareersForm (client)
+│  ├─ visual/                   # Scene (inline SVG architectural illustrations)
+│  └─ seo/                      # JsonLd
+├─ config/site.ts               # brand, contact, areas, navigation, social
+├─ content/                     # bilingual domain data + getX(locale) resolvers
+│  └─ company|stats|projects|faqs|specs|posts.ts
+├─ i18n/                        # routing.ts, navigation.ts, request.ts
+├─ lib/
+│  ├─ i18n.ts                   # Locale, LocalizedString, pick(), localizedPath()
+│  ├─ utils.ts                  # cn(), formatNumber(), formatDate(iso, locale)
+│  ├─ seo.ts                    # buildMetadata(), JSON-LD builders, absoluteUrl()
+│  ├─ validations/              # contact.ts, careers.ts (Zod schemas)
+│  └─ notifications/            # INotificationService + Console impl + factory
+├─ messages/                    # en.json, ar.json (UI string catalogs)
+├─ types/index.ts               # shared domain types (resolved/locale-specific shapes)
+├─ scripts/generate-og.mjs      # sharp SVG→PNG for public/og.png
+├─ proxy.ts                     # next-intl locale middleware (Next 16 "proxy")
+├─ next.config.ts               # withNextIntl + security headers
+└─ middleware.ts                # (DELETED — use proxy.ts)
+```
 
 ## System Boundaries & Ownership
 
-| Folder            | Responsibility |
-|-------------------|----------------|
-| `app/`            | Routing, layouts, metadata, API route handlers. **No heavy business logic.** |
-| `components/`     | Pure UI components. No data fetching (except via Server Components). |
-| `features/`       | Feature-sliced business logic, hooks, types, and lightweight API calls. |
-| `lib/`            | Third-party clients, utilities, config. |
-| `context/`        | Developer documentation and CLI context. |
-| `types/`          | Shared TypeScript interfaces. |
+- **Routing** → `app/[locale]/*` + `i18n/routing.ts` + `proxy.ts`.
+- **Content (domain data)** → `content/*` (typed, bilingual, resolved per locale).
+- **UI strings (labels/copy)** → `messages/{en,ar}.json` via `useTranslations` /
+  `getTranslations`.
+- **Presentation** → `components/*` (consume resolved content + translations;
+  never own copy).
+- **Validation & I/O trust boundary** → `lib/validations/*` (Zod) + `app/actions/*`.
+- **Side effects (email/CRM)** → `lib/notifications/*` behind `INotificationService`.
+- **SEO** → `lib/seo.ts` + `app/sitemap.ts` + `app/robots.ts` + `components/seo`.
 
----
+## i18n Architecture (next-intl v4)
 
-## Data Flow (Current)
+- `i18n/routing.ts` — `defineRouting({ locales: ["en","ar"], defaultLocale: "en", localePrefix: "as-needed" })`.
+- `i18n/navigation.ts` — `createNavigation(routing)` → export `Link, usePathname, useRouter, redirect, getPathname`. **Always** use these instead of `next/link` / `next/navigation` so hrefs gain the right locale prefix.
+- `i18n/request.ts` — `getRequestConfig` loads `messages/<locale>.json`.
+- `proxy.ts` — `createMiddleware(routing)`; matcher excludes `api|_next|_vercel|*.*`.
+- **Static rendering:** every page/layout calls `setRequestLocale(locale)` before render; `[locale]/layout.tsx` exports `generateStaticParams` (locales); dynamic `[slug]` pages return locale×slug combos.
+- **Server reads:** `getLocale()`, `getTranslations()` / `getTranslations({locale, namespace})`.
+- **Client reads:** `useLocale()`, `useTranslations()` (available via `NextIntlClientProvider` in the layout, which is passed `messages`).
+- **Language toggle:** header renders `<Link href={pathname} locale={otherLocale}>`.
 
-**Server Components (preferred)**
-```tsx
-// app/projects/page.tsx
-async function ProjectsPage() {
-  const projects = await getProjects(); // Server-side fetch
-  return <ProjectsGrid projects={projects} />;
-}
+## Server vs Client Components
 
-Server Actions (for mutations)
-tsx// features/contact/actions.ts
-'use server';
-export async function submitContactForm(data: FormData) { ... }
-Route Handlers (for webhooks, complex API logic)
-TypeScript// app/api/webhooks/stripe/route.ts
-export async function POST(req: Request) { ... }
+- **Server (default):** pages, `Section`/`Container`/`SectionHeading`/`Card`/`Badge`, `Scene`, `ProjectCard` consumers, `PostCard`, `PageHero`, `Footer`, and all async sections (`Stats`, `Excellence`, …) that call `getLocale`/`getTranslations`.
+- **Client (`"use client"`):** `Header`, `ScrollProgress`, `Reveal`/`Stagger`/`StaggerItem`, `Counter`, `Marquee`, `Hero`, `ProjectsExplorer`, `FaqExplorer`, `ProjectCard`, `ContactForm`, `CareersForm`.
+- Rule: a component is client **only if** it uses hooks, motion, browser APIs, or `useActionState`.
 
-Future Data Flow (with NestJS + Supabase)
+## Data Flow
 
-Frontend → calls NestJS REST/GraphQL APIs
-NestJS → handles business logic, validation, orchestration
-NestJS → interacts with Supabase (or Prisma)
-Supabase Edge Functions for lightweight serverless logic
+1. Request → `proxy.ts` negotiates locale → `app/[locale]/...`.
+2. Layout calls `setRequestLocale(locale)` + `getMessages()` → wraps app in `NextIntlClientProvider`.
+3. Page reads `params.locale`, fetches translations (`getTranslations`) and resolved content (`getX(locale)`), passes to sections.
+4. Async sections independently call `getLocale`/`getTranslations` (cached per request) + read `content/*`.
+5. Forms post to Server Actions → Zod `safeParse` → `INotificationService.send()` → state returned to `useActionState`.
 
+## Security Posture
 
-Authentication (Future)
-
-Supabase Auth (Email + Google + possibly OTP for Egypt)
-Protected routes via middleware + Server Components
-Role-based access (admin, sales, viewer)
-
-
-Key Best Practices
-
-Server-First: Prefer Server Components and Server Actions.
-Feature-Sliced Design: Scale cleanly as the app grows.
-Type Safety: Strict TS, Zod for runtime validation.
-Performance:
-Static rendering where possible (generateStaticParams)
-Dynamic segments only when needed
-Image optimization
-Proper caching (revalidatePath, revalidateTag)
-
-SEO: Use Metadata API, structured data (JSON-LD for projects), sitemap.
-Accessibility: shadcn/ui + proper ARIA.
-i18n: Ready for Arabic/English (RTL support).
-Error Handling: Global error boundaries + Sentry (future).
-Testing: Vitest + React Testing Library + Playwright.
-
-
-Invariants (Never Violate)
-
-No business logic in app/ route handlers beyond orchestration.
-Components are dumb (receive props or use hooks).
-All data fetching goes through features/ or lib/.
-Use Server Components by default.
-Never commit sensitive keys — use .env.local + Vercel env vars.
-All forms use Zod + React Hook Form.
-Arabic content must support proper RTL and font fallbacks.
-Project images are optimized and served via Next.js Image component.
+- Strict headers in `next.config.ts` (CSP, `X-Frame-Options: DENY`, `nosniff`, referrer, permissions, HSTS). `reactStrictMode`, `poweredByHeader: false`.
+- All form input validated server-side with Zod; honeypot fields; no `dangerouslySetInnerHTML` except trusted JSON-LD.
+- No user-supplied HTML is ever rendered.

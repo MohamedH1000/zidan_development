@@ -1,198 +1,107 @@
 # UI Rules
 
-Concise rules for building JobPilot UI. Design assets are available — use them as the source of truth for visual decisions. These rules cover the most important patterns and constraints to keep the UI consistent without over-specifying every detail.
-
----
+Concise rules for building Zidan Development UI. Match existing patterns before
+inventing new ones. Tokens are defined in `ui-tokens.md` — never hardcode hex
+or raw color classes.
 
 ## Font
 
-Always import Inter via `next/font/google` in the root layout.
-
-```typescript
-import { Inter } from "next/font/google";
-const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
-```
-
-The `--font-sans` variable is already declared in `@theme` in globals.css. Apply the font variable class to the `<html>` tag in root layout. Never use system fonts as the primary font.
-
----
+- Body/UI: `font-sans` (Inter). Headings: `font-display` (Playfair Display).
+  Decorative script accents only: `font-script` (Great Vibes).
+- Long headlines use `text-balance`. Don't set inline `font-family`.
 
 ## Layout
 
-- Page max-width: 1440px, centered
-- Main content area padding: 32px on all sides
-- Gap between page sections: 24px
-- Header height: 64px, full width, white background, padding 0 24px
-- All pages use top navbar only — no sidebar, no drawer
+- Every page is a list of `<Section tone>` blocks. Inside, a `<Container>`.
+  Don't reinvent width/padding — use those primitives.
+- Alternate section tones for rhythm: dark hero → dark strip → dark stats →
+  cream → ivory → dark → ivory → gold CTA → cream contact is the home pattern.
+- Page tops always render `<PageHero>` (dark) so the transparent header sits
+  over dark content on every route.
+- Use logical properties for direction-aware spacing: `ps-*`/`pe-*`/`ms-*`/
+  `me-*`/`start-*`/`end-*`, and `text-start`/`text-end`. Avoid `pl/pr/left/right`
+  so Arabic RTL mirrors correctly.
 
----
+## Navbar (Header)
 
-## Navbar
-
-Three nav items: Dashboard, Find Jobs, Profile.
-
-- Active item: `color: #7C5CFC`, font-weight 500, 14px
-- Inactive item: `color: #4A5565`, font-weight 500, 14px
-- No underline — active state is color change only
-- Navbar always white background, full viewport width
-
----
+- Fixed, transparent over hero → `bg-ivory/90 backdrop-blur` after `scrollY>24`.
+- Light text over hero (`text-cream`), dark text when solid (`text-ink-*`).
+- Active link uses a shared `layoutId="nav-active"` underline spring.
+- Projects dropdown reveals on hover **and** click (keyboard-accessible,
+  `aria-expanded`). Mobile: slide-down drawer with body-scroll lock.
+- Language toggle: `<Link href={pathname} locale={otherLocale}>` showing the
+  *target* language label (`العربية` on EN, `English` on AR).
 
 ## Cards
 
-Every content section lives in a card.
-
-```
-background: #FFFFFF
-border: 1px solid #E7EAF3
-border-radius: 16px
-padding: 24px
-box-shadow: 0px 1px 3px rgba(0,0,0,0.1), 0px 1px 2px -1px rgba(0,0,0,0.1)
-```
-
-Never use colored card backgrounds — always white. Color goes inside cards via badges, bars, and text, never on the card surface itself.
-
----
+- Surface: `rounded-2xl border-ink-900/8 bg-white` + soft shadow.
+- Interactive lift: `hover:-translate-y-1.5 hover:border-gold-500/40 hover:shadow-lg`.
+- Media zoom on hover: wrap `<Scene>` in `scale-105 group-hover:scale-110`.
+- See `ui-registry.md` for `ProjectCard` / `PostCard` contracts.
 
 ## Typography Hierarchy
 
-Three levels used consistently throughout:
-
-**Section headings** — card titles, page section titles
-
-```
-font-size: 16px
-font-weight: 600
-color: #101828
-line-height: 24px
-```
-
-**Body / primary content text**
-
-```
-font-size: 14px
-font-weight: 500
-color: #101828
-line-height: 20px
-```
-
-**Secondary / muted text** — labels, timestamps, subtitles
-
-```
-font-size: 12px
-font-weight: 400
-color: #99A1AF
-line-height: 16px
-```
-
-Stat numbers on dashboard use 30px / weight 600 / color #101828.
-
----
+- Eyebrow: `text-xs font-semibold uppercase tracking-[0.25em] text-gold-600`
+  (light) / `text-gold-400` (dark), preceded by a `h-px w-8` gold rule.
+- H1 (page hero): `font-display text-4xl sm:text-5xl lg:text-6xl font-semibold`.
+- H2 (section): `font-display text-3xl sm:text-4xl lg:text-5xl font-semibold`.
+- Lead: `text-base sm:text-lg` muted. Body: `text-sm`/`text-base`.
+- Always use `<SectionHeading>` for eyebrows+title+description.
 
 ## Badges
 
-All badges use `border-radius: 9999px` (pill shape) unless specified otherwise.
-
-```
-padding: 2px 8px
-font-size: 12px
-font-weight: 500
-```
-
-Trend badges on stat cards use `border-radius: 4px` (not pill) with `#ECFDF5` background and `#009966` text.
-
----
+- `<Badge tone="neutral|gold|dark|outline">` — rounded-full, `text-xs`.
+- Project status badge uses `t(\`status.\${project.status}\`)` for locale.
 
 ## Buttons
 
-**Primary button:**
-
-```
-background: #7C5CFC
-color: #FFFFFF
-border-radius: 8px
-padding: 8px 16px
-font-size: 14px
-font-weight: 500
-```
-
-**Secondary button:**
-
-```
-background: #FFFFFF
-border: 1px solid #E7EAF3
-color: #101828
-border-radius: 8px
-padding: 8px 16px
-```
-
----
+- Always via `buttonVariants({ variant, size })`. Variants:
+  `primary` (ink), `gold`, `outline` (gold border), `ghost`, `dark`.
+- Sizes: `sm` (h-9), `md` (h-12), `lg` (h-14). All `rounded-full`.
+- For internal links: `<Link className={buttonVariants(...)}>`.
+- Arrow icons flip in RTL: `<ArrowRight className="rtl:rotate-180" />`.
 
 ## Form Inputs
 
-```
-background: #FFFFFF
-border: 1px solid #E7EAF3
-border-radius: 8px
-padding: 8px 12px
-font-size: 14px
-color: #101828
-placeholder color: #99A1AF
-focus: ring-1 ring-accent border-accent
-```
+- Shared `inputClass` from `components/ui/field.tsx`. Wrap fields in `<Field>`.
+- Gold focus: `focus:border-gold-500 focus:ring-2 focus:ring-gold-500/30`.
+- Required marker: gold `*`. Errors: `text-red-600`.
+- Include a hidden honeypot (`company`/`website`) on every form.
+- Submit buttons show a `<Loader2 className="animate-spin">` pending state.
 
----
+## Motion
 
-## Table (Jobs List)
+- Reveal on scroll: `<Reveal>` / `<Stagger>` + `<StaggerItem>`. Use `whileInView`
+  once. Default ease `[0.22,1,0.36,1]`.
+- Counters: `<Counter value prefix suffix>` (animates once in view).
+- Filter pills share a `layoutId` spring between groups on a page.
+- **Always** respect reduced motion: motion hooks already gate via
+  `useReducedMotion()`; CSS animations are killed globally under
+  `prefers-reduced-motion`.
 
-- No alternating row colors — white rows only, separated by border
-- Row border: `1px solid #E7EAF3` between rows
-- Column headers: uppercase, 12px, font-weight 500, color `#6A7282`
-- Row text: 14px, color `#101828`
-- Hover state: `background: #F9FAFB`
+## RTL (Arabic)
 
----
+- Direction comes from `<html dir>` (set in `[locale]/layout.tsx`).
+- Flex rows auto-mirror with `dir`. Use logical utilities for insets/padding.
+- Icons that imply direction (arrows, chevrons) add `rtl:rotate-180`.
+- The Arabic tagline is wrapped `dir="rtl"` where it appears inline with Latin.
 
-## Match Score Bar
+## Empty / Loading States
 
-Inline progress bar shown next to the percentage number.
-
-```
-height: 4px
-border-radius: 9999px
-background track: #E7EAF3
-```
-
-Fill color by score:
-
-- 80-100%: `#10B981` (green)
-- 60-79%: `#61A8FF` (blue)
-- Below 60%: `#FF8904` (orange)
-
----
-
-## Empty States
-
-Every section that can be empty must have an empty state. Keep it minimal:
-
-- Short descriptive text in `color: #99A1AF`
-- Optional icon above text
-- CTA button if there's a logical next action
-
----
+- Form success: gold-bordered card with `<CheckCircle2>` + localized message.
+- 404: localised `<Scene variant="abstract">` + script "Lost in New Cairo".
+- No skeleton loaders needed (static site).
 
 ## Tailwind v4 Note
 
-This project uses Tailwind v4. Tokens are defined with `@theme` in globals.css — no `tailwind.config.ts` needed. Never define colors in a config file. Always use `@theme` for new tokens.
-
----
+- Config is **CSS-first** (`@theme` in `globals.css`). There is no
+  `tailwind.config.ts`. Add tokens by editing `@theme`.
 
 ## Do Nots
 
-- Never use Tailwind's built-in color classes (`bg-purple-500`, `text-gray-600`) — use project tokens only
-- Never define colors in `tailwind.config.ts` — use `@theme` in globals.css
-- Never add gradients to card backgrounds
-- Never use more than one font weight in a single UI element
-- Never show raw error messages to users — always show human readable text
-- Never stack more than 2 levels of border radius inside each other
-- Never use `position: fixed` for UI elements — use normal flow layout
+- ❌ Hardcode hex in components (`#c8a45c`) — use `gold-500`.
+- ❌ Use `next/link` or `next/navigation` directly — use `@/i18n/navigation`.
+- ❌ Hardcode English copy in JSX — route through messages or `content/*`.
+- ❌ Add `"use client"` to a component that has no client-only need.
+- ❌ `dangerouslySetInnerHTML` with anything but trusted JSON-LD.
+- ❌ Call `useTranslations` in a Server Component — use `getTranslations`.

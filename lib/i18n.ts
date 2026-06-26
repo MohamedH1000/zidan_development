@@ -33,10 +33,11 @@ export function otherLocale(locale: Locale): Locale {
 }
 
 /**
- * Locale-aware path. English (default) is unprefixed; Arabic is prefixed /ar.
- * Pass the unprefixed path, e.g. localizedPath("ar", "/about") -> "/ar/about".
+ * Locale-aware path. With `localePrefix: "always"`, BOTH locales are prefixed.
+ * Pass the unprefixed path, e.g. localizedPath("ar", "/about") -> "/ar/about",
+ * localizedPath("en", "/") -> "/en".
  */
 export function localizedPath(locale: Locale, path: string): string {
-  if (locale === "en") return path;
-  return path === "/" ? `/${locale}` : `/${locale}${path}`;
+  if (path === "/") return `/${locale}`;
+  return `/${locale}${path}`;
 }
