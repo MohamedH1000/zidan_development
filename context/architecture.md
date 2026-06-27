@@ -66,7 +66,7 @@ zidandevelopment/
 
 ## i18n Architecture (next-intl v4)
 
-- `i18n/routing.ts` — `defineRouting({ locales: ["en","ar"], defaultLocale: "en", localePrefix: "as-needed" })`.
+- `i18n/routing.ts` — `defineRouting({ locales: ["en","ar"], defaultLocale: "en", localePrefix: "always", localeDetection: false })`. Every URL is prefixed (`/en`, `/ar`) so a stale `NEXT_LOCALE` cookie can never redirect a path to the wrong locale (the bug that previously made the logo flip language under `as-needed`).
 - `i18n/navigation.ts` — `createNavigation(routing)` → export `Link, usePathname, useRouter, redirect, getPathname`. **Always** use these instead of `next/link` / `next/navigation` so hrefs gain the right locale prefix.
 - `i18n/request.ts` — `getRequestConfig` loads `messages/<locale>.json`.
 - `proxy.ts` — `createMiddleware(routing)`; matcher excludes `api|_next|_vercel|*.*`.

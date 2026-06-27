@@ -46,8 +46,9 @@ non-developers reason about content via a typed content layer.
 ## Locales & Routing
 
 - Locales: `en` (default) and `ar`.
-- Prefix strategy: **`as-needed`** → English unprefixed (`/about`),
-  Arabic prefixed (`/ar/about`).
+- Prefix strategy: **`always`** → both locales prefixed (`/en/…`, `/ar/…`).
+  Bare `/` redirects to the default (`/en`). This keeps the URL the single source
+  of truth so a stale `NEXT_LOCALE` cookie can't flip the language on navigation.
 - All routes live under `app/[locale]/`. A `proxy.ts` (Next 16 proxy
   convention, formerly `middleware.ts`) negotiates the locale.
 - `<html lang dir>` is set per locale; Arabic flips to `dir="rtl"`.

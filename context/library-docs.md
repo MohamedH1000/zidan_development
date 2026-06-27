@@ -11,7 +11,7 @@ This file covers **how we use each one here** — not general docs.
 
 ## next-intl (v4) — i18n
 
-- **Config:** `i18n/routing.ts` (`defineRouting`, `as-needed` prefix),
+- **Config:** `i18n/routing.ts` (`defineRouting`, `localePrefix: "always"` + `localeDetection: false`),
   `i18n/navigation.ts` (`createNavigation`), `i18n/request.ts` (`getRequestConfig`).
 - **Always** navigate via `@/i18n/navigation` (`Link`, `usePathname`,
   `useRouter`), not `next/link`.

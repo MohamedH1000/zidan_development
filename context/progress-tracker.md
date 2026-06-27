@@ -68,7 +68,10 @@ Last verified build: Next.js 16.2.9 · React 19 · Turbopack. All routes SSG.
   photos) — swappable for real photography later.
 - **OG image:** sharp-rasterized PNG, not `next/og` (satori GSUB limitation).
   No Arabic in the OG SVG (rasterizer mis-shapes it).
-- **i18n prefix:** `as-needed` (English at root, Arabic at `/ar`).
+- **i18n prefix:** `always` (both locales prefixed: `/en`, `/ar`). Switched from
+  `as-needed` because next-intl's persisted `NEXT_LOCALE` cookie redirected
+  unprefixed paths to the remembered locale — which made clicking the logo from
+  the English home jump to Arabic. `always` makes the URL authoritative.
 - **Middleware:** renamed `middleware.ts` → `proxy.ts` (Next 16 deprecation).
 - **Locale prefix in metadata:** localized via `localizedPath()`.
 

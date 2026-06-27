@@ -8,6 +8,7 @@ import "../globals.css";
 import { locales } from "@/i18n/routing";
 import { siteConfig } from "@/config/site";
 import { absoluteUrl, getOrganizationJsonLd } from "@/lib/seo";
+import { localizedPath } from "@/lib/i18n";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { ScrollProgress } from "@/components/layout/scroll-progress";
@@ -33,7 +34,8 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const company = getCompany(locale as (typeof locales)[number]);
+  const activeLocale = (locale === "ar" ? "ar" : "en") as (typeof locales)[number];
+  const company = getCompany(activeLocale);
 
   return {
     metadataBase: new URL(siteConfig.url),

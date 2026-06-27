@@ -216,7 +216,7 @@ export function Header() {
             transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
             className="overflow-hidden border-t border-ink-900/8 bg-ivory lg:hidden"
           >
-            <div className="flex flex-col gap-1 px-5 py-5 sm:px-8">
+            <div className="flex max-h-[calc(100svh-5rem)] flex-col gap-1 overflow-y-auto overscroll-contain px-5 py-5 sm:px-8">
               {navigation.map((item) => {
                 const active = isActive(pathname, item.href);
                 return (

@@ -59,9 +59,9 @@ export async function generateMetadata({
     alternates: {
       canonical: absoluteUrl(path),
       languages: {
-        en: absoluteUrl("/"),
-        ar: absoluteUrl("/ar"),
-        "x-default": absoluteUrl("/"),
+        en: absoluteUrl(localizedPath("en", "/")),
+        ar: absoluteUrl(localizedPath("ar", "/")),
+        "x-default": absoluteUrl(localizedPath("en", "/")),
       },
     },
     openGraph: {
