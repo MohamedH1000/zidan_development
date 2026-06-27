@@ -6,8 +6,12 @@ or raw color classes.
 
 ## Font
 
-- Body/UI: `font-sans` (Inter). Headings: `font-display` (Playfair Display).
-  Decorative script accents only: `font-script` (Great Vibes).
+- Body/UI: `font-sans` (Plus Jakarta Sans for Latin; Tajawal for Arabic via
+  per-glyph fallback). Headings: `font-display` (same families).
+  Decorative script accents only: `font-script` (Great Vibes, Latin).
+- **Arabic house style:** sentences never end with a trailing full stop. This
+  is enforced centrally in `lib/i18n.ts` (`pick`/`pickList` strip a trailing
+  `.` for `ar`) and in `messages/ar.json`. Never add a trailing `.` to Arabic.
 - Long headlines use `text-balance`. Don't set inline `font-family`.
 
 ## Layout

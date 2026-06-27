@@ -14,7 +14,7 @@ Last verified build: Next.js 16.2.9 · React 19 · Turbopack. All routes SSG.
 
 ### Foundation
 - [x] Next.js 16 App Router + TypeScript strict + Tailwind v4 tokens
-- [x] Design system: tokens, fonts (Inter/Playfair/Great Vibes), primitives
+- [x] Design system: tokens, fonts (Plus Jakarta Sans [EN] + Tajawal [AR] + Great Vibes), primitives
 - [x] Layout shell: sticky Header, Footer, PageHero, ScrollProgress, 404
 - [x] `cn()` util, `buttonVariants`, `Section`/`Container`/`SectionHeading`
 
@@ -28,6 +28,9 @@ Last verified build: Next.js 16.2.9 · React 19 · Turbopack. All routes SSG.
 
 ### Pages (all bilingual, SSG)
 - [x] Home (with per-page SEO metadata — title/desc/keywords/canonical/hreflang/OG)
+- [x] Home showreel: YouTube iframe (`bH72vA8iHyg`, same as WP site) via
+  `youtube-nocookie`, lazy-loaded; CSP `frame-src` allow-listed. Excellence
+  section uses an animated `MovingTags` wall (replaced the architectural SVG).
 - [x] About, Careers, Contact, Delivery, FAQs, Privacy
 - [x] Projects index (+ filter) + `/projects/[slug]` detail
 - [x] Blog index + `/blog/[slug]` post
@@ -74,6 +77,18 @@ Last verified build: Next.js 16.2.9 · React 19 · Turbopack. All routes SSG.
   the English home jump to Arabic. `always` makes the URL authoritative.
 - **Middleware:** renamed `middleware.ts` → `proxy.ts` (Next 16 deprecation).
 - **Locale prefix in metadata:** localized via `localizedPath()`.
+- **Fonts:** English = Plus Jakarta Sans (clean, structured; replaces Inter +
+  Playfair Display). Arabic = Tajawal (replaced Cairo). Great Vibes kept only
+  for Latin script accents. Per-glyph CSS fallback (Jakarta → Tajawal) means no
+  per-locale font CSS.
+- **Dev CSP:** `script-src` adds `'unsafe-eval'` only when `NODE_ENV ===
+  "development"` (React dev runtime needs eval for stack reconstruction; never
+  in prod). See `next.config.ts` `buildSecurityHeaders()`.
+- **`suppressHydrationWarning` on `<body>`:** silences false hydration mismatches
+  caused by browser extensions injecting attributes (e.g. `bis_register`).
+- **Arabic punctuation:** Arabic sentences never end with a trailing `.`.
+  Enforced in `lib/i18n.ts` `pick`/`pickList` (content) and `messages/ar.json`
+  (UI strings) via `scripts/fix-ar-periods.mjs`.
 
 ## Known Limitations / Next Up
 

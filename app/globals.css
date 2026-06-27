@@ -6,9 +6,12 @@
  * and champagne-gold accents.
  */
 @theme {
-  /* Typography — variables are wired in app/layout.tsx via next/font. */
-  --font-sans: var(--font-inter), ui-sans-serif, system-ui, -apple-system, sans-serif;
-  --font-display: var(--font-playfair), Georgia, "Times New Roman", serif;
+  /* Typography — variables wired in app/[locale]/layout.tsx via next/font.
+   * English (Latin) glyphs render in Plus Jakarta Sans; Arabic glyphs fall
+   * through the stack to Tajawal. Display (headings) is the same sans family,
+   * kept clean and well-structured. */
+  --font-sans: var(--font-jakarta), var(--font-arabic), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-jakarta), var(--font-arabic), Georgia, serif;
   --font-script: var(--font-great-vibes), "Brush Script MT", cursive;
 
   /* Ink — near-black charcoal scale. */

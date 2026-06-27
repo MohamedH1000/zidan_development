@@ -5,8 +5,8 @@ import { getCompany } from "@/content/company";
 import { Section } from "@/components/ui/section";
 import { Container } from "@/components/ui/container";
 import { Reveal } from "@/components/ui/reveal";
-import { Scene } from "@/components/visual/scene";
 import { buttonVariants } from "@/components/ui/button";
+import { MovingTags } from "./moving-tags";
 
 export async function Excellence() {
   const locale = (await getLocale()) as "en" | "ar";
@@ -28,34 +28,28 @@ export async function Excellence() {
             <p className="mt-5 text-base leading-relaxed text-ink-600 sm:text-lg">{company.whoWeAre[0]}</p>
             <p className="mt-4 text-sm leading-relaxed text-ink-500">{company.whoWeAre[2]}</p>
 
-            <div className="mt-8 space-y-4">
-              {company.pillars.map((group, index) => (
-                <div key={index} className="flex flex-wrap gap-2">
-                  {group.map((tag) => (
-                    <span
-                      key={tag}
-                      className="rounded-full border border-gold-500/30 bg-white px-4 py-1.5 text-xs font-medium text-ink-700"
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-              ))}
-            </div>
-
             <Link href="/about" className={`${buttonVariants({ variant: "primary", size: "md" })} mt-8`}>
               {t("cta")} <ArrowRight className="h-4 w-4 rtl:rotate-180" />
             </Link>
           </Reveal>
 
+          {/* Animated keyword wall — replaces the architectural SVG, mirroring
+              the floating value tags on the original WordPress site. */}
           <Reveal direction="left" className="relative">
-            <div className="relative aspect-[4/5] overflow-hidden rounded-2xl shadow-[0_40px_80px_-40px_rgba(0,0,0,0.45)]">
-              <Scene variant="hero" />
-            </div>
-            {/* Floating accent card */}
-            <div className="absolute -bottom-6 start-6 hidden rounded-2xl border border-ink-900/8 bg-white p-5 shadow-xl sm:block">
-              <div className="font-script text-2xl text-gold-500">{t("cardLabel")}</div>
-              <div className="mt-1 text-xs font-medium uppercase tracking-wide text-ink-500">{t("cardSub")}</div>
+            <div className="relative overflow-hidden rounded-3xl border border-gold-500/20 bg-gradient-to-b from-white to-cream p-6 shadow-[0_40px_80px_-50px_rgba(0,0,0,0.4)] sm:p-8">
+              {/* soft gold glow behind the moving tags */}
+              <div
+                aria-hidden="true"
+                className="pointer-events-none absolute inset-0 opacity-60 [background:radial-gradient(circle_at_30%_20%,rgba(200,164,92,0.16),transparent_55%)]"
+              />
+              <div className="relative">
+                <MovingTags rows={company.pillars} />
+              </div>
+              <div className="relative mt-6 flex items-center justify-center gap-2 text-center">
+                <span className="font-script text-2xl text-gold-500">{t("cardLabel")}</span>
+                <span className="h-px w-8 bg-gold-500/40" />
+                <span className="text-xs font-medium uppercase tracking-wide text-ink-500">{t("cardSub")}</span>
+              </div>
             </div>
           </Reveal>
         </div>

@@ -45,6 +45,8 @@ components by default; client ones are marked. Import via the `@/` alias.
 | `FeaturedProjects` | async server | Home. `getFeaturedProjects(locale)` grid. |
 | `Values` | async server | Home, About. `getValues(locale)` cards. |
 | `DeliveryPreview` | async server | Home. Spec category icons. |
+| `MovingTags` | **client** | Home (Excellence). Animated keyword wall (alternating marquee rows, edge fade, pause-on-hover). Replaces the old architectural SVG. |
+| `VideoSection` | async server | Home. Brand showreel — lazy `youtube-nocookie` iframe (ID in `siteConfig.video.youtubeId`), responsive 16:9. `frame-src` allow-listed in CSP. |
 | `CtaBand` | async server | Most pages. Gold CTA + social proof. |
 | `ContactSection` | async server | Home, Contact. Info + `<ContactForm>`. |
 | `AboutIntro` | async server | About. Who/mission/vision. |

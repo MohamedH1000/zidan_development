@@ -4,6 +4,7 @@ import { Hero } from "@/components/sections/hero";
 import { AreasStrip } from "@/components/sections/areas-strip";
 import { Stats } from "@/components/sections/stats";
 import { Excellence } from "@/components/sections/excellence";
+import { VideoSection } from "@/components/sections/video-section";
 import { FeaturedProjects } from "@/components/sections/featured-projects";
 import { Values } from "@/components/sections/values-section";
 import { DeliveryPreview } from "@/components/sections/delivery-preview";
@@ -105,6 +106,7 @@ export default async function HomePage({
       <AreasStrip />
       <Stats />
       <Excellence />
+      <VideoSection />
       <FeaturedProjects />
       <Values />
       <DeliveryPreview />

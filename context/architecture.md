@@ -91,6 +91,6 @@ zidandevelopment/
 
 ## Security Posture
 
-- Strict headers in `next.config.ts` (CSP, `X-Frame-Options: DENY`, `nosniff`, referrer, permissions, HSTS). `reactStrictMode`, `poweredByHeader: false`.
+- Strict headers in `next.config.ts` (CSP, `X-Frame-Options: DENY`, `nosniff`, referrer, permissions, HSTS). `reactStrictMode`, `poweredByHeader: false`. CSP `frame-src` allow-lists `youtube-nocookie`/`youtube` for the showreel; `script-src` adds `'unsafe-eval'` only in dev.
 - All form input validated server-side with Zod; honeypot fields; no `dangerouslySetInnerHTML` except trusted JSON-LD.
 - No user-supplied HTML is ever rendered.

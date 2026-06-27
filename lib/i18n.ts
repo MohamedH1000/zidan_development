@@ -8,14 +8,25 @@ export type LocalizedString = { en: string; ar: string };
 /** A paragraph/line list available in both supported languages. */
 export type LocalizedStringList = { en: string[]; ar: string[] };
 
+/**
+ * Arabic house style: sentences must not end with a trailing full stop. We strip
+ * a single trailing "." (plus surrounding whitespace) from Arabic strings only.
+ * Applied centrally in pick()/pickList() so all bilingual content is consistent.
+ */
+function trimArabicPeriod(value: string, locale: Locale): string {
+  if (locale !== "ar") return value;
+  return value.replace(/\s*\.+\s*$/, "");
+}
+
 /** Resolve a localized string for the active locale (falls back to English). */
 export function pick(value: LocalizedString, locale: Locale): string {
-  return value[locale] ?? value.en;
+  return trimArabicPeriod(value[locale] ?? value.en, locale);
 }
 
 /** Resolve a localized string list for the active locale. */
 export function pickList(value: LocalizedStringList, locale: Locale): string[] {
-  return value[locale] ?? value.en;
+  const list = value[locale] ?? value.en;
+  return locale === "ar" ? list.map((item) => trimArabicPeriod(item, locale)) : list;
 }
 
 export const isLocale = (value: unknown): value is Locale =>

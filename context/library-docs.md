@@ -87,6 +87,9 @@ This file covers **how we use each one here** — not general docs.
 
 ## next/font (Google)
 
-- Loaded in `app/[locale]/layout.tsx`: `Inter`, `Playfair_Display`, `Great_Vibes`,
-  each exposing a CSS variable consumed by `@theme` (`--font-inter` etc.).
+- Loaded in `app/[locale]/layout.tsx`: `Plus_Jakarta_Sans` (English UI/display),
+  `Tajawal` (Arabic), `Great_Vibes` (Latin script accents), each exposing a CSS
+  variable consumed by `@theme` (`--font-jakarta`, `--font-arabic`,
+  `--font-great-vibes`). The `--font-sans`/`--font-display` stacks fall through
+  per-glyph: Latin → Jakarta, Arabic → Tajawal.
 - Self-hosted at build; no runtime requests to Google.

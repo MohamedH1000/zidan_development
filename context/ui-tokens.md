@@ -60,12 +60,14 @@ utilities from them: `--color-gold-500` → `bg-gold-500`, `text-gold-500`,
 
 | Token | Family (next/font) | Role |
 |-------|--------------------|------|
-| `--font-sans` (`font-sans`) | Inter | body / UI (default on `<body>`) |
-| `--font-display` (`font-display`) | Playfair Display (400–800) | headings, brand wordmark, hero |
+| `--font-sans` (`font-sans`) | Plus Jakarta Sans → Tajawal (per-glyph fallback) | body / UI (default on `<body>`) |
+| `--font-display` (`font-display`) | Plus Jakarta Sans → Tajawal | headings, brand wordmark, hero |
 | `--font-script` (`font-script`) | Great Vibes | decorative accents ("Let's build", tagline) |
 
 - Headings: `font-display`, `font-semibold`/`font-bold`, tight leading, `text-balance` where long.
-- Arabic renders in the same families; Playfair/Inter/Great Vibes cover Latin. Arabic script falls back to system Arabic faces gracefully.
+- English (Latin) glyphs render in **Plus Jakarta Sans**; Arabic glyphs fall
+  through the stack to **Tajawal** automatically (per-glyph fallback). The script
+  accent (`--font-script`, Great Vibes) is Latin-only, used sparingly.
 
 ## Spacing & Rhythm
 

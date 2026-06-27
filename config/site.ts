@@ -14,6 +14,9 @@ export const siteConfig = {
   tagline: "تطور يحكي الواقع",
   taglineEn: "Development that narrates reality",
 
+  // Brand showreel (same video as the original WordPress site).
+  video: { youtubeId: "bH72vA8iHyg" },
+
   description:
     "Zidan Development is an Egyptian real estate developer building lasting value across New Cairo's most strategic districts — Al Narges, Bait Al Watan, Al Andalus, Lotus and beyond — through intelligent planning, precise execution and uncompromising quality.",
 

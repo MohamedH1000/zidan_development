@@ -68,6 +68,11 @@
       "eyebrow": "We're here to help",
       "title": "Request a call back",
       "description": "Leave your details and our team will contact you shortly with tailored options across New Cairo."
+    },
+    "video": {
+      "eyebrow": "See it in motion",
+      "title": "A closer look at Zidan Development",
+      "subtitle": "Step inside our work — the craft, the locations and the standard behind every project we deliver."
     }
   },
   "pages": {

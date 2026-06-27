@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Playfair_Display, Great_Vibes } from "next/font/google";
+import { Plus_Jakarta_Sans, Tajawal, Great_Vibes } from "next/font/google";
 import { notFound } from "next/navigation";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages, setRequestLocale } from "next-intl/server";
@@ -15,12 +15,20 @@ import { ScrollProgress } from "@/components/layout/scroll-progress";
 import { JsonLd } from "@/components/seo/json-ld";
 import { getCompany } from "@/content/company";
 
-const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
-const playfair = Playfair_Display({
+// English UI/display: Plus Jakarta Sans (clean, well-structured geometric sans).
+// Arabic: Cairo (modern, legible). The font stack falls through per-glyph, so
+// Latin text renders in Jakarta and Arabic glyphs in Cairo automatically.
+const jakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
-  variable: "--font-playfair",
+  variable: "--font-jakarta",
   display: "swap",
   weight: ["400", "500", "600", "700", "800"],
+});
+const arabic = Tajawal({
+  subsets: ["arabic", "latin"],
+  variable: "--font-arabic",
+  display: "swap",
+  weight: ["400", "500", "700", "800"],
 });
 const greatVibes = Great_Vibes({ subsets: ["latin"], variable: "--font-great-vibes", display: "swap", weight: ["400"] });
 
@@ -93,9 +101,16 @@ export default async function LocaleLayout({
     <html
       lang={activeLocale}
       dir={dir}
-      className={`${inter.variable} ${playfair.variable} ${greatVibes.variable} h-full antialiased`}
+      className={`${jakarta.variable} ${arabic.variable} ${greatVibes.variable} h-full antialiased`}
     >
-      <body className="min-h-full bg-background font-sans text-foreground selection:bg-gold-500 selection:text-ink-950">
+      <body
+        className="min-h-full bg-background font-sans text-foreground selection:bg-gold-500 selection:text-ink-950"
+        // Browser extensions (e.g. password/anti-phishing toolbars) inject
+        // attributes onto <body> at load, which React flags as a hydration
+        // mismatch. suppressHydrationWarning silences that false positive on
+        // this element only — children are still checked normally.
+        suppressHydrationWarning
+      >
         <NextIntlClientProvider messages={messages}>
           <JsonLd data={getOrganizationJsonLd()} />
           <ScrollProgress />
