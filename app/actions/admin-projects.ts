@@ -5,7 +5,6 @@ import { uploadToCloudinary, deleteFromCloudinary } from "@/lib/cloudinary";
 import { requireAdmin } from "@/lib/admin";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
-import type { ProjectStatus } from "@prisma/client";
 
 export type ProjectFormState = { error?: string } | undefined;
 
@@ -33,7 +32,7 @@ export async function saveProject(_prev: ProjectFormState, formData: FormData): 
   }
 
   const status = (STATUSES as readonly string[]).includes(str(formData, "status"))
-    ? (str(formData, "status") as ProjectStatus)
+    ? (str(formData, "status") as (typeof STATUSES)[number])
     : "Available";
 
   let keepImages: string[] = [];
