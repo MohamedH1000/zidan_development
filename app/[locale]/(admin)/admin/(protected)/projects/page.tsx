@@ -36,7 +36,7 @@ export default async function AdminProjectsPage() {
             </tr>
           </thead>
           <tbody className="divide-y divide-white/5">
-            {projects.map((p) => (
+            {projects.map((p: (typeof projects)[number]) => (
               <tr key={p.id} className="hover:bg-white/5">
                 <td className="px-4 py-3 font-medium text-cream">{p.nameEn}</td>
                 <td className="px-4 py-3 text-ink-400">{p.slug}</td>
