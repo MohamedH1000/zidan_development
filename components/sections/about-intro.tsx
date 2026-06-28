@@ -32,8 +32,12 @@ export async function AboutIntro() {
           </Reveal>
 
           <Reveal direction="left">
-            <div className="relative aspect-[4/5] overflow-hidden rounded-2xl shadow-[0_40px_80px_-40px_rgba(0,0,0,0.45)]">
-              <Scene variant="hero" />
+            <div className="relative overflow-hidden rounded-2xl shadow-[0_40px_80px_-40px_rgba(0,0,0,0.45)]">
+              <img
+                src="https://zidandevelopments.com/wp-content/uploads/2026/02/D292-750x580.jpeg"
+                alt={company.tagline}
+                className="h-full w-full object-cover object-center"
+              />
               <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-ink-950/80 to-transparent p-6">
                 <p className="font-script text-2xl text-gold-400" dir="rtl">{company.taglineAr}</p>
                 <p className="text-sm text-cream/70">{company.tagline}</p>

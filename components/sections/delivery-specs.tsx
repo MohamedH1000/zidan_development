@@ -35,6 +35,16 @@ export async function DeliverySpecs() {
 
       <Section tone="cream" className="pt-0">
         <Container>
+          <Reveal>
+            <div className="mb-8 overflow-hidden rounded-[1.75rem] border border-ink-900/8 bg-white shadow-[0_30px_70px_-40px_rgba(0,0,0,0.35)]">
+              <img
+                src="https://zidandevelopments.com/wp-content/uploads/2026/02/مواصفات-التشطيب--scaled.jpg"
+                alt="Finishing specifications and quality details"
+                className="h-72 w-full object-cover object-center sm:h-80 lg:h-[26rem]"
+              />
+            </div>
+          </Reveal>
+
           <Stagger className="grid grid-cols-1 gap-6 md:grid-cols-2" stagger={0.08}>
             {categories.map((category) => {
               const Icon = icons[category.icon];

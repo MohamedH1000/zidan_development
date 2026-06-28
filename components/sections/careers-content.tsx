@@ -47,15 +47,24 @@ export async function CareersContent() {
         <Container>
           <div className="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-16">
             <Reveal direction="right">
-              <SectionHeading eyebrow={t("applyEyebrow")} title={t("applyTitle")} description={t("applyDescription")} />
-              <ul className="mt-8 space-y-4 text-sm text-ink-600">
-                {(["review", "formats", "privacy"] as const).map((key) => (
-                  <li key={key} className="flex items-start gap-3">
-                    <ArrowRight className="mt-0.5 h-4 w-4 shrink-0 text-gold-600 rtl:rotate-180" />
-                    <span>{t(`applyPoints.${key}`)}</span>
-                  </li>
-                ))}
-              </ul>
+              <div className="space-y-6">
+                <SectionHeading eyebrow={t("applyEyebrow")} title={t("applyTitle")} description={t("applyDescription")} />
+                <div className="overflow-hidden rounded-2xl border border-ink-900/8 bg-ink-950 shadow-[0_20px_50px_-30px_rgba(0,0,0,0.6)]">
+                  <img
+                    src="https://zidandevelopments.com/freepik__a-closeup-black-and-white-shot-shows-a-persons-han__74287/"
+                    alt="Career opportunity at Zidan Developments"
+                    className="h-56 w-full object-cover object-center sm:h-64"
+                  />
+                </div>
+                <ul className="space-y-4 text-sm text-ink-600">
+                  {(["review", "formats", "privacy"] as const).map((key) => (
+                    <li key={key} className="flex items-start gap-3">
+                      <ArrowRight className="mt-0.5 h-4 w-4 shrink-0 text-gold-600 rtl:rotate-180" />
+                      <span>{t(`applyPoints.${key}`)}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </Reveal>
             <Reveal direction="left">
               <div className="rounded-2xl border border-ink-900/8 bg-white p-6 shadow-[0_30px_70px_-40px_rgba(0,0,0,0.35)] sm:p-8">

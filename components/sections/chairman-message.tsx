@@ -14,12 +14,14 @@ export async function ChairmanMessage() {
       <Container>
         <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
           <Reveal direction="right">
-            <div className="relative mx-auto aspect-[4/5] w-full max-w-sm overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-b from-white/5 to-transparent">
+            <div className="relative mx-auto w-full max-w-sm overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-b from-white/5 to-transparent">
               <div className="grain-overlay absolute inset-0 opacity-50" aria-hidden="true" />
-              <div className="flex h-full flex-col items-center justify-center gap-4 p-8 text-center">
-                <div className="flex h-28 w-28 items-center justify-center rounded-full border border-gold-500/40">
-                  <span className="font-script text-5xl text-gold-400">RZ</span>
-                </div>
+              <img
+                src="https://zidandevelopments.com/wp-content/uploads/2026/02/Refaat-Zidan-CEO-scaled.webp"
+                alt={chairman.name}
+                className="h-auto w-full object-contain object-center"
+              />
+              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-ink-950/80 via-ink-950/20 to-transparent p-6 text-left">
                 <p className="font-display text-xl font-semibold text-cream">{chairman.name}</p>
                 <p className="text-xs font-semibold uppercase tracking-[0.2em] text-gold-400">{chairman.role}</p>
               </div>

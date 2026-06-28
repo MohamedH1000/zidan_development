@@ -19,8 +19,10 @@ function trimArabicPeriod(value: string, locale: Locale): string {
 }
 
 /** Resolve a localized string for the active locale (falls back to English). */
-export function pick(value: LocalizedString, locale: Locale): string {
-  return trimArabicPeriod(value[locale] ?? value.en, locale);
+export function pick(value: LocalizedString | null | undefined, locale: Locale): string {
+  if (!value) return "";
+  const selected = value[locale] ?? value.en ?? "";
+  return trimArabicPeriod(selected, locale);
 }
 
 /** Resolve a localized string list for the active locale. */
