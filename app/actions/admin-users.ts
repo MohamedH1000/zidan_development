@@ -5,11 +5,10 @@ import { prisma } from "@/lib/prisma";
 import { requireAdmin } from "@/lib/admin";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
-import type { AdminRole } from "@prisma/client";
-
 export type UserFormState = { error?: string } | undefined;
 
 const ROLES = ["ADMIN", "EDITOR", "AUTHOR"] as const;
+type AdminRole = (typeof ROLES)[number];
 
 function str(fd: FormData, k: string): string {
   const v = fd.get(k);
