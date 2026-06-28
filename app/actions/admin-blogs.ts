@@ -6,7 +6,6 @@ import { sanitizeBlogHtml } from "@/lib/sanitize";
 import { requireAdmin } from "@/lib/admin";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
-import type { BlogStatus } from "@prisma/client";
 
 export type BlogFormState = { error?: string } | undefined;
 
@@ -37,7 +36,7 @@ export async function saveBlog(_prev: BlogFormState, formData: FormData): Promis
   if (!rawBodyEn) return { error: "English body is required." };
 
   const status = (STATUSES as readonly string[]).includes(str(formData, "status"))
-    ? (str(formData, "status") as BlogStatus)
+    ? (str(formData, "status") as (typeof STATUSES)[number])
     : "DRAFT";
 
   try {
