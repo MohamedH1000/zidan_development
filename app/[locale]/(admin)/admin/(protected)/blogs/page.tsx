@@ -42,7 +42,7 @@ export default async function AdminBlogsPage() {
             </tr>
           </thead>
           <tbody className="divide-y divide-white/5">
-            {blogs.map((b) => (
+            {blogs.map((b: (typeof blogs)[number]) => (
               <tr key={b.id} className="hover:bg-white/5">
                 <td className="px-4 py-3 font-medium text-cream">{b.titleEn}</td>
                 <td className={`px-4 py-3 font-medium ${STATUS_COLOR[b.status] ?? ""}`}>{b.status}</td>
