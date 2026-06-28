@@ -4,11 +4,20 @@
 
 ## Current Status
 
-**Phase: Bilingual marketing site — feature-complete & green.**
-Build + lint pass with 0 errors. Both locales (en/ar) prerender and render
-correctly, including RTL for Arabic.
+**Phase: Admin + DB foundation built (Phase A). Marketing site still fully working & green.**
+Build + lint pass with 0 errors.
 
-Last verified build: Next.js 16.2.9 · React 19 · Turbopack. All routes SSG.
+- Public (marketing) site: unchanged, bilingual, SSG.
+- **Admin + DB (new):** Prisma 7 → Supabase Postgres (pg driver adapter),
+  NextAuth credentials auth, `/admin` protected dashboard shell + login, schema
+  for `admin_users` / `projects` / `units` (bilingual `_en`/`_ar` columns).
+  DB live (migrated); admin can log in. **Phase B done:** Projects + Units CRUD
+  (list/create/edit/delete) with Cloudinary image upload (gallery, 3D render,
+  unit plan) and unit count/availability control.
+  **Pending:** Phase C — wire the public projects/units pages to read Postgres
+  via Prisma + ISR (currently they still read the static `content/*` files).
+
+Last verified build: Next.js 16.2.9 · React 19 · Turbopack.
 
 ## Progress
 

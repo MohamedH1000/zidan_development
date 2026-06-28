@@ -25,7 +25,7 @@ function buildSecurityHeaders() {
     "img-src 'self' data: https:",
     "font-src 'self' data:",
     "connect-src 'self'",
-    "frame-src https://www.youtube-nocookie.com https://www.youtube.com",
+    "frame-src https://www.youtube-nocookie.com https://www.youtube.com https://www.google.com https://maps.google.com",
     "frame-ancestors 'none'",
     "base-uri 'self'",
     "form-action 'self'",
@@ -51,6 +51,13 @@ const nextConfig: NextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
   compress: true,
+  images: {
+    remotePatterns: [
+      { protocol: "https", hostname: "res.cloudinary.com" },
+      { protocol: "https", hostname: "zidandevelopments.com" },
+      { protocol: "https", hostname: "*.zidandevelopments.com" },
+    ],
+  },
   async headers() {
     return [
       {

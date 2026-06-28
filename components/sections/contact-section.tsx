@@ -34,14 +34,31 @@ export async function ContactSection() {
               />
             </dl>
 
-            <div className="mt-8 overflow-hidden rounded-2xl border border-ink-900/10 bg-ink-950 p-6">
-              <div className="flex items-center gap-3">
+            <div className="mt-8 overflow-hidden rounded-2xl border border-ink-900/10 bg-ink-950">
+              <div className="flex items-center gap-3 border-b border-ink-900/10 bg-ink-950/95 px-4 py-3">
                 <MapPin className="h-5 w-5 text-gold-400" />
-                <span className="text-sm font-medium text-cream">{t("openInMaps")}</span>
+                <div>
+                  <span className="text-sm font-medium text-cream">{t("openInMaps")}</span>
+                  <p className="text-xs text-cream/55">
+                    {siteConfig.contact.address.region} · {siteConfig.contact.address.city}
+                  </p>
+                </div>
               </div>
-              <p className="mt-2 text-xs text-cream/55">
-                {siteConfig.contact.address.region} · {siteConfig.contact.address.city}
-              </p>
+
+              <a
+                href={siteConfig.contact.mapsUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block h-[280px] w-full overflow-hidden"
+                aria-label={t("openInMaps")}
+              >
+                <img
+                  src="https://staticmap.openstreetmap.de/staticmap.php?center=30.0207,31.4171&zoom=13&size=640x320&maptype=mapnik&markers=30.0207,31.4171,ol-marker"
+                  alt="Map preview of Zidan Developments location"
+                  className="h-full w-full object-cover"
+                  loading="lazy"
+                />
+              </a>
             </div>
           </Reveal>
 
@@ -72,9 +89,11 @@ function ContactRow({
       <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-gold-500/12 text-gold-600">
         <Icon className="h-5 w-5" />
       </span>
-      <div>
+      <div className="min-w-0 flex-1">
         <dt className="text-xs font-semibold uppercase tracking-wide text-ink-500">{label}</dt>
-        <dd className="mt-0.5 font-display text-lg text-ink-900">{value}</dd>
+        <dd className="mt-0.5 break-words font-display text-base leading-snug text-ink-900 sm:text-lg">
+          {value}
+        </dd>
       </div>
     </div>
   );

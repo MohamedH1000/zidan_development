@@ -111,13 +111,15 @@ export const navigation: NavItem[] = [
 export interface SocialLink {
   label: string;
   href: string;
-  icon: "facebook" | "instagram" | "linkedin" | "x" | "youtube";
+  icon: "facebook" | "instagram" | "linkedin" | "x" | "youtube" | "tiktok";
 }
 
 export const socialLinks: SocialLink[] = [
-  { label: "Facebook", href: "https://facebook.com", icon: "facebook" },
-  { label: "Instagram", href: "https://instagram.com", icon: "instagram" },
-  { label: "LinkedIn", href: "https://linkedin.com", icon: "linkedin" },
+  { label: "Facebook", href: "https://www.facebook.com/zidandevelopments", icon: "facebook" },
+  { label: "X", href: "https://x.com/zidan_develop", icon: "x" },
+  { label: "Youtube", href: "https://www.youtube.com/@ZidanDevelopments", icon: "youtube" },
+  { label: "LinkedIn", href: "https://www.linkedin.com/company/zidan-developments/", icon: "linkedin" },
+  { label: "TikTok", href: "https://www.tiktok.com/@zidan_developments", icon: "tiktok" },
 ];
 
 export type SiteConfig = typeof siteConfig;

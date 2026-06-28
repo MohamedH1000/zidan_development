@@ -1,0 +1,215 @@
+// Prisma schema for Zidan Development — Supabase Postgres.
+// Run migrations once DATABASE_URL + DIRECT_URL are set (see docs/ADMIN_SETUP.md).
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  // Prisma 7: connection URLs live in prisma.config.ts (not the schema).
+  provider = "postgresql"
+}
+
+// ---- Enums -------------------------------------------------------------
+
+enum ProjectStatus {
+  Available
+  UnderConstruction
+  Delivered
+  ComingSoon
+}
+
+enum UnitAvailability {
+  Available
+  Reserved
+  Sold
+}
+
+enum AdminRole {
+  ADMIN
+  EDITOR
+  AUTHOR
+}
+
+enum BlogStatus {
+  DRAFT
+  PUBLISHED
+  SCHEDULED
+  ARCHIVED
+}
+
+// ---- Auth (NextAuth credentials provider) ------------------------------
+
+model AdminUser {
+  id                String    @id @default(cuid())
+  email             String    @unique
+  name              String?
+  passwordHash      String
+  role              AdminRole @default(ADMIN)
+  active            Boolean   @default(true) // disable without deleting
+  lastLoginAt       DateTime?
+  passwordChangedAt DateTime?
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+
+  blogs Blog[]
+
+  @@map("admin_users")
+}
+
+// ---- Projects ----------------------------------------------------------
+
+model Project {
+  id          String        @id @default(cuid())
+  slug        String        @unique
+  sortOrder   Int           @default(0)
+  featured    Boolean       @default(false)
+  status      ProjectStatus @default(Available)
+  accent      String? // hex accent for the illustration
+
+  // Bilingual core text (_en / _ar columns).
+  nameEn      String
+  nameAr      String
+  shortNameEn String?
+  shortNameAr String?
+  taglineEn   String?
+  taglineAr   String?
+  summaryEn   String?
+  summaryAr   String?
+  districtEn  String?
+  districtAr  String?
+
+  // Bilingual description (paragraph list) + public card specs.
+  descriptionEn String[] @default([])
+  descriptionAr String[] @default([])
+  downPaymentEn String?
+  downPaymentAr String?
+  installmentEn String?
+  installmentAr String?
+  deliveryEn    String?
+  deliveryAr    String?
+
+  // Admin-managed fields (per spec).
+  projectAvailability String? // "Project Availability"
+  propertyStatus      String? // "Property Status"
+  deliveryDate        String? // "Delivery Date"
+  featuresLocationEn  String[] @default([]) // "Features of Location"
+  featuresLocationAr  String[] @default([])
+  featuresProjectEn   String[] @default([]) // "Features of Project"
+  featuresProjectAr   String[] @default([])
+  googleMapLink       String? // "Google Map Link"
+  mapEmbed            String? // "Map" (iframe embed src)
+  images              String[] @default([]) // gallery URLs (Supabase Storage)
+  render3dUrl         String? // "3D Render"
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  units Unit[]
+  blogs Blog[]
+
+  @@map("projects")
+}
+
+// ---- Units -------------------------------------------------------------
+
+model Unit {
+  id           String           @id @default(cuid())
+  projectId    String
+  project      Project          @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  slug         String           @unique
+  sortOrder    Int              @default(0)
+
+  unitTypeEn   String // "Unit Type"
+  unitTypeAr   String
+  availability UnitAvailability @default(Available) // "unit availability"
+  area         Float // "Unit Area" (m²)
+  bedrooms     Int     @default(0)
+  bathrooms    Int     @default(0)
+  livingRoom   Int     @default(0) // "Living Room" (count)
+  gardenArea   Float? // "Garden Area" (m²)
+  planImageUrl String? // "unit_plan"
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([projectId])
+  @@map("units")
+}
+
+// ---- Blog (bilingual rich-HTML articles) -------------------------------
+
+model Blog {
+  id        String @id @default(cuid())
+  slug      String @unique
+  sortOrder Int    @default(0)
+
+  // Bilingual core — only title (EN+AR) + bodyEn are required; rest optional.
+  titleEn   String
+  titleAr   String
+  excerptEn String?
+  excerptAr String?
+
+  // Rich HTML bodies (TipTap output). Arabic optional → public site falls
+  // back to bodyEn when bodyAr is empty.
+  bodyEn String
+  bodyAr String?
+
+  // Taxonomy (pragmatic strings, not join tables).
+  category String?
+  tags     String[] @default([])
+
+  // Media (Cloudinary URLs).
+  coverImageUrl   String?
+  coverImageAltEn String?
+  coverImageAltAr String?
+  galleryImages   String[] @default([])
+
+  // Author + optional related project (spotlight articles).
+  authorId  String
+  author    AdminUser  @relation(fields: [authorId], references: [id], onDelete: Restrict)
+  projectId String?
+  project   Project?   @relation(fields: [projectId], references: [id], onDelete: SetNull)
+
+  // Lifecycle.
+  readingTime Int        @default(5)
+  status      BlogStatus @default(DRAFT)
+  publishedAt DateTime?
+  featured    Boolean    @default(false)
+
+  // SEO (bilingual).
+  seoMetaTitleEn       String?
+  seoMetaTitleAr       String?
+  seoMetaDescriptionEn String?
+  seoMetaDescriptionAr String?
+  seoKeywordsEn        String[] @default([])
+  seoKeywordsAr        String[] @default([])
+  canonicalUrl         String?
+
+  // Social (OG / Twitter).
+  ogTitleEn            String?
+  ogTitleAr            String?
+  ogDescriptionEn      String?
+  ogDescriptionAr      String?
+  ogImageUrl           String?
+  twitterCard          String?
+  twitterTitleEn       String?
+  twitterTitleAr       String?
+  twitterDescriptionEn String?
+  twitterDescriptionAr String?
+  twitterHandle        String?
+
+  // Engagement.
+  viewCount     Int     @default(0)
+  allowComments Boolean @default(true)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([authorId])
+  @@index([projectId])
+  @@index([status])
+  @@index([publishedAt])
+  @@index([category])
+  @@map("blog_posts")
+}

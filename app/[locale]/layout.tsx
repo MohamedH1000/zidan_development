@@ -9,8 +9,6 @@ import { locales } from "@/i18n/routing";
 import { siteConfig } from "@/config/site";
 import { absoluteUrl, getOrganizationJsonLd } from "@/lib/seo";
 import { localizedPath } from "@/lib/i18n";
-import { Header } from "@/components/layout/header";
-import { Footer } from "@/components/layout/footer";
 import { ScrollProgress } from "@/components/layout/scroll-progress";
 import { JsonLd } from "@/components/seo/json-ld";
 import { getCompany } from "@/content/company";
@@ -114,17 +112,7 @@ export default async function LocaleLayout({
         <NextIntlClientProvider messages={messages}>
           <JsonLd data={getOrganizationJsonLd()} />
           <ScrollProgress />
-          <a
-            href="#main"
-            className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-full focus:bg-ink-900 focus:px-5 focus:py-2 focus:text-sm focus:text-gold-400"
-          >
-            Skip to content
-          </a>
-          <Header />
-          <main id="main" className="flex flex-col">
-            {children}
-          </main>
-          <Footer />
+          {children}
         </NextIntlClientProvider>
       </body>
     </html>

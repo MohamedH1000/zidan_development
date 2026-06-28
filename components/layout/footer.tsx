@@ -34,6 +34,11 @@ const socialIcons: Record<SocialIcon, React.ReactNode> = {
       <path d="M23.5 6.2a3.02 3.02 0 0 0-2.12-2.14C19.5 3.55 12 3.55 12 3.55s-7.5 0-9.38.51A3.02 3.02 0 0 0 .5 6.2C0 8.08 0 12 0 12s0 3.92.5 5.8a3.02 3.02 0 0 0 2.12 2.14c1.88.51 9.38.51 9.38.51s7.5 0 9.38-.51a3.02 3.02 0 0 0 2.12-2.14C24 15.92 24 12 24 12s0-3.92-.5-5.8ZM9.6 15.6V8.4l6.2 3.6-6.2 3.6Z" />
     </svg>
   ),
+  tiktok: (
+    <svg viewBox="0 0 24 24" className="h-4 w-4" fill="currentColor" aria-hidden="true">
+      <path d="M14.5 2h2.6c.2 2.2 1.5 3.6 4 4.2v3.2c-1.7.2-3.3-.4-4.8-1.3v5.6a6.3 6.3 0 1 1-6.3-6.3c.3 0 .6 0 1 .1v3.2a3.2 3.2 0 1 0 2.2 3.1V2Z" />
+    </svg>
+  ),
 };
 
 export async function Footer() {
@@ -68,8 +73,10 @@ export async function Footer() {
       <div className="relative mx-auto grid w-full max-w-7xl grid-cols-1 gap-12 px-5 py-16 sm:px-8 md:grid-cols-2 lg:grid-cols-12 lg:px-12">
         <div className="lg:col-span-4">
           <Logo tone="light" href="/" />
-          <p className="mt-5 max-w-sm text-sm leading-relaxed text-cream/60">{siteConfig.description}</p>
-          <p className="mt-5 font-script text-xl text-gold-400" dir="rtl">{siteConfig.tagline}</p>
+          <p className="mt-5 max-w-sm text-sm leading-relaxed text-cream/60">{t("description")}</p>
+          <p className="mt-5 font-script text-xl text-gold-400" dir={locale === "ar" ? "rtl" : "ltr"}>
+            {t("tagline")}
+          </p>
           <div className="mt-6 flex items-center gap-3">
             {socialLinks.map((social) => (
               <a

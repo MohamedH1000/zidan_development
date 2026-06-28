@@ -15,7 +15,7 @@ export interface SocialLink {
   icon: SocialIcon;
 }
 
-export type SocialIcon = "facebook" | "instagram" | "linkedin" | "x" | "youtube";
+export type SocialIcon = "facebook" | "instagram" | "linkedin" | "x" | "youtube" | "tiktok";
 
 export interface StatItem {
   id: string;

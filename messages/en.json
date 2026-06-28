@@ -32,7 +32,9 @@
     "districts": "Districts",
     "contact": "Contact",
     "rights": "All rights reserved.",
-    "privacy": "Privacy Policy"
+    "privacy": "Privacy Policy",
+    "description": "Zidan Development is an Egyptian real estate developer building lasting value across New Cairo's most strategic districts through intelligent planning, precise execution and uncompromising quality.",
+    "tagline": "Development that narrates reality"
   },
   "home": {
     "metaTitle": "Zidan Development | New Cairo Real Estate Developer",
@@ -237,5 +239,34 @@
     "script": "Lost in New Cairo",
     "title": "404",
     "description": "The page you're looking for doesn't exist or has moved. Let's get you back on track."
+  },
+  "admin": {
+    "nav": {
+      "dashboard": "Dashboard",
+      "projects": "Projects",
+      "units": "Units",
+      "blogs": "Blogs",
+      "users": "Users"
+    },
+    "common": {
+      "signOut": "Sign out",
+      "switchTo": "العربية"
+    },
+    "header": {
+      "title": "Zidan Admin",
+      "viewSite": "View site ↗"
+    },
+    "login": {
+      "title": "Admin sign in",
+      "subtitle": "Manage projects, units and content.",
+      "email": "Email",
+      "emailPlaceholder": "you@example.com",
+      "password": "Password",
+      "passwordPlaceholder": "••••••••",
+      "submit": "Sign in",
+      "submitting": "Signing in…",
+      "invalid": "Invalid email or password.",
+      "createAdminHint": "Create an admin:"
+    }
   }
 }
