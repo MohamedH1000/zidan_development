@@ -5,7 +5,6 @@ import { uploadToCloudinary, deleteFromCloudinary } from "@/lib/cloudinary";
 import { requireAdmin } from "@/lib/admin";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
-import type { UnitAvailability } from "@prisma/client";
 
 export type UnitFormState = { error?: string } | undefined;
 
@@ -38,7 +37,7 @@ export async function saveUnit(_prev: UnitFormState, formData: FormData): Promis
   }
 
   const availability = (AVAIL as readonly string[]).includes(str(formData, "availability"))
-    ? (str(formData, "availability") as UnitAvailability)
+    ? (str(formData, "availability") as (typeof AVAIL)[number])
     : "Available";
 
   try {
