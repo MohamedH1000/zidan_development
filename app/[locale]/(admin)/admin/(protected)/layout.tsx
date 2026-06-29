@@ -1,20 +1,18 @@
 import { redirect } from "next/navigation";
 import { getServerSession } from "next-auth";
+import { getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { authOptions } from "@/lib/auth";
 import { localizedPath } from "@/lib/i18n";
 import type { Locale } from "@/i18n/routing";
-import { LayoutDashboard, Building2, DoorOpen } from "lucide-react";
+import { LayoutDashboard, Building2, DoorOpen, Newspaper, Users } from "lucide-react";
 import { SignOutButton } from "@/components/admin/sign-out-button";
+import { LanguageToggle } from "@/components/admin/language-toggle";
 import { Logo } from "@/components/layout/logo";
 
 // Admin pages are always rendered on demand (session + DB).
 export const dynamic = "force-dynamic";
 
-/**
- * Protects all /admin/* pages (except /admin/login, which lives outside this
- * route group). Redirects unauthenticated or non-admin users to the login.
- */
 export default async function AdminProtectedLayout({
   children,
   params,
@@ -25,14 +23,21 @@ export default async function AdminProtectedLayout({
   const { locale } = await params;
   const session = await getServerSession(authOptions);
 
-  if (!session || session.user.role !== "ADMIN") {
+  if (!session || (session.user.role !== "ADMIN" && session.user.role !== "EDITOR" && session.user.role !== "AUTHOR")) {
     redirect(localizedPath(locale as Locale, "/admin/login"));
   }
 
+  const tNav = await getTranslations("admin.nav");
+  const tHeader = await getTranslations("admin.header");
+
   const nav = [
-    { href: "/admin", label: "Dashboard", icon: LayoutDashboard },
-    { href: "/admin/projects", label: "Projects", icon: Building2 },
-    { href: "/admin/units", label: "Units", icon: DoorOpen },
+    { href: "/admin", label: tNav("dashboard"), icon: LayoutDashboard },
+    { href: "/admin/projects", label: tNav("projects"), icon: Building2 },
+    { href: "/admin/units", label: tNav("units"), icon: DoorOpen },
+    { href: "/admin/blogs", label: tNav("blogs"), icon: Newspaper },
+    ...(session.user.role === "ADMIN"
+      ? [{ href: "/admin/users", label: tNav("users"), icon: Users }]
+      : []),
   ];
 
   return (
@@ -60,11 +65,14 @@ export default async function AdminProtectedLayout({
       </aside>
 
       <div className="flex flex-1 flex-col">
-        <header className="flex items-center justify-between border-b border-white/10 bg-ink-900 px-6 py-4">
-          <p className="font-display text-lg font-semibold">Zidan Admin</p>
-          <Link href="/" className="text-xs font-medium text-gold-400 hover:text-gold-300">
-            View site ↗
-          </Link>
+        <header className="flex items-center justify-between gap-4 border-b border-white/10 bg-ink-900 px-6 py-4">
+          <p className="font-display text-lg font-semibold">{tHeader("title")}</p>
+          <div className="flex items-center gap-4">
+            <LanguageToggle />
+            <Link href="/" className="text-xs font-medium text-gold-400 hover:text-gold-300">
+              {tHeader("viewSite")}
+            </Link>
+          </div>
         </header>
         <main className="flex-1 overflow-y-auto p-6 lg:p-8">{children}</main>
       </div>
