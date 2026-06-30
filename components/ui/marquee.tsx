@@ -29,7 +29,7 @@ export function Marquee({
       >
         {doubled.map((item, index) => (
           <span key={`${item}-${index}`} className="flex items-center gap-10">
-            <span className="whitespace-nowrap font-display text-xl text-ink-900/80 sm:text-2xl">
+            <span className="whitespace-nowrap font-display text-xl text-white sm:text-2xl">
               {item}
             </span>
             {separator ?? <span className="text-gold-500">✦</span>}

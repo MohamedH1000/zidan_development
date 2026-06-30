@@ -44,8 +44,8 @@ const source: StatSourceItem[] = [
   },
   {
     id: "execution",
-    value: 100,
-    suffix: "%",
+    value: 25,
+    suffix: "+",
     label: { en: "Delivery Specifications", ar: "مواصفات التسليم" } as LocalizedString,
     // description: {
     //   en: "We own and build every project — no outsourcing.",

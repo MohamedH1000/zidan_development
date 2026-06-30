@@ -6,12 +6,13 @@ import { Container } from "@/components/ui/container";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { Reveal } from "@/components/ui/reveal";
 import { ProjectsExplorer } from "@/components/sections/projects-explorer";
-import { getProjects } from "@/content/projects";
+import { getProjectsFromDB } from "@/lib/db-content";
 import { CtaBand } from "@/components/sections/cta-band";
 import { buildMetadata, getBreadcrumbJsonLd } from "@/lib/seo";
 import { JsonLd } from "@/components/seo/json-ld";
 import { localizedPath } from "@/lib/i18n";
 import type { Locale } from "@/i18n/routing";
+
 
 export async function generateMetadata({
   params,
@@ -38,6 +39,13 @@ export default async function ProjectsPage({
   const t = await getTranslations("pages.projects");
   const tNav = await getTranslations("nav");
 
+  let projects: Awaited<ReturnType<typeof getProjectsFromDB>> = [];
+  try {
+    projects = await getProjectsFromDB(activeLocale);
+  } catch {
+    projects = [];
+  }
+
   return (
     <>
       <JsonLd
@@ -61,9 +69,15 @@ export default async function ProjectsPage({
               description={t("listDescription")}
             />
           </Reveal>
-          <div className="mt-10">
-            <ProjectsExplorer projects={getProjects(activeLocale)} />
-          </div>
+          {projects.length > 0 ? (
+            <div className="mt-10">
+              <ProjectsExplorer projects={projects} />
+            </div>
+          ) : (
+            <div className="mt-10 rounded-2xl border border-ink-900/8 bg-white p-12 text-center">
+              <p className="text-sm text-ink-500">No projects available yet. Check back soon.</p>
+            </div>
+          )}
         </Container>
       </Section>
       <CtaBand />

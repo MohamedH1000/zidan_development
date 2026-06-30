@@ -55,6 +55,15 @@ export interface ProjectArea {
   highlights: string[];
   accent: string;
   featured?: boolean;
+  // DB-extended optional fields (present when sourced from the database)
+  images?: string[];
+  render3dUrl?: string | null;
+  googleMapLink?: string | null;
+  mapEmbed?: string | null;
+  projectAvailability?: string | null;
+  propertyStatus?: string | null;
+  deliveryDate?: string | null;
+  featuresLocation?: string[];
 }
 
 export interface FaqItem {
@@ -99,4 +108,21 @@ export interface BlogPost {
   readingTime: string;
   tags: string[];
   featured?: boolean;
+  // DB-extended optional fields
+  bodyHtml?: string; // rich HTML (locale-resolved, already sanitized at write time)
+  coverImageUrl?: string | null;
+  coverImageAlt?: string;
+  galleryImages?: string[];
+}
+
+export interface UnitCardData {
+  slug: string;
+  unitType: string;
+  area: number;
+  bedrooms: number;
+  bathrooms: number;
+  livingRoom: number;
+  gardenArea: number | null;
+  availability: string;
+  planImageUrl: string | null;
 }

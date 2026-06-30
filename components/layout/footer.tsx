@@ -2,6 +2,7 @@ import { getLocale, getTranslations } from "next-intl/server";
 import { Clock, Mail, MapPin, Phone } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import { getAreaSummaries, navigation, siteConfig, socialLinks } from "@/config/site";
+import { prisma } from "@/lib/prisma";
 import { Logo } from "./logo";
 import type { SocialIcon } from "@/types";
 
@@ -47,7 +48,20 @@ export async function Footer() {
   const tNav = await getTranslations("nav");
   const tCommon = await getTranslations("common");
   const year = new Date().getFullYear();
-  const areas = getAreaSummaries(locale as "en" | "ar");
+  let areas: { slug: string; name: string }[] = [];
+  try {
+    const rows = await prisma.project.findMany({
+      take: 8,
+      orderBy: [{ sortOrder: "asc" }, { createdAt: "desc" }],
+      select: { slug: true, nameEn: true, nameAr: true },
+    });
+    areas = rows.map((p) => ({
+      slug: p.slug,
+      name: locale === "ar" ? (p.nameAr || p.nameEn) : p.nameEn,
+    }));
+  } catch {
+    areas = getAreaSummaries(locale as "en" | "ar").slice(0, 8);
+  }
 
   return (
     <footer className="relative overflow-hidden bg-ink-950 text-cream">

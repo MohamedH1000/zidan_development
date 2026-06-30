@@ -19,7 +19,12 @@ export function ProjectCard({ project }: { project: ProjectArea }) {
     >
       <div className="relative aspect-[16/11] overflow-hidden">
         <div className="absolute inset-0 scale-105 transition-transform duration-700 group-hover:scale-110">
-          <Scene variant="project" accent={project.accent} showLabel={project.shortName} />
+          {project.images && project.images.length > 0 ? (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img src={project.images[0]} alt={project.name} className="h-full w-full object-cover" />
+          ) : (
+            <Scene variant="project" accent={project.accent} showLabel={project.shortName} />
+          )}
         </div>
         <div className="absolute start-4 top-4 z-10">
           <span className="rounded-full bg-gold-500/15 px-3 py-1 text-xs font-medium text-gold-700">

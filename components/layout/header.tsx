@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
-import { ChevronDown, Globe, Menu, Phone, X } from "lucide-react";
+import { ChevronDown, Globe, Menu, Phone, X, ArrowRight } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { Link, usePathname } from "@/i18n/navigation";
 import { navigation, siteConfig, getAreaName } from "@/config/site";
@@ -16,7 +16,7 @@ function isActive(pathname: string, href: string) {
   return pathname === href || pathname.startsWith(`${href}/`);
 }
 
-export function Header() {
+export function Header({ projects = [] }: { projects?: { slug: string; name: string }[] }) {
   const pathname = usePathname();
   const locale = useLocale();
   const t = useTranslations("nav");
@@ -127,29 +127,42 @@ export function Header() {
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: 8 }}
                       transition={{ duration: 0.2 }}
-                      className="absolute start-1/2 top-full w-60 -translate-x-1/2 pt-3 rtl:translate-x-1/2"
+                      className="absolute start-1/2 top-full w-64 -translate-x-1/2 pt-3 rtl:translate-x-1/2"
                     >
-                      <div className="overflow-hidden rounded-2xl border border-ink-900/8 bg-white/95 p-2 shadow-[0_30px_60px_-30px_rgba(0,0,0,0.4)] backdrop-blur-xl">
-                        {item.children!.map((child) => {
-                          const isArea = "areaSlug" in child;
-                          const href = isArea ? `/projects/${child.areaSlug}` : child.href;
-                          const childLabel = isArea ? getAreaName(child.areaSlug, locale as "en" | "ar") : t(child.labelKey);
-                          return (
-                            <Link
-                              key={isArea ? child.areaSlug : child.href}
-                              href={href}
-                              onClick={() => setOpenDropdown(null)}
-                              className={cn(
-                                "flex items-center justify-between rounded-xl px-4 py-2.5 text-sm transition-colors",
-                                isActive(pathname, href)
-                                  ? "bg-gold-500/10 text-gold-700"
-                                  : "text-ink-700 hover:bg-ink-900/5 hover:text-ink-900",
-                              )}
-                            >
-                              {childLabel}
-                            </Link>
-                          );
-                        })}
+                      <div className="overflow-hidden rounded-2xl border border-ink-900/8 bg-white/95 shadow-[0_30px_60px_-30px_rgba(0,0,0,0.4)] backdrop-blur-xl">
+                        {/* Scrollable project list (from DB) */}
+                        <div className="max-h-[280px] overflow-y-auto overscroll-contain p-2">
+                          {projects.length > 0 ? (
+                            projects.map((p) => (
+                              <Link
+                                key={p.slug}
+                                href={`/projects/${p.slug}`}
+                                onClick={() => setOpenDropdown(null)}
+                                className={cn(
+                                  "flex items-center justify-between rounded-xl px-4 py-2.5 text-sm transition-colors",
+                                  isActive(pathname, `/projects/${p.slug}`)
+                                    ? "bg-gold-500/10 text-gold-700"
+                                    : "text-ink-700 hover:bg-ink-900/5 hover:text-ink-900",
+                                )}
+                              >
+                                {p.name}
+                              </Link>
+                            ))
+                          ) : (
+                            <p className="px-4 py-3 text-sm text-ink-400">No projects yet</p>
+                          )}
+                        </div>
+                        {/* Always-visible "View all projects" */}
+                        <div className="border-t border-ink-900/8 p-2">
+                          <Link
+                            href="/projects"
+                            onClick={() => setOpenDropdown(null)}
+                            className="flex items-center justify-between rounded-xl bg-gold-500/8 px-4 py-2.5 text-sm font-semibold text-gold-700 transition-colors hover:bg-gold-500/15"
+                          >
+                            {t("viewAll")}
+                            <ArrowRight className="h-3.5 w-3.5 rtl:rotate-180" />
+                          </Link>
+                        </div>
                       </div>
                     </motion.div>
                   ) : null}
@@ -231,7 +244,34 @@ export function Header() {
                     >
                       {t(item.labelKey)}
                     </Link>
-                    {item.children?.length ? (
+                    {item.href === "/projects" ? (
+                      /* Projects dropdown: show DB projects + View all */
+                      <div className="pb-2 ps-4">
+                        <div className="max-h-[220px] overflow-y-auto overscroll-contain">
+                          {projects.length > 0 ? (
+                            projects.map((p) => (
+                              <Link
+                                key={p.slug}
+                                href={`/projects/${p.slug}`}
+                                onClick={() => setMobileOpen(false)}
+                                className="block rounded-lg py-1.5 text-sm text-ink-600 hover:text-gold-700"
+                              >
+                                {p.name}
+                              </Link>
+                            ))
+                          ) : (
+                            <p className="py-1.5 text-sm text-ink-400">No projects yet</p>
+                          )}
+                        </div>
+                        <Link
+                          href="/projects"
+                          onClick={() => setMobileOpen(false)}
+                          className="mt-1 flex items-center gap-1.5 rounded-lg py-1.5 text-sm font-semibold text-gold-700"
+                        >
+                          {t("viewAll")} <ArrowRight className="h-3.5 w-3.5 rtl:rotate-180" />
+                        </Link>
+                      </div>
+                    ) : item.children?.length ? (
                       <div className="flex flex-col gap-1 pb-2 ps-4">
                         {item.children.map((child) => {
                           const isArea = "areaSlug" in child;

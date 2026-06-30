@@ -1,7 +1,7 @@
 import { getLocale, getTranslations } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { ArrowRight } from "lucide-react";
-import { getFeaturedProjects } from "@/content/projects";
+import { getFeaturedProjectsFromDB } from "@/lib/db-content";
 import { Section } from "@/components/ui/section";
 import { Container } from "@/components/ui/container";
 import { SectionHeading } from "@/components/ui/section-heading";
@@ -11,9 +11,17 @@ import { buttonVariants } from "@/components/ui/button";
 
 export async function FeaturedProjects() {
   const locale = (await getLocale()) as "en" | "ar";
-  const featured = getFeaturedProjects(locale);
+  let featured: Awaited<ReturnType<typeof getFeaturedProjectsFromDB>> = [];
+  try {
+    featured = await getFeaturedProjectsFromDB(locale);
+  } catch {
+    featured = [];
+  }
   const t = await getTranslations("home.projects");
   const tCommon = await getTranslations("common");
+
+  // If no featured projects in DB, hide the section entirely.
+  if (featured.length === 0) return null;
 
   return (
     <Section tone="light">
