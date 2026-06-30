@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useState, useActionState } from "react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { CheckCircle2, Loader2, Send, Upload } from "lucide-react";
 import { submitCareers } from "@/app/actions/careers";
 import type { CareersFormState } from "@/lib/validations/careers";
@@ -24,6 +24,7 @@ export function CareersForm() {
   const cvError = state.status === "error" ? state.cvError : undefined;
   const success = state.status === "success";
   const t = useTranslations("forms.careers");
+  const locale = useLocale() as "en" | "ar";
 
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [fileName, setFileName] = useState<string | null>(null);
@@ -41,6 +42,7 @@ export function CareersForm() {
 
   return (
     <form action={formAction} className="space-y-4">
+      <input type="hidden" name="locale" value={locale} />
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         <Field label={t("fullName")} htmlFor="fullName" required error={errors.fullName}>
           <input id="fullName" name="fullName" type="text" required placeholder={t("fullNamePlaceholder")} className={inputClass} />

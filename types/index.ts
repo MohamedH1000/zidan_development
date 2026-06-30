@@ -113,6 +113,25 @@ export interface BlogPost {
   coverImageUrl?: string | null;
   coverImageAlt?: string;
   galleryImages?: string[];
+  createdAt?: string;
+  updatedAt?: string;
+  seoTitle?: string;
+  seoDescription?: string;
+  seoKeywords?: string[];
+  ogTitle?: string;
+  ogDescription?: string;
+  ogImageUrl?: string | null;
+  twitterTitle?: string;
+  twitterDescription?: string;
+  twitterCard?: string | null;
+  twitterHandle?: string | null;
+  canonicalUrl?: string | null;
+  relatedProject?: {
+    slug: string;
+    name: string;
+  } | null;
+  viewCount?: number;
+  allowComments?: boolean;
 }
 
 export interface UnitCardData {

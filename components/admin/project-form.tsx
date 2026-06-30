@@ -5,8 +5,9 @@ import Image from "next/image";
 import { Trash2, Loader2, Save } from "lucide-react";
 import type { Project } from "@prisma/client";
 import { saveProject, type ProjectFormState } from "@/app/actions/admin-projects";
-import { AdminField, AdminSection, adminInput, adminLabel } from "@/components/admin/field";
+import { AdminField, AdminSection, adminInput } from "@/components/admin/field";
 import { buttonVariants } from "@/components/ui/button";
+import { Link } from "@/i18n/navigation";
 
 const STATUS_OPTIONS: { value: string; label: string }[] = [
   { value: "Available", label: "Available" },
@@ -155,7 +156,7 @@ export function ProjectForm({ initial }: { initial?: Project }) {
       </AdminField>
 
       <div className="sticky bottom-0 flex items-center justify-end gap-3 border-t border-white/10 bg-ink-950/80 py-4 backdrop-blur">
-        <a href="/admin/projects" className={buttonVariants({ variant: "ghost", size: "md", className: "text-ink-300" })}>Cancel</a>
+        <Link href="/admin/projects" className={buttonVariants({ variant: "ghost", size: "md", className: "text-ink-300" })}>Cancel</Link>
         <button type="submit" disabled={pending} className={buttonVariants({ variant: "gold", size: "md" })}>
           {pending ? <Loader2 className="h-4 w-4 animate-spin" /> : <Save className="h-4 w-4" />}
           {initial ? "Save changes" : "Create project"}

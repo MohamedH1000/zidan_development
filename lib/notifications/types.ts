@@ -21,6 +21,10 @@ export interface NotificationPayload {
   text: string;
   /** Optional HTML body. Must already be sanitized by the caller. */
   html?: string;
+  attachments?: {
+    filename: string;
+    content: string;
+  }[];
   /** Structured tags for logging/analytics, never serialized into user output. */
   meta?: Record<string, string>;
 }

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import { TextStyle } from "@tiptap/extension-text-style";
@@ -51,10 +51,7 @@ export function RichTextEditor({
   dir?: "ltr" | "rtl";
 }) {
   const [html, setHtml] = useState(initialHtml);
-  const [mounted, setMounted] = useState(false);
   const fileRef = useRef<HTMLInputElement>(null);
-
-  useEffect(() => setMounted(true), []);
 
   const editor = useEditor({
     extensions: [
@@ -67,6 +64,7 @@ export function RichTextEditor({
     ],
     content: initialHtml,
     onUpdate: ({ editor }) => setHtml(editor.getHTML()),
+    immediatelyRender: false,
   });
 
   async function onImageSelected(e: React.ChangeEvent<HTMLInputElement>) {
@@ -83,7 +81,7 @@ export function RichTextEditor({
     <div className="rounded-lg border border-white/10 bg-ink-950">
       <input type="hidden" name={name} value={html} />
 
-      {mounted && editor ? (
+      {editor ? (
         <div className="flex flex-wrap items-center gap-0.5 border-b border-white/10 p-2">
           <Btn title="Heading 1" active={editor.isActive("heading", { level: 1 })} onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}><Heading1 className="h-4 w-4" /></Btn>
           <Btn title="Heading 2" active={editor.isActive("heading", { level: 2 })} onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}><Heading2 className="h-4 w-4" /></Btn>
@@ -134,7 +132,7 @@ export function RichTextEditor({
       ) : null}
 
       <div className="rte">
-        {mounted && editor ? (
+        {editor ? (
           <EditorContent editor={editor} className="rte-content" />
         ) : (
           <div className="min-h-64 p-4 text-sm text-ink-500">Loading editor…</div>

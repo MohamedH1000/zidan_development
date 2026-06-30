@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 export const dynamicParams = true;
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import { setRequestLocale, getTranslations } from "next-intl/server";
-import { Check, MapPin, BedDouble, Bath, Maximize } from "lucide-react";
+import { Check, MapPin, BedDouble, Bath, Maximize, MessageCircle } from "lucide-react";
+import type { Unit } from "@prisma/client";
 import { prisma } from "@/lib/prisma";
 import { PageHero } from "@/components/layout/page-hero";
 import { Section } from "@/components/ui/section";
@@ -18,6 +20,7 @@ import { buildMetadata, getBreadcrumbJsonLd } from "@/lib/seo";
 import { JsonLd } from "@/components/seo/json-ld";
 import { localizedPath } from "@/lib/i18n";
 import { type Locale } from "@/i18n/routing";
+import { siteConfig } from "@/config/site";
 
 
 export async function generateMetadata({
@@ -59,6 +62,7 @@ export default async function ProjectDetailPage({
 
   const pickField = (ar: string | null, en: string | null) =>
     activeLocale === "ar" ? (ar || en || "") : (en || "");
+  const whatsappNumber = (process.env.WHATSAPP_PHONE_NUMBER || siteConfig.contact.phone).replace(/\D/g, "");
 
   return (
     <>
@@ -201,18 +205,35 @@ export default async function ProjectDetailPage({
         <Section tone="cream">
           <Container>
             <Reveal>
-              <h2 className="font-display text-2xl font-semibold text-ink-900 sm:text-3xl">Available Units</h2>
+              <h2 className="font-display text-2xl font-semibold text-ink-900 sm:text-3xl">{t("availableUnits")}</h2>
             </Reveal>
-            <div className="mt-8 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-              {units.map((u) => (
+            <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {units.map((u: Unit) => (
                 <Reveal key={u.id}>
-                  <Link
-                    href={`/projects/${project.slug}/units/${u.slug}`}
-                    className="group block rounded-2xl border border-ink-900/8 bg-white p-6 transition-all duration-500 hover:-translate-y-1 hover:border-gold-500/40 hover:shadow-lg"
-                  >
+                  <article className="group flex h-full flex-col overflow-hidden rounded-2xl border border-ink-900/8 bg-white shadow-[0_18px_50px_-42px_rgba(0,0,0,0.5)] transition-all duration-500 hover:-translate-y-1 hover:border-gold-500/40 hover:shadow-[0_34px_80px_-48px_rgba(0,0,0,0.55)]">
+                    <Link href={`/projects/${project.slug}/units/${u.slug}`} className="block flex-1">
+                      <div className="relative aspect-[16/10] overflow-hidden bg-cream">
+                        {u.planImageUrl ? (
+                          <Image
+                            src={u.planImageUrl}
+                            alt={`${u.slug} ${pickField(u.unitTypeAr, u.unitTypeEn)}`}
+                            fill
+                            sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                            className="object-cover transition-transform duration-700 group-hover:scale-105"
+                          />
+                        ) : (
+                          <div className="absolute inset-0">
+                            <Scene variant="project" accent={project.accent} showLabel={u.slug} />
+                          </div>
+                        )}
+                        <div className="absolute start-4 top-4">
+                          <Badge tone={u.availability === "Available" ? "gold" : "neutral"}>{u.availability}</Badge>
+                        </div>
+                      </div>
+                      <div className="p-6">
                     <div className="flex items-center justify-between">
                       <span className="font-display text-lg font-semibold text-ink-900">{u.slug}</span>
-                      <Badge tone={u.availability === "Available" ? "gold" : "neutral"}>{u.availability}</Badge>
+                      <span className="rounded-full bg-gold-500/12 px-3 py-1 text-xs font-semibold text-gold-700">{t("viewDetails")}</span>
                     </div>
                     <p className="mt-1 text-sm text-ink-500">{pickField(u.unitTypeAr, u.unitTypeEn)}</p>
                     <div className="mt-4 flex flex-wrap gap-4 text-sm text-ink-600">
@@ -220,7 +241,25 @@ export default async function ProjectDetailPage({
                       {u.bedrooms > 0 ? <span className="flex items-center gap-1"><BedDouble className="h-4 w-4 text-gold-600" />{u.bedrooms}</span> : null}
                       {u.bathrooms > 0 ? <span className="flex items-center gap-1"><Bath className="h-4 w-4 text-gold-600" />{u.bathrooms}</span> : null}
                     </div>
-                  </Link>
+                      </div>
+                    </Link>
+                    <div className="px-6 pb-6">
+                      <a
+                        href={buildWhatsappHref({
+                          phone: whatsappNumber,
+                          projectName: project.name,
+                          unitSlug: u.slug,
+                          unitType: pickField(u.unitTypeAr, u.unitTypeEn),
+                        })}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex h-11 w-full items-center justify-center gap-2 rounded-full bg-gold-500 px-5 text-sm font-semibold text-ink-950 transition-colors hover:bg-gold-400"
+                      >
+                        <MessageCircle className="h-4 w-4" />
+                        {t("whatsappUnit")}
+                      </a>
+                    </div>
+                  </article>
                 </Reveal>
               ))}
             </div>
@@ -255,4 +294,21 @@ function SpecRow({ label, value }: { label: string; value: string }) {
       <dd className="font-semibold text-ink-900">{value}</dd>
     </div>
   );
+}
+
+function buildWhatsappHref({
+  phone,
+  projectName,
+  unitSlug,
+  unitType,
+}: {
+  phone: string;
+  projectName: string;
+  unitSlug: string;
+  unitType: string;
+}) {
+  const text = encodeURIComponent(
+    `Hello Zidan Development, I am interested in unit ${unitSlug} (${unitType}) at ${projectName}.`,
+  );
+  return `https://wa.me/${phone}?text=${text}`;
 }

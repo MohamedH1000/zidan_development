@@ -1,5 +1,5 @@
 import { getTranslations } from "next-intl/server";
-import { Mail, MapPin, Phone } from "lucide-react";
+import { ExternalLink, Mail, MapPin, Phone } from "lucide-react";
 import { siteConfig } from "@/config/site";
 import { Section } from "@/components/ui/section";
 import { Container } from "@/components/ui/container";
@@ -34,31 +34,37 @@ export async function ContactSection() {
               />
             </dl>
 
-            <div className="mt-8 overflow-hidden rounded-2xl border border-ink-900/10 bg-ink-950">
-              <div className="flex items-center gap-3 border-b border-ink-900/10 bg-ink-950/95 px-4 py-3">
-                <MapPin className="h-5 w-5 text-gold-400" />
-                <div>
-                  <span className="text-sm font-medium text-cream">{t("openInMaps")}</span>
-                  <p className="text-xs text-cream/55">
-                    {siteConfig.contact.address.region} · {siteConfig.contact.address.city}
-                  </p>
+            <div className="mt-8 overflow-hidden rounded-2xl border border-ink-900/10 bg-white shadow-[0_24px_70px_-48px_rgba(0,0,0,0.45)]">
+              <div className="flex items-center justify-between gap-4 border-b border-ink-900/8 bg-ink-950 px-4 py-3">
+                <div className="flex items-center gap-3">
+                  <MapPin className="h-5 w-5 text-gold-400" />
+                  <div>
+                    <span className="text-sm font-medium text-cream">{t("openInMaps")}</span>
+                    <p className="text-xs text-cream/55">
+                      {siteConfig.contact.address.region} · {siteConfig.contact.address.city}
+                    </p>
+                  </div>
                 </div>
+                <a
+                  href={siteConfig.contact.mapsUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex h-9 shrink-0 items-center gap-2 rounded-full bg-gold-500 px-4 text-xs font-semibold text-ink-950 transition-colors hover:bg-gold-400"
+                >
+                  <ExternalLink className="h-3.5 w-3.5" />
+                  {t("openInMaps")}
+                </a>
               </div>
 
-              <a
-                href={siteConfig.contact.mapsUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block h-[280px] w-full overflow-hidden"
-                aria-label={t("openInMaps")}
-              >
-                <img
-                  src="https://staticmap.openstreetmap.de/staticmap.php?center=30.0207,31.4171&zoom=13&size=640x320&maptype=mapnik&markers=30.0207,31.4171,ol-marker"
-                  alt="Map preview of Zidan Developments location"
-                  className="h-full w-full object-cover"
+              <div className="relative h-[320px] w-full overflow-hidden bg-sand">
+                <iframe
+                  title="Zidan Development location map"
+                  src={siteConfig.contact.mapEmbedUrl}
+                  className="h-full w-full border-0"
                   loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
                 />
-              </a>
+              </div>
             </div>
           </Reveal>
 

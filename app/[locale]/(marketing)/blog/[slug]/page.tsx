@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 export const dynamicParams = true;
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import { setRequestLocale, getTranslations } from "next-intl/server";
-import { ArrowLeft, Clock } from "lucide-react";
+import { ArrowLeft, CalendarDays, Clock, Eye, FolderOpen, Tag, UserRound } from "lucide-react";
 import { Container } from "@/components/ui/container";
 import { Section } from "@/components/ui/section";
 import { Badge } from "@/components/ui/badge";
@@ -29,10 +30,13 @@ export async function generateMetadata({
   const activeLocale = locale as Locale;
   const post = await getBlogBySlugFromDB(slug, activeLocale);
   if (!post) return buildMetadata({ title: "Article not found", description: "", path: "/blog" });
+  const title = post.seoTitle || post.ogTitle || post.twitterTitle || post.title;
+  const description = post.seoDescription || post.ogDescription || post.twitterDescription || post.excerpt || "";
   return buildMetadata({
-    title: post.title,
-    description: post.excerpt || "",
+    title,
+    description,
     path: localizedPath(activeLocale, `/blog/${post.slug}`),
+    image: post.ogImageUrl || post.coverImageUrl || undefined,
     type: "article",
     publishedTime: post.date,
   });
@@ -65,16 +69,19 @@ export default async function BlogPostPage({
           ]),
           getArticleJsonLd({
             title: post.title,
-            description: post.excerpt || "",
+            description: post.seoDescription || post.excerpt || "",
             path: localizedPath(activeLocale, `/blog/${post.slug}`),
             date: post.date,
+            modifiedDate: post.updatedAt,
             author: post.author,
+            image: post.ogImageUrl || post.coverImageUrl || undefined,
+            keywords: post.seoKeywords,
           }),
         ]}
       />
 
       <Section tone="dark" className="pt-32 pb-12 sm:pt-40">
-        <Container className="max-w-3xl">
+        <Container className="max-w-4xl">
           <Reveal>
             <Link href="/blog" className="inline-flex items-center gap-2 text-xs font-medium text-cream/60 transition-colors hover:text-gold-400">
               <ArrowLeft className="h-3.5 w-3.5 rtl:rotate-180" /> {t("backToArticles")}
@@ -100,12 +107,18 @@ export default async function BlogPostPage({
       </Section>
 
       <Section tone="light" className="pt-14">
-        <Container className="max-w-3xl">
+        <Container className="max-w-4xl">
           {/* Cover image */}
           {post.coverImageUrl ? (
             <div className="relative aspect-[16/9] overflow-hidden rounded-2xl shadow-[0_40px_80px_-40px_rgba(0,0,0,0.45)]">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={post.coverImageUrl} alt={post.coverImageAlt || post.title} className="h-full w-full object-cover" />
+              <Image
+                src={post.coverImageUrl}
+                alt={post.coverImageAlt || post.title}
+                fill
+                priority
+                sizes="(min-width: 1024px) 896px, 100vw"
+                className="object-cover"
+              />
             </div>
           ) : (
             <div className="relative aspect-[16/9] overflow-hidden rounded-2xl shadow-[0_40px_80px_-40px_rgba(0,0,0,0.45)]">
@@ -114,16 +127,63 @@ export default async function BlogPostPage({
           )}
 
           {/* Rich HTML body — already sanitized at write time via sanitize-html */}
-          <article
-            className="prose-blog mt-10 space-y-6 text-base leading-relaxed text-ink-700"
-            dangerouslySetInnerHTML={{ __html: post.bodyHtml || "" }}
-          />
+          <div className="relative z-10 mx-auto -mt-8 max-w-3xl rounded-2xl border border-ink-900/8 bg-white p-6 shadow-[0_24px_70px_-50px_rgba(0,0,0,0.45)] sm:p-10">
+            <div className="mb-8 grid grid-cols-1 gap-3 border-b border-ink-900/8 pb-6 sm:grid-cols-2">
+              <ArticleInfo icon={UserRound} label={t("authorLabel")} value={post.author} />
+              <ArticleInfo icon={CalendarDays} label={t("publishedLabel")} value={formatDate(post.date, activeLocale)} />
+              {post.updatedAt ? (
+                <ArticleInfo icon={CalendarDays} label={t("updatedLabel")} value={formatDate(post.updatedAt, activeLocale)} />
+              ) : null}
+              <ArticleInfo icon={Clock} label={t("readingTimeLabel")} value={post.readingTime} />
+              {post.category ? <ArticleInfo icon={Tag} label={t("categoryLabel")} value={post.category} /> : null}
+              {typeof post.viewCount === "number" ? (
+                <ArticleInfo icon={Eye} label={t("viewsLabel")} value={String(post.viewCount)} />
+              ) : null}
+              {post.relatedProject ? (
+                <div className="rounded-xl bg-cream p-4">
+                  <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.18em] text-ink-500">
+                    <FolderOpen className="h-4 w-4 text-gold-600" />
+                    {t("relatedProjectLabel")}
+                  </div>
+                  <Link href={`/projects/${post.relatedProject.slug}`} className="mt-2 inline-flex text-sm font-semibold text-gold-700 hover:text-gold-600">
+                    {post.relatedProject.name}
+                  </Link>
+                </div>
+              ) : null}
+            </div>
+            <article
+              className="prose-blog space-y-6 text-base leading-relaxed text-ink-700 sm:text-lg"
+              dangerouslySetInnerHTML={{ __html: post.bodyHtml || "" }}
+            />
+          </div>
 
           {post.tags.length > 0 ? (
-            <div className="mt-10 flex flex-wrap gap-2 border-t border-ink-900/10 pt-6">
-              {post.tags.map((tag) => (
-                <Badge key={tag} tone="neutral">#{tag}</Badge>
-              ))}
+            <div className="mx-auto mt-8 max-w-3xl border-t border-ink-900/10 pt-6">
+              <h2 className="text-xs font-semibold uppercase tracking-[0.2em] text-ink-500">{t("tagsLabel")}</h2>
+              <div className="mt-3 flex flex-wrap gap-2">
+                {post.tags.map((tag) => (
+                  <Badge key={tag} tone="neutral">#{tag}</Badge>
+                ))}
+              </div>
+            </div>
+          ) : null}
+
+          {post.galleryImages && post.galleryImages.length > 0 ? (
+            <div className="mx-auto mt-10 max-w-3xl">
+              <h2 className="font-display text-2xl font-semibold text-ink-900">{t("galleryTitle")}</h2>
+              <div className="mt-5 grid grid-cols-1 gap-4 sm:grid-cols-2">
+                {post.galleryImages.map((image, index) => (
+                  <div key={image} className="relative aspect-[16/10] overflow-hidden rounded-2xl border border-ink-900/8 bg-cream shadow-sm">
+                    <Image
+                      src={image}
+                      alt={`${post.title} ${index + 1}`}
+                      fill
+                      sizes="(min-width: 768px) 384px, 100vw"
+                      className="object-cover"
+                    />
+                  </div>
+                ))}
+              </div>
             </div>
           ) : null}
         </Container>
@@ -151,5 +211,25 @@ export default async function BlogPostPage({
 
       <CtaBand />
     </>
+  );
+}
+
+function ArticleInfo({
+  icon: Icon,
+  label,
+  value,
+}: {
+  icon: React.ComponentType<{ className?: string }>;
+  label: string;
+  value: string;
+}) {
+  return (
+    <div className="rounded-xl bg-cream p-4">
+      <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.18em] text-ink-500">
+        <Icon className="h-4 w-4 text-gold-600" />
+        {label}
+      </div>
+      <div className="mt-2 text-sm font-semibold text-ink-900">{value}</div>
+    </div>
   );
 }

@@ -38,6 +38,8 @@ export const siteConfig = {
     },
     mapsUrl:
       "https://www.google.com/maps/search/?api=1&query=New+Cairo+Fifth+Settlement+Cairo+Egypt",
+    mapEmbedUrl:
+      "https://www.openstreetmap.org/export/embed.html?bbox=31.3800%2C29.9400%2C31.5600%2C30.1000&layer=mapnik&marker=30.0074%2C31.4913",
     hours: { en: "Saturday – Thursday · 9:00 – 18:00", ar: "السبت – الخميس · 9:00 – 18:00" },
   },
 } as const;

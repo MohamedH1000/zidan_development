@@ -4,20 +4,35 @@
 
 ## Current Status
 
-**Phase: Admin + DB foundation built (Phase A). Marketing site still fully working & green.**
+**Phase: Admin + DB foundation built (Phase A). Marketing site fully working & green with DB-backed public blogs.**
 Build + lint pass with 0 errors.
 
-- Public (marketing) site: unchanged, bilingual, SSG.
+- Public (marketing) site: bilingual, with DB-backed published blogs.
+- Contact form can send through Resend when env vars are configured; project
+  detail unit cards include plan imagery and WhatsApp enquiry CTAs.
+- Contact validation now allows "Not sure yet" as the default area, sends a
+  polished bilingual EN/AR email template, and the shared homepage/contact map
+  uses an embedded OpenStreetMap card. Contact submissions normalize nullable
+  FormData, avoid hidden autofill traps, and accept Arabic/Persian phone
+  digits so the shared homepage and contact-page form validate consistently.
+- Careers applications send through the same Resend notification service with
+  a polished language-aware EN/AR email and the validated CV attached.
 - **Admin + DB (new):** Prisma 7 → Supabase Postgres (pg driver adapter),
   NextAuth credentials auth, `/admin` protected dashboard shell + login, schema
   for `admin_users` / `projects` / `units` (bilingual `_en`/`_ar` columns).
   DB live (migrated); admin can log in. **Phase B done:** Projects + Units CRUD
   (list/create/edit/delete) with Cloudinary image upload (gallery, 3D render,
   unit plan) and unit count/availability control.
+  **Blog public wiring fixed:** published DB blog posts now appear on public
+  blog index/detail pages; admin publish saves stamp `publishedAt` when needed
+  and revalidate EN/AR public blog paths. New admin blog posts default to
+  Published so the public listing reflects the editor's publish action.
+  Public article pages render TipTap HTML with richer typography plus DB-backed
+  article metadata, related project, tags, gallery, SEO, OG and Twitter fields.
   **Pending:** Phase C — wire the public projects/units pages to read Postgres
   via Prisma + ISR (currently they still read the static `content/*` files).
 
-Last verified build: Next.js 16.2.9 · React 19 · Turbopack.
+Last verified build: 2026-06-30 · Next.js 16.2.9 · React 19 · Turbopack.
 
 ## Progress
 
@@ -42,7 +57,7 @@ Last verified build: Next.js 16.2.9 · React 19 · Turbopack.
   section uses an animated `MovingTags` wall (replaced the architectural SVG).
 - [x] About, Careers, Contact, Delivery, FAQs, Privacy
 - [x] Projects index (+ filter) + `/projects/[slug]` detail
-- [x] Blog index + `/blog/[slug]` post
+- [x] Blog index + `/blog/[slug]` post (DB-backed published posts)
 - [x] Localised 404
 
 ### i18n (next-intl v4)
@@ -52,10 +67,9 @@ Last verified build: Next.js 16.2.9 · React 19 · Turbopack.
 - [x] Header **language toggle** (EN ⇄ ع), RTL throughout
 
 ### Forms & backend
-- [x] Contact form → `submitContact` Server Action + Zod + honeypot
+- [x] Contact form → `submitContact` Server Action + Zod + Resend
 - [x] Careers form → `submitCareers` + CV validation + consent
-- [x] `INotificationService` + `ConsoleNotificationService` + factory
-  (ready to wire Resend/nodemailer — Recipe H)
+- [x] `INotificationService` + `ConsoleNotificationService` + Resend provider factory
 
 ### Motion
 - [x] Parallax hero, staggered reveals, animated counters, marquee
@@ -70,7 +84,7 @@ Last verified build: Next.js 16.2.9 · React 19 · Turbopack.
 
 ### Security
 - [x] Headers in `next.config.ts` (CSP, frame/options/referrer/permissions/HSTS)
-- [x] `reactStrictMode`, `poweredByHeader: false`, Zod validation, honeypots
+- [x] `reactStrictMode`, `poweredByHeader: false`, Zod validation, careers honeypot
 
 ## Decisions Made During Build
 
@@ -101,9 +115,8 @@ Last verified build: Next.js 16.2.9 · React 19 · Turbopack.
 
 ## Known Limitations / Next Up
 
-- [ ] Email sending is a logging stub — wire a provider (Recipe H).
+- [ ] Add automated smoke tests for contact/careers Resend submissions.
 - [ ] No CMS — content edits require code changes.
-- [ ] Map is a static link, not an embedded map.
 - [ ] No automated tests yet (consider Playwright for the two forms + locale switch).
 - [ ] `public/og.png` is English-only by design.
 

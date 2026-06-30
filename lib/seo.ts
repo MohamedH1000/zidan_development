@@ -126,7 +126,10 @@ export function getArticleJsonLd(article: {
   description: string;
   path: string;
   date: string;
+  modifiedDate?: string;
   author: string;
+  image?: string;
+  keywords?: string[];
 }) {
   return {
     "@context": "https://schema.org",
@@ -134,8 +137,10 @@ export function getArticleJsonLd(article: {
     headline: article.title,
     description: article.description,
     datePublished: article.date,
-    dateModified: article.date,
+    dateModified: article.modifiedDate ?? article.date,
     author: { "@type": "Organization", name: article.author },
+    ...(article.image ? { image: article.image } : {}),
+    ...(article.keywords?.length ? { keywords: article.keywords.join(", ") } : {}),
     publisher: {
       "@type": "Organization",
       name: siteConfig.name,

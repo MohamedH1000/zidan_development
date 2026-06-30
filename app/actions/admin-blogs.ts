@@ -38,6 +38,10 @@ export async function saveBlog(_prev: BlogFormState, formData: FormData): Promis
   const status = (STATUSES as readonly string[]).includes(str(formData, "status"))
     ? (str(formData, "status") as (typeof STATUSES)[number])
     : "DRAFT";
+  const publishDateInput = str(formData, "publishedAt");
+  const publishedAt = publishDateInput
+    ? new Date(publishDateInput)
+    : status === "PUBLISHED" ? new Date() : null;
 
   try {
     // Images
@@ -81,7 +85,7 @@ export async function saveBlog(_prev: BlogFormState, formData: FormData): Promis
       galleryImages: [...keepGallery, ...galleryUploaded],
       projectId: str(formData, "projectId") || null,
       readingTime: Number(str(formData, "readingTime")) || 5,
-      publishedAt: str(formData, "publishedAt") ? new Date(str(formData, "publishedAt")) : null,
+      publishedAt,
       allowComments: formData.get("allowComments") === "on",
       // SEO
       seoMetaTitleEn: str(formData, "seoMetaTitleEn") || null,
@@ -114,7 +118,10 @@ export async function saveBlog(_prev: BlogFormState, formData: FormData): Promis
     return { error: (error as Error).message || "Failed to save blog post." };
   }
 
-  revalidatePath("/[locale]/blog", "page");
+  revalidatePath("/en/blog");
+  revalidatePath("/ar/blog");
+  revalidatePath(`/en/blog/${slug}`);
+  revalidatePath(`/ar/blog/${slug}`);
   redirect("/admin/blogs");
 }
 
@@ -123,6 +130,9 @@ export async function deleteBlog(id: string): Promise<void> {
   const blog = await prisma.blog.delete({ where: { id } });
   if (blog.coverImageUrl) await deleteFromCloudinary(blog.coverImageUrl);
   if (blog.ogImageUrl) await deleteFromCloudinary(blog.ogImageUrl);
-  revalidatePath("/[locale]/blog", "page");
+  revalidatePath("/en/blog");
+  revalidatePath("/ar/blog");
+  revalidatePath(`/en/blog/${blog.slug}`);
+  revalidatePath(`/ar/blog/${blog.slug}`);
   redirect("/admin/blogs");
 }

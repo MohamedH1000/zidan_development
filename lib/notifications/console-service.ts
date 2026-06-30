@@ -18,6 +18,7 @@ export class ConsoleNotificationService implements INotificationService {
         subject: payload.subject,
         to: recipients.map((r) => r.email),
         replyTo: payload.replyTo?.email,
+        attachments: payload.attachments?.map((attachment) => attachment.filename),
         meta: payload.meta,
         preview: payload.text.slice(0, 160),
       });

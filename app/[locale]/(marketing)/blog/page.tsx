@@ -6,14 +6,13 @@ import { Container } from "@/components/ui/container";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { Reveal, Stagger, StaggerItem } from "@/components/ui/reveal";
 import { PostCard } from "@/components/sections/post-card";
-import { getBlogsFromDB, getFeaturedBlogFromDB } from "@/lib/db-content";
+import { getBlogsFromDB } from "@/lib/db-content";
 import { CtaBand } from "@/components/sections/cta-band";
 import { buildMetadata, getBreadcrumbJsonLd } from "@/lib/seo";
 import { JsonLd } from "@/components/seo/json-ld";
 import { localizedPath } from "@/lib/i18n";
 import type { Locale } from "@/i18n/routing";
 import type { BlogPost } from "@/types";
-
 
 export async function generateMetadata({
   params,
@@ -40,13 +39,14 @@ export default async function BlogPage({
   const t = await getTranslations("pages.blog");
   const tNav = await getTranslations("nav");
 
-  let featured: BlogPost | null | undefined = null;
-  let rest: Awaited<ReturnType<typeof getBlogsFromDB>> = [];
+  let featured: BlogPost | null = null;
+  let rest: BlogPost[] = [];
   try {
-    featured = await getFeaturedBlogFromDB(activeLocale);
-    rest = (await getBlogsFromDB(activeLocale)).filter((post) => post.slug !== featured?.slug);
-  } catch {
-    // DB error — show empty state
+    const posts = await getBlogsFromDB(activeLocale);
+    featured = posts.find((post) => post.featured) ?? posts[0] ?? null;
+    rest = posts.filter((post) => post.slug !== featured?.slug);
+  } catch (error) {
+    console.error("Failed to load published blog posts", error);
   }
 
   return (
@@ -64,7 +64,7 @@ export default async function BlogPage({
         sceneVariant="blog"
       />
 
-      <Section tone="light">
+      <Section tone="light" className="relative overflow-hidden">
         <Container>
           {featured || rest.length > 0 ? (
             <>
@@ -76,7 +76,7 @@ export default async function BlogPage({
 
               {rest.length > 0 ? (
                 <div className="mt-14">
-                  <SectionHeading eyebrow={t("recentEyebrow")} title={t("recentTitle")} />
+                  <SectionHeading eyebrow={t("recentEyebrow")} title={t("recentTitle")} description={t("description")} />
                   <Stagger className="mt-8 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3" stagger={0.1}>
                     {rest.map((post) => (
                       <StaggerItem key={post.slug}>
@@ -88,8 +88,10 @@ export default async function BlogPage({
               ) : null}
             </>
           ) : (
-            <div className="rounded-2xl border border-ink-900/8 bg-white p-12 text-center">
-              <p className="text-sm text-ink-500">No articles published yet. Check back soon.</p>
+            <div className="mx-auto max-w-2xl rounded-2xl border border-ink-900/8 bg-white p-10 text-center shadow-[0_24px_70px_-50px_rgba(0,0,0,0.45)] sm:p-12">
+              <p className="text-xs font-semibold uppercase tracking-[0.25em] text-gold-600">{t("recentEyebrow")}</p>
+              <h2 className="mt-3 font-display text-2xl font-semibold text-ink-900">{t("emptyTitle")}</h2>
+              <p className="mt-3 text-sm leading-relaxed text-ink-500">{t("emptyBody")}</p>
             </div>
           )}
         </Container>

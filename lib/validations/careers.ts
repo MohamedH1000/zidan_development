@@ -12,13 +12,14 @@ export const careersSchema = z.object({
     .string()
     .trim()
     .min(6, "Enter a valid phone number")
-    .max(20)
-    .regex(/^[+\d][\d\s()-]{4,}$/, "Enter a valid phone number"),
+    .max(32)
+    .refine((value) => value.replace(/\D/g, "").length >= 6, "Enter a valid phone number"),
   jobTitle: z.string().trim().min(2, "Please enter the role you are applying for").max(100),
   coverLetter: z.string().trim().max(3000, "Cover letter is too long").optional().or(z.literal("")),
   consent: z
     .boolean()
     .refine((v) => v === true, "You must agree to the Privacy Policy"),
+  locale: z.preprocess((value) => value || undefined, z.enum(["en", "ar"]).default("en")),
   // Honeypot
   website: z.string().max(0, "Invalid submission").optional().or(z.literal("")),
 });

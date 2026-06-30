@@ -1,8 +1,7 @@
-import type { Metadata } from "next";
 export const dynamicParams = true;
 import { notFound } from "next/navigation";
-import { setRequestLocale, getTranslations } from "next-intl/server";
-import { ArrowLeft, BedDouble, Bath, Maximize, Sofa, TreePalm, Check } from "lucide-react";
+import { setRequestLocale } from "next-intl/server";
+import { ArrowLeft, BedDouble, Bath, Maximize, Sofa, TreePalm } from "lucide-react";
 import { prisma } from "@/lib/prisma";
 import { Container } from "@/components/ui/container";
 import { Section } from "@/components/ui/section";
@@ -11,7 +10,6 @@ import { Reveal } from "@/components/ui/reveal";
 import { buttonVariants } from "@/components/ui/button";
 import { Link } from "@/i18n/navigation";
 import { getProjectBySlugFromDB } from "@/lib/db-content";
-import { localizedPath } from "@/lib/i18n";
 import { type Locale } from "@/i18n/routing";
 
 

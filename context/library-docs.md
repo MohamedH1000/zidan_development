@@ -74,6 +74,17 @@ This file covers **how we use each one here** — not general docs.
 - Re-run `npm run gen:og` (or `npm run build`, which runs `prebuild`) after
   changing the brand mark.
 
+## Resend REST API - contact email delivery
+
+- Used through `fetch` in `lib/notifications/resend-service.ts`; no `resend`
+  package is installed.
+- Provider activates only when both `RESEND_API_KEY` and `RESEND_FROM_EMAIL`
+  are set. Otherwise `ConsoleNotificationService` remains the fallback.
+- Contact form recipient is controlled by `CONTACT_TO_EMAIL`; careers form
+  recipient is controlled by `CAREERS_TO_EMAIL` and falls back to
+  `CONTACT_TO_EMAIL`.
+- `RESEND_FROM_EMAIL` must be a sender/domain verified in Resend.
+
 ## Tailwind CSS (v4)
 
 - **CSS-first config.** No `tailwind.config.ts`. Tokens live in `app/globals.css`

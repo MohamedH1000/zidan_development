@@ -122,7 +122,18 @@
       "recentTitle": "Latest articles",
       "backToArticles": "Back to all articles",
       "keepReading": "Keep reading",
-      "allArticles": "All articles"
+      "allArticles": "All articles",
+      "emptyTitle": "No articles published yet",
+      "emptyBody": "Check back soon for market insights and project updates.",
+      "authorLabel": "Author",
+      "publishedLabel": "Published",
+      "updatedLabel": "Updated",
+      "readingTimeLabel": "Reading time",
+      "categoryLabel": "Category",
+      "viewsLabel": "Views",
+      "relatedProjectLabel": "Related project",
+      "tagsLabel": "Tags",
+      "galleryTitle": "Article gallery"
     },
     "faqs": {
       "eyebrow": "Frequently asked questions",
@@ -182,7 +193,10 @@
       "Under Construction": "Under Construction",
       "Delivered": "Delivered",
       "Coming Soon": "Coming Soon"
-    }
+    },
+    "availableUnits": "Available units",
+    "viewDetails": "View details",
+    "whatsappUnit": "Ask on WhatsApp"
   },
   "faqCategories": {
     "All": "All",
@@ -202,7 +216,7 @@
       "email": "Email",
       "emailPlaceholder": "you@example.com",
       "area": "Area of interest",
-      "areaPlaceholder": "Select an area",
+      "areaPlaceholder": "Not sure yet - help me choose",
       "message": "Message",
       "messagePlaceholder": "I'm interested in a 3-bedroom apartment in Al Narges…",
       "messageHint": "Optional — tell us what you're looking for.",

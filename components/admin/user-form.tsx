@@ -6,6 +6,7 @@ import type { AdminUser } from "@prisma/client";
 import { saveUser, type UserFormState } from "@/app/actions/admin-users";
 import { AdminField, AdminSection, adminInput } from "@/components/admin/field";
 import { buttonVariants } from "@/components/ui/button";
+import { Link } from "@/i18n/navigation";
 
 const ROLES = [
   { value: "ADMIN", label: "Admin — full access" },
@@ -49,7 +50,7 @@ export function UserForm({ initial }: { initial?: AdminUser }) {
       </label>
 
       <div className="flex items-center justify-end gap-3 pt-2">
-        <a href="/admin/users" className={buttonVariants({ variant: "ghost", size: "md", className: "text-ink-300" })}>Cancel</a>
+        <Link href="/admin/users" className={buttonVariants({ variant: "ghost", size: "md", className: "text-ink-300" })}>Cancel</Link>
         <button type="submit" disabled={pending} className={buttonVariants({ variant: "gold", size: "md" })}>
           {pending ? <Loader2 className="h-4 w-4 animate-spin" /> : <Save className="h-4 w-4" />}
           {initial ? "Save user" : "Create user"}

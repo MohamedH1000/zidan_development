@@ -48,7 +48,7 @@ components by default; client ones are marked. Import via the `@/` alias.
 | `MovingTags` | **client** | Home (Excellence). Animated keyword wall (alternating marquee rows, edge fade, pause-on-hover). Replaces the old architectural SVG. |
 | `VideoSection` | async server | Home. Brand showreel — lazy `youtube-nocookie` iframe (ID in `siteConfig.video.youtubeId`), responsive 16:9. `frame-src` allow-listed in CSP. |
 | `CtaBand` | async server | Most pages. Gold CTA + social proof. |
-| `ContactSection` | async server | Home, Contact. Info + `<ContactForm>`. |
+| `ContactSection` | async server | Home, Contact. Info + OpenStreetMap embed + `<ContactForm>`. |
 | `AboutIntro` | async server | About. Who/mission/vision. |
 | `ChairmanMessage` | async server | About. Monogram portrait + message. |
 | `CareersContent` | async server | Careers. Perks + `<CareersForm>`. |
@@ -56,13 +56,13 @@ components by default; client ones are marked. Import via the `@/` alias.
 | `ProjectsExplorer` | **client** | Projects. Status filter (animated pills) + grid of `<ProjectCard>`. |
 | `FaqExplorer` | **client** | FAQs. Category filter + animated accordion. |
 | `ProjectCard` | **client** | Projects/featured/detail. Status badge + specs via `useTranslations("project")`. |
-| `PostCard` | server | Blog. `post`, `locale`, `featured?`. |
+| `PostCard` | server | Blog. `post`, `locale`, `featured?`; renders uploaded DB cover images when present, falls back to `Scene`; public detail pages render DB metadata, TipTap HTML, tags and gallery. |
 
 ## Forms — `components/forms/` (client, `useActionState`)
 
 | Component | Action | Notes |
 |-----------|--------|-------|
-| `ContactForm` | `submitContact` | `compact` prop. Area select from `areas` config (value=slug). Honeypot `company`. |
+| `ContactForm` | `submitContact` | `compact` prop. Area select from `areas` config (value=slug). Sends through Resend when configured. |
 | `CareersForm` | `submitCareers` | CV upload (PDF/DOC/DOCX ≤5MB), cover letter, consent rich-link. Honeypot `website`. |
 
 ## Visual & SEO

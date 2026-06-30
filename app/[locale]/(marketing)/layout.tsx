@@ -5,6 +5,8 @@ import { Footer } from "@/components/layout/footer";
 import { FloatingContact } from "@/components/layout/floating-contact";
 import { ScrollToTop } from "@/components/layout/scroll-to-top";
 
+type NavProjectRow = { slug: string; nameEn: string; nameAr: string };
+
 /**
  * Marketing chrome (site header + footer) for all public pages.
  * Admin pages live in the sibling (admin) group and get their own shell.
@@ -21,7 +23,7 @@ export default async function MarketingLayout({
 
   let navProjects: { slug: string; name: string }[] = [];
   try {
-    const rows = await prisma.project.findMany({
+    const rows: NavProjectRow[] = await prisma.project.findMany({
       orderBy: [{ sortOrder: "asc" }, { createdAt: "desc" }],
       select: { slug: true, nameEn: true, nameAr: true },
     });

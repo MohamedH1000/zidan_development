@@ -86,7 +86,17 @@ export async function getFeaturedProjectsFromDB(locale: Locale): Promise<Project
 
 // ── Blog mappers ─────────────────────────────────────────────────────────
 
-type BlogWithAuthor = Blog & { author: { name: string | null; email: string } | null };
+type BlogWithAuthor = Blog & {
+  author: { name: string | null; email: string } | null;
+  project?: { slug: string; nameEn: string; nameAr: string } | null;
+};
+
+function publicBlogWhere() {
+  return {
+    status: "PUBLISHED" as const,
+    OR: [{ publishedAt: null }, { publishedAt: { lte: new Date() } }],
+  };
+}
 
 function mapBlog(b: BlogWithAuthor, locale: Locale): BlogPost {
   return {
@@ -104,39 +114,72 @@ function mapBlog(b: BlogWithAuthor, locale: Locale): BlogPost {
     coverImageUrl: b.coverImageUrl,
     coverImageAlt: pick(b.coverImageAltAr, b.coverImageAltEn, locale) || undefined,
     galleryImages: b.galleryImages ?? [],
+    createdAt: b.createdAt.toISOString(),
+    updatedAt: b.updatedAt.toISOString(),
+    seoTitle: pick(b.seoMetaTitleAr, b.seoMetaTitleEn, locale) || undefined,
+    seoDescription: pick(b.seoMetaDescriptionAr, b.seoMetaDescriptionEn, locale) || undefined,
+    seoKeywords: pickList(b.seoKeywordsAr, b.seoKeywordsEn, locale),
+    ogTitle: pick(b.ogTitleAr, b.ogTitleEn, locale) || undefined,
+    ogDescription: pick(b.ogDescriptionAr, b.ogDescriptionEn, locale) || undefined,
+    ogImageUrl: b.ogImageUrl,
+    twitterTitle: pick(b.twitterTitleAr, b.twitterTitleEn, locale) || undefined,
+    twitterDescription: pick(b.twitterDescriptionAr, b.twitterDescriptionEn, locale) || undefined,
+    twitterCard: b.twitterCard,
+    twitterHandle: b.twitterHandle,
+    canonicalUrl: b.canonicalUrl,
+    relatedProject: b.project
+      ? {
+          slug: b.project.slug,
+          name: pick(b.project.nameAr, b.project.nameEn, locale),
+        }
+      : null,
+    viewCount: b.viewCount,
+    allowComments: b.allowComments,
   };
 }
 
 export async function getBlogsFromDB(locale: Locale): Promise<BlogPost[]> {
   const rows = await prisma.blog.findMany({
-    where: { status: "PUBLISHED" },
+    where: publicBlogWhere(),
     orderBy: [{ publishedAt: "desc" }, { createdAt: "desc" }],
-    include: { author: { select: { name: true, email: true } } },
+    include: {
+      author: { select: { name: true, email: true } },
+      project: { select: { slug: true, nameEn: true, nameAr: true } },
+    },
   });
   return rows.map((b) => mapBlog(b as BlogWithAuthor, locale));
 }
 
 export async function getBlogBySlugFromDB(slug: string, locale: Locale): Promise<BlogPost | undefined> {
-  const b = await prisma.blog.findUnique({
-    where: { slug },
-    include: { author: { select: { name: true, email: true } } },
+  const b = await prisma.blog.findFirst({
+    where: { ...publicBlogWhere(), slug },
+    include: {
+      author: { select: { name: true, email: true } },
+      project: { select: { slug: true, nameEn: true, nameAr: true } },
+    },
   });
   return b ? mapBlog(b as BlogWithAuthor, locale) : undefined;
 }
 
 export async function getFeaturedBlogFromDB(locale: Locale): Promise<BlogPost | undefined> {
   const rows = await prisma.blog.findMany({
-    where: { status: "PUBLISHED", featured: true },
-    orderBy: [{ publishedAt: "desc" }],
-    include: { author: { select: { name: true, email: true } } },
+    where: { ...publicBlogWhere(), featured: true },
+    orderBy: [{ publishedAt: "desc" }, { createdAt: "desc" }],
+    include: {
+      author: { select: { name: true, email: true } },
+      project: { select: { slug: true, nameEn: true, nameAr: true } },
+    },
     take: 1,
   });
   if (rows.length > 0) return mapBlog(rows[0] as BlogWithAuthor, locale);
   // Fallback: latest published post
   const latest = await prisma.blog.findFirst({
-    where: { status: "PUBLISHED" },
-    orderBy: [{ publishedAt: "desc" }],
-    include: { author: { select: { name: true, email: true } } },
+    where: publicBlogWhere(),
+    orderBy: [{ publishedAt: "desc" }, { createdAt: "desc" }],
+    include: {
+      author: { select: { name: true, email: true } },
+      project: { select: { slug: true, nameEn: true, nameAr: true } },
+    },
   });
   return latest ? mapBlog(latest as BlogWithAuthor, locale) : undefined;
 }

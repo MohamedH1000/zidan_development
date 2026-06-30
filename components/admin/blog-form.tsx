@@ -8,6 +8,7 @@ import { saveBlog, type BlogFormState } from "@/app/actions/admin-blogs";
 import { AdminField, AdminSection, adminInput } from "@/components/admin/field";
 import { RichTextEditor } from "@/components/admin/rich-text-editor";
 import { buttonVariants } from "@/components/ui/button";
+import { Link } from "@/i18n/navigation";
 
 const STATUS_OPTIONS = [
   { value: "DRAFT", label: "Draft" },
@@ -52,7 +53,7 @@ export function BlogForm({
           <input name="slug" required defaultValue={initial?.slug ?? ""} placeholder="new-cairo-2026" className={adminInput} />
         </AdminField>
         <AdminField label="Status">
-          <select name="status" defaultValue={initial?.status ?? "DRAFT"} className={adminInput}>
+          <select name="status" defaultValue={initial?.status ?? "PUBLISHED"} className={adminInput}>
             {STATUS_OPTIONS.map((s) => <option key={s.value} value={s.value}>{s.label}</option>)}
           </select>
         </AdminField>
@@ -161,7 +162,7 @@ export function BlogForm({
       </div>
 
       <div className="sticky bottom-0 flex items-center justify-end gap-3 border-t border-white/10 bg-ink-950/80 py-4 backdrop-blur">
-        <a href="/admin/blogs" className={buttonVariants({ variant: "ghost", size: "md", className: "text-ink-300" })}>Cancel</a>
+        <Link href="/admin/blogs" className={buttonVariants({ variant: "ghost", size: "md", className: "text-ink-300" })}>Cancel</Link>
         <button type="submit" disabled={pending} className={buttonVariants({ variant: "gold", size: "md" })}>
           {pending ? <Loader2 className="h-4 w-4 animate-spin" /> : <Save className="h-4 w-4" />}
           {initial ? "Save changes" : "Publish / save"}

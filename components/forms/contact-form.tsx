@@ -4,7 +4,7 @@ import { useActionState } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { CheckCircle2, Loader2, Send } from "lucide-react";
 import { submitContact } from "@/app/actions/contact";
-import type { ContactFormState } from "@/lib/validations/contact";
+import { undecidedAreaSlug, type ContactFormState } from "@/lib/validations/contact";
 import { areas } from "@/config/site";
 import { inputClass, Field } from "@/components/ui/field";
 import { buttonVariants } from "@/components/ui/button";
@@ -30,6 +30,7 @@ export function ContactForm({ compact = false }: { compact?: boolean }) {
 
   return (
     <form action={formAction} className="space-y-4">
+      <input type="hidden" name="locale" value={locale} />
       <div className={compact ? "grid grid-cols-1 gap-4" : "grid grid-cols-1 gap-4 sm:grid-cols-2"}>
         <Field label={t("fullName")} htmlFor="fullName" required error={errors.fullName}>
           <input id="fullName" name="fullName" type="text" autoComplete="name" required placeholder={t("fullNamePlaceholder")} className={inputClass} />
@@ -43,11 +44,9 @@ export function ContactForm({ compact = false }: { compact?: boolean }) {
         <Field label={t("email")} htmlFor="email" required error={errors.email}>
           <input id="email" name="email" type="email" autoComplete="email" required placeholder={t("emailPlaceholder")} className={inputClass} />
         </Field>
-        <Field label={t("area")} htmlFor="area" required error={errors.area}>
-          <select id="area" name="area" required defaultValue="" className={inputClass}>
-            <option value="" disabled>
-              {t("areaPlaceholder")}
-            </option>
+        <Field label={t("area")} htmlFor="area" error={errors.area}>
+          <select id="area" name="area" defaultValue={undecidedAreaSlug} className={inputClass}>
+            <option value={undecidedAreaSlug}>{t("areaPlaceholder")}</option>
             {areas.map((area) => (
               <option key={area.slug} value={area.slug}>
                 {locale === "ar" ? area.ar : area.en}
@@ -60,14 +59,6 @@ export function ContactForm({ compact = false }: { compact?: boolean }) {
       <Field label={t("message")} htmlFor="message" error={errors.message} hint={t("messageHint")}>
         <textarea id="message" name="message" rows={4} placeholder={t("messagePlaceholder")} className={`${inputClass} resize-none`} />
       </Field>
-
-      {/* Honeypot: visually hidden, ignored by real users. */}
-      <div aria-hidden="true" className="absolute start-[-9999px] h-0 w-0 overflow-hidden">
-        <label>
-          Company
-          <input name="company" type="text" tabIndex={-1} autoComplete="off" />
-        </label>
-      </div>
 
       <div className="flex flex-col gap-3 pt-1">
         <button type="submit" disabled={isPending} className={buttonVariants({ variant: "gold", size: "lg", className: "w-full" })}>
