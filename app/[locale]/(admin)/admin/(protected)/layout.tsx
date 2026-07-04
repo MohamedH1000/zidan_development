@@ -5,7 +5,7 @@ import { Link } from "@/i18n/navigation";
 import { authOptions } from "@/lib/auth";
 import { localizedPath } from "@/lib/i18n";
 import type { Locale } from "@/i18n/routing";
-import { LayoutDashboard, Building2, DoorOpen, Newspaper, Users } from "lucide-react";
+import { LayoutDashboard, Building2, DoorOpen, Newspaper, Users, Menu } from "lucide-react";
 import { SignOutButton } from "@/components/admin/sign-out-button";
 import { LanguageToggle } from "@/components/admin/language-toggle";
 import { Logo } from "@/components/layout/logo";
@@ -64,17 +64,48 @@ export default async function AdminProtectedLayout({
         </div>
       </aside>
 
-      <div className="flex flex-1 flex-col">
-        <header className="flex items-center justify-between gap-4 border-b border-white/10 bg-ink-900 px-6 py-4">
-          <p className="font-display text-lg font-semibold">{tHeader("title")}</p>
-          <div className="flex items-center gap-4">
+      <div className="flex min-w-0 flex-1 flex-col">
+        <header className="sticky top-0 z-40 flex items-center justify-between gap-3 border-b border-white/10 bg-ink-900 px-4 py-3 sm:px-6 lg:py-4">
+          <div className="flex min-w-0 items-center gap-3">
+            <details className="group relative lg:hidden">
+              <summary
+                aria-label="Open admin menu"
+                className="flex h-10 w-10 cursor-pointer list-none items-center justify-center rounded-lg border border-white/15 text-ink-200 transition-colors hover:border-gold-500/50 hover:text-gold-400 [&::-webkit-details-marker]:hidden"
+              >
+                <Menu className="h-5 w-5" />
+              </summary>
+              <div className="absolute start-0 top-12 z-50 w-[min(20rem,calc(100vw-2rem))] overflow-hidden rounded-2xl border border-white/10 bg-ink-900 shadow-2xl shadow-black/40">
+                <div className="border-b border-white/10 px-4 py-3">
+                  <Logo tone="light" href={null} />
+                  <p className="mt-2 truncate text-xs text-ink-500">{session.user.email}</p>
+                </div>
+                <nav className="flex flex-col p-2">
+                  {nav.map((item) => (
+                    <Link
+                      key={item.href}
+                      href={item.href}
+                      className="inline-flex items-center gap-2 rounded-lg px-3 py-3 text-sm font-medium text-ink-200 transition-colors hover:bg-white/5 hover:text-cream"
+                    >
+                      <item.icon className="h-4 w-4" />
+                      {item.label}
+                    </Link>
+                  ))}
+                </nav>
+                <div className="border-t border-white/10 p-2">
+                  <SignOutButton />
+                </div>
+              </div>
+            </details>
+            <p className="truncate font-display text-base font-semibold sm:text-lg">{tHeader("title")}</p>
+          </div>
+          <div className="flex shrink-0 items-center gap-2 sm:gap-4">
             <LanguageToggle />
             <Link href="/" className="text-xs font-medium text-gold-400 hover:text-gold-300">
               {tHeader("viewSite")}
             </Link>
           </div>
         </header>
-        <main className="flex-1 overflow-y-auto p-6 lg:p-8">{children}</main>
+        <main className="min-w-0 flex-1 overflow-y-auto px-4 py-5 sm:px-6 lg:p-8">{children}</main>
       </div>
     </div>
   );

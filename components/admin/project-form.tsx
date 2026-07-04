@@ -153,9 +153,9 @@ export function ProjectForm({ initial }: { initial?: Project }) {
         <input type="file" name="render3d" accept="image/*" className={`${adminInput} file:mr-3 file:rounded file:border-0 file:bg-white/10 file:px-3 file:py-1 file:text-cream`} />
       </AdminField>
 
-      <div className="sticky bottom-0 flex items-center justify-end gap-3 border-t border-white/10 bg-ink-950/80 py-4 backdrop-blur">
-        <Link href="/admin/projects" className={buttonVariants({ variant: "ghost", size: "md", className: "text-ink-300" })}>{t("actions.cancel")}</Link>
-        <button type="submit" disabled={pending} className={buttonVariants({ variant: "gold", size: "md" })}>
+      <div className="sticky bottom-0 flex flex-col-reverse items-stretch gap-3 border-t border-white/10 bg-ink-950/90 py-4 backdrop-blur sm:flex-row sm:items-center sm:justify-end">
+        <Link href="/admin/projects" className={buttonVariants({ variant: "ghost", size: "md", className: "justify-center text-ink-300" })}>{t("actions.cancel")}</Link>
+        <button type="submit" disabled={pending} className={buttonVariants({ variant: "gold", size: "md", className: "justify-center" })}>
           {pending ? <Spinner /> : <Save className="h-4 w-4" />}
           {initial ? t("actions.saveChanges") : t("actions.createProject")}
         </button>

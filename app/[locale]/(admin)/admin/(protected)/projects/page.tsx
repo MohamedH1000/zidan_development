@@ -15,18 +15,18 @@ export default async function AdminProjectsPage() {
 
   return (
     <div>
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <h1 className="font-display text-3xl font-semibold">{t("nav.projects")}</h1>
           <p className="mt-1 text-sm text-ink-400">{t("lists.projects.count", { count: projects.length })}</p>
         </div>
-        <Link href="/admin/projects/new" className={buttonVariants({ variant: "gold", size: "md" })}>
+        <Link href="/admin/projects/new" className={buttonVariants({ variant: "gold", size: "md", className: "w-full sm:w-auto" })}>
           <Plus className="h-4 w-4" /> {t("actions.newProject")}
         </Link>
       </div>
 
-      <div className="mt-8 overflow-hidden rounded-2xl border border-white/10">
-        <table className="w-full text-sm">
+      <div className="-mx-4 mt-6 overflow-x-auto border-y border-white/10 sm:mx-0 sm:mt-8 sm:rounded-2xl sm:border">
+        <table className="min-w-[760px] w-full text-sm">
           <thead className="bg-white/5 text-left text-xs uppercase tracking-wide text-ink-400">
             <tr>
               <th className="px-4 py-3">{t("tables.name")}</th>

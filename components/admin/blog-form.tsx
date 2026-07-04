@@ -159,9 +159,9 @@ export function BlogForm({
         <AdminField label={t("forms.fields.twitterHandle")}><input name="twitterHandle" defaultValue={initial?.twitterHandle ?? ""} placeholder="@zidandev" className={adminInput} /></AdminField>
       </div>
 
-      <div className="sticky bottom-0 flex items-center justify-end gap-3 border-t border-white/10 bg-ink-950/80 py-4 backdrop-blur">
-        <Link href="/admin/blogs" className={buttonVariants({ variant: "ghost", size: "md", className: "text-ink-300" })}>{t("actions.cancel")}</Link>
-        <button type="submit" disabled={pending} className={buttonVariants({ variant: "gold", size: "md" })}>
+      <div className="sticky bottom-0 flex flex-col-reverse items-stretch gap-3 border-t border-white/10 bg-ink-950/90 py-4 backdrop-blur sm:flex-row sm:items-center sm:justify-end">
+        <Link href="/admin/blogs" className={buttonVariants({ variant: "ghost", size: "md", className: "justify-center text-ink-300" })}>{t("actions.cancel")}</Link>
+        <button type="submit" disabled={pending} className={buttonVariants({ variant: "gold", size: "md", className: "justify-center" })}>
           {pending ? <Spinner /> : <Save className="h-4 w-4" />}
           {initial ? t("actions.saveChanges") : t("actions.publishSave")}
         </button>

@@ -68,6 +68,9 @@ Last verified build: 2026-07-04 · Next.js 16.2.9 · React 19 · Turbopack.
 - [x] Admin dashboard pages, CRUD lists, delete actions, and admin forms use the
   same EN/AR message catalogs, so the admin language toggle localizes page
   content and not only the sidebar shell.
+- [x] Admin dashboard is responsive: desktop keeps the sidebar, mobile uses a
+  header menu, CRUD headers stack, tables scroll horizontally, and form action
+  bars become full-width touch targets.
 - [x] Header **language toggle** (EN ⇄ ع), RTL throughout
 
 ### Forms & backend

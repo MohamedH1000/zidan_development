@@ -52,9 +52,9 @@ export function UserForm({ initial }: { initial?: AdminUser }) {
         {t("forms.fields.activeCanSignIn")}
       </label>
 
-      <div className="flex items-center justify-end gap-3 pt-2">
-        <Link href="/admin/users" className={buttonVariants({ variant: "ghost", size: "md", className: "text-ink-300" })}>{t("actions.cancel")}</Link>
-        <button type="submit" disabled={pending} className={buttonVariants({ variant: "gold", size: "md" })}>
+      <div className="flex flex-col-reverse items-stretch gap-3 pt-2 sm:flex-row sm:items-center sm:justify-end">
+        <Link href="/admin/users" className={buttonVariants({ variant: "ghost", size: "md", className: "justify-center text-ink-300" })}>{t("actions.cancel")}</Link>
+        <button type="submit" disabled={pending} className={buttonVariants({ variant: "gold", size: "md", className: "justify-center" })}>
           {pending ? <Spinner /> : <Save className="h-4 w-4" />}
           {initial ? t("actions.saveUser") : t("actions.createUser")}
         </button>
