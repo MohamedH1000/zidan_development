@@ -13,7 +13,8 @@
     "requestCallBack": "اطلب معاودة الاتصال",
     "by": "بقلم {author}",
     "languageLabel": "اللغة",
-    "switchTo": "English"
+    "switchTo": "English",
+    "loading": "جارٍ التحميل…"
   },
   "nav": {
     "home": "الرئيسية",

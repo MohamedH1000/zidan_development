@@ -2,12 +2,13 @@
 
 import { useRef, useState, useActionState } from "react";
 import { useLocale, useTranslations } from "next-intl";
-import { CheckCircle2, Loader2, Send, Upload } from "lucide-react";
+import { CheckCircle2, Send, Upload } from "lucide-react";
 import { submitCareers } from "@/app/actions/careers";
 import type { CareersFormState } from "@/lib/validations/careers";
 import { ALLOWED_CV_EXT } from "@/lib/validations/careers";
 import { inputClass, Field, FieldError } from "@/components/ui/field";
 import { buttonVariants } from "@/components/ui/button";
+import { Spinner } from "@/components/ui/spinner";
 import { Link } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
 
@@ -127,7 +128,7 @@ export function CareersForm() {
       <button type="submit" disabled={isPending} className={buttonVariants({ variant: "gold", size: "lg", className: "w-full" })}>
         {isPending ? (
           <>
-            <Loader2 className="h-4 w-4 animate-spin" /> {t("submitting")}
+            <Spinner /> {t("submitting")}
           </>
         ) : (
           <>

@@ -1,4 +1,5 @@
 import { cn } from "@/lib/utils";
+import { Spinner } from "@/components/ui/spinner";
 
 export type ButtonVariant = "primary" | "dark" | "gold" | "outline" | "ghost";
 export type ButtonSize = "sm" | "md" | "lg";
@@ -38,24 +39,38 @@ export function buttonVariants({
 /**
  * Renders a <button> by default, or an <a> when `href` is supplied.
  * For internal navigation use <Link className={buttonVariants(...)} />.
+ *
+ * `loading` (button only) prepends a Spinner and disables the button while an
+ * async action is pending. Callers that use `buttonVariants()` on a raw
+ * <button> should render <Spinner /> themselves (see the forms).
  */
 export function Button({
   variant,
   size,
   className,
   href,
+  loading = false,
   ...props
 }: {
   variant?: ButtonVariant;
   size?: ButtonSize;
   className?: string;
+  loading?: boolean;
 } & (
   | (React.ButtonHTMLAttributes<HTMLButtonElement> & { href?: undefined })
   | (React.AnchorHTMLAttributes<HTMLAnchorElement> & { href: string })
 )) {
   const classes = buttonVariants({ variant, size, className });
   if (typeof href === "string") {
-    return <a className={classes} href={href} {...(props as React.AnchorHTMLAttributes<HTMLAnchorElement>)} />;
+    return (
+      <a className={classes} href={href} {...(props as React.AnchorHTMLAttributes<HTMLAnchorElement>)} />
+    );
   }
-  return <button className={classes} {...(props as React.ButtonHTMLAttributes<HTMLButtonElement>)} />;
+  const { disabled, children, ...rest } = props as React.ButtonHTMLAttributes<HTMLButtonElement>;
+  return (
+    <button className={classes} disabled={disabled || loading} {...rest}>
+      {loading ? <Spinner className="h-4 w-4" /> : null}
+      {children}
+    </button>
+  );
 }

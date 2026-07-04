@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Plus_Jakarta_Sans, Tajawal, Great_Vibes } from "next/font/google";
+import { Plus_Jakarta_Sans, Cairo, Great_Vibes } from "next/font/google";
 import { notFound } from "next/navigation";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages, setRequestLocale } from "next-intl/server";
@@ -15,18 +15,20 @@ import { getCompany } from "@/content/company";
 
 // English UI/display: Plus Jakarta Sans (clean, well-structured geometric sans).
 // Arabic: Cairo (modern, legible). The font stack falls through per-glyph, so
-// Latin text renders in Jakarta and Arabic glyphs in Cairo automatically.
+// Latin text renders in Jakarta and Arabic glyphs in Cairo automatically. The
+// explicit html[lang="ar"] rule in globals.css forces Cairo on Arabic pages so
+// it applies reliably across all browsers/devices (not just via stack fallback).
 const jakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
   variable: "--font-jakarta",
   display: "swap",
   weight: ["400", "500", "600", "700", "800"],
 });
-const arabic = Tajawal({
+const arabic = Cairo({
   subsets: ["arabic", "latin"],
   variable: "--font-arabic",
   display: "swap",
-  weight: ["400", "500", "700", "800"],
+  weight: ["400", "500", "600", "700", "800"],
 });
 const greatVibes = Great_Vibes({ subsets: ["latin"], variable: "--font-great-vibes", display: "swap", weight: ["400"] });
 

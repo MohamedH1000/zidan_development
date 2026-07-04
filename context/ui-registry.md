@@ -15,7 +15,7 @@ components by default; client ones are marked. Import via the `@/` alias.
 |-----------|------|-------------|
 | `Container` | server | `className`, `as`. `max-w-7xl` + responsive gutters. |
 | `Section` | server | `id`, `tone="light\|cream\|dark\|gold"`, `className`, `containerClassName`. Owns Container. |
-| `Button` / `buttonVariants` | server | `variant`, `size`, `href?`. Use `buttonVariants()` for `<Link>`. |
+| `Button` / `buttonVariants` | server | `variant`, `size`, `href?`, `loading?` (button only — prepends `<Spinner />` + disables). Use `buttonVariants()` for `<Link>`/raw `<button>` and render `<Spinner />` yourself while pending. |
 | `SectionHeading` | server | `eyebrow?`, `title`, `description?`, `align`, `tone="light\|dark"`. |
 | `Badge` | server | `tone="neutral\|gold\|dark\|outline"`. |
 | `Card` | server | `interactive`. Base surface; prefer dedicated cards. |
@@ -23,6 +23,8 @@ components by default; client ones are marked. Import via the `@/` alias.
 | `Reveal` / `Stagger` / `StaggerItem` | **client** | Scroll reveal. `direction`, `delay`, `stagger`. Reduced-motion aware. |
 | `Counter` | **client** | `value`, `prefix?`, `suffix?`, `duration?`. Animates in view. |
 | `Marquee` | **client** | `items`, `reverse?`, `separator?`. Pauses on hover. |
+| `Spinner` | server | `className?`. Single source of truth for inline/button loading spinners (lucide `Loader2` + `animate-spin`). Reduced-motion collapses the spin via global CSS. |
+| `loading.tsx` (`app/[locale]/`) | server (async) | The single Suspense fallback for **every** route under `[locale]`. Cinematic black bg + Zidan logo + gold left→right sweep (`animate-loader-sweep`/`animate-loader-fade-in`, defined in globals.css). Localized sr-only label via `common.loading`. |
 
 ## Layout — `components/layout/`
 

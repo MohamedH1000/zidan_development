@@ -2,12 +2,13 @@
 
 import { useActionState } from "react";
 import { useLocale, useTranslations } from "next-intl";
-import { CheckCircle2, Loader2, Send } from "lucide-react";
+import { CheckCircle2, Send } from "lucide-react";
 import { submitContact } from "@/app/actions/contact";
 import { undecidedAreaSlug, type ContactFormState } from "@/lib/validations/contact";
 import { areas } from "@/config/site";
 import { inputClass, Field } from "@/components/ui/field";
 import { buttonVariants } from "@/components/ui/button";
+import { Spinner } from "@/components/ui/spinner";
 
 const initialState: ContactFormState = { status: "idle" };
 
@@ -64,7 +65,7 @@ export function ContactForm({ compact = false }: { compact?: boolean }) {
         <button type="submit" disabled={isPending} className={buttonVariants({ variant: "gold", size: "lg", className: "w-full" })}>
           {isPending ? (
             <>
-              <Loader2 className="h-4 w-4 animate-spin" /> {t("sending")}
+              <Spinner /> {t("sending")}
             </>
           ) : (
             <>

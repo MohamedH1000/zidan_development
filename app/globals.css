@@ -8,7 +8,7 @@
 @theme {
   /* Typography — variables wired in app/[locale]/layout.tsx via next/font.
    * English (Latin) glyphs render in Plus Jakarta Sans; Arabic glyphs fall
-   * through the stack to Tajawal. Display (headings) is the same sans family,
+   * through the stack to Cairo. Display (headings) is the same sans family,
    * kept clean and well-structured. */
   --font-sans: var(--font-jakarta), var(--font-arabic), ui-sans-serif, system-ui, sans-serif;
   --font-display: var(--font-jakarta), var(--font-arabic), Georgia, serif;
@@ -51,6 +51,8 @@
   --animate-shimmer: shimmer 2.4s linear infinite;
   --animate-float: float 7s ease-in-out infinite;
   --animate-pulse-soft: pulse-soft 3.2s ease-in-out infinite;
+  --animate-loader-fade-in: loader-fade-in 0.5s ease-out both;
+  --animate-loader-sweep: loader-sweep 1.3s ease-in-out infinite;
 }
 
 @keyframes marquee {
@@ -73,6 +75,14 @@
   0%, 100% { opacity: 0.55; }
   50% { opacity: 1; }
 }
+@keyframes loader-fade-in {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes loader-sweep {
+  0% { transform: translateX(-110%); }
+  100% { transform: translateX(260%); }
+}
 
 @layer base {
   html {
@@ -86,6 +96,12 @@
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
+  }
+
+  /* Force the Arabic font on Arabic pages so it applies reliably on every
+   * browser/device, instead of depending on per-glyph stack fallback. */
+  html[lang="ar"] body {
+    font-family: var(--font-arabic), var(--font-sans);
   }
 
   ::selection {

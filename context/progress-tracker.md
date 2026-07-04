@@ -32,13 +32,13 @@ Build + lint pass with 0 errors.
   **Pending:** Phase C — wire the public projects/units pages to read Postgres
   via Prisma + ISR (currently they still read the static `content/*` files).
 
-Last verified build: 2026-06-30 · Next.js 16.2.9 · React 19 · Turbopack.
+Last verified build: 2026-07-04 · Next.js 16.2.9 · React 19 · Turbopack.
 
 ## Progress
 
 ### Foundation
 - [x] Next.js 16 App Router + TypeScript strict + Tailwind v4 tokens
-- [x] Design system: tokens, fonts (Plus Jakarta Sans [EN] + Tajawal [AR] + Great Vibes), primitives
+- [x] Design system: tokens, fonts (Plus Jakarta Sans [EN] + Cairo [AR] + Great Vibes), primitives
 - [x] Layout shell: sticky Header, Footer, PageHero, ScrollProgress, 404
 - [x] `cn()` util, `buttonVariants`, `Section`/`Container`/`SectionHeading`
 
@@ -75,6 +75,11 @@ Last verified build: 2026-06-30 · Next.js 16.2.9 · React 19 · Turbopack.
 - [x] Parallax hero, staggered reveals, animated counters, marquee
 - [x] Filter pills + accordion (shared `layoutId` springs)
 - [x] `prefers-reduced-motion` handling (hooks + global CSS)
+- [x] Loading UI: cinematic `app/[locale]/loading.tsx` (black bg, Zidan logo,
+  gold left→right sweep) is the single Suspense fallback for every route under
+  `[locale]` (marketing + admin). Unified `<Spinner />` + `Button` `loading`
+  prop; all action buttons (contact, careers, admin login + CRUD, delete) show
+  a pending spinner. CSS-only, hydration-free, reduced-motion safe.
 
 ### SEO
 - [x] Per-page `generateMetadata` (incl. home), `metadataBase`, canonical, hreflang
@@ -101,14 +106,19 @@ Last verified build: 2026-06-30 · Next.js 16.2.9 · React 19 · Turbopack.
 - **Middleware:** renamed `middleware.ts` → `proxy.ts` (Next 16 deprecation).
 - **Locale prefix in metadata:** localized via `localizedPath()`.
 - **Fonts:** English = Plus Jakarta Sans (clean, structured; replaces Inter +
-  Playfair Display). Arabic = Tajawal (replaced Cairo). Great Vibes kept only
-  for Latin script accents. Per-glyph CSS fallback (Jakarta → Tajawal) means no
-  per-locale font CSS.
+  Playfair Display). Arabic = Cairo (modern, legible). Great Vibes kept only
+  for Latin script accents. Cairo is applied both via per-glyph stack fallback
+  (Jakarta → Cairo) and an explicit `html[lang="ar"] body` rule in globals.css,
+  so it renders reliably on every browser/device (the fallback chain alone was
+  being dropped in some laptop environments, leaving Arabic in a generic font).
 - **Dev CSP:** `script-src` adds `'unsafe-eval'` only when `NODE_ENV ===
   "development"` (React dev runtime needs eval for stack reconstruction; never
   in prod). See `next.config.ts` `buildSecurityHeaders()`.
 - **`suppressHydrationWarning` on `<body>`:** silences false hydration mismatches
-  caused by browser extensions injecting attributes (e.g. `bis_register`).
+  caused by browser extensions injecting attributes (e.g. Bitdefender's
+  `bis_skin_checked`, `bis_register`). The home-page hydration warning users see
+  is this extension noise — the code is hydration-safe (verified). Fix is
+  environmental (disable extension / Incognito), not code.
 - **Arabic punctuation:** Arabic sentences never end with a trailing `.`.
   Enforced in `lib/i18n.ts` `pick`/`pickList` (content) and `messages/ar.json`
   (UI strings) via `scripts/fix-ar-periods.mjs`.

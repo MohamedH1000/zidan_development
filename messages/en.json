@@ -13,7 +13,8 @@
     "requestCallBack": "Request a call back",
     "by": "By {author}",
     "languageLabel": "Language",
-    "switchTo": "العربية"
+    "switchTo": "العربية",
+    "loading": "Loading…"
   },
   "nav": {
     "home": "Home",

@@ -4,8 +4,9 @@ import { useState, useTransition } from "react";
 import { useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { signIn } from "next-auth/react";
-import { Loader2, LogIn } from "lucide-react";
+import { LogIn } from "lucide-react";
 import { Logo } from "@/components/layout/logo";
+import { Spinner } from "@/components/ui/spinner";
 import { LanguageToggle } from "@/components/admin/language-toggle";
 
 export function LoginForm() {
@@ -74,7 +75,7 @@ export function LoginForm() {
               className="inline-flex h-11 w-full items-center justify-center gap-2 rounded-lg bg-gold-500 text-sm font-semibold text-ink-950 transition-colors hover:bg-gold-400 disabled:opacity-60"
             >
               {pending ? (
-                <Loader2 className="h-4 w-4 animate-spin" />
+                <Spinner />
               ) : (
                 <>
                   <LogIn className="h-4 w-4" /> {t("submit")}

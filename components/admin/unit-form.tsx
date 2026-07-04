@@ -2,11 +2,12 @@
 
 import { useActionState } from "react";
 import Image from "next/image";
-import { Loader2, Save } from "lucide-react";
+import { Save } from "lucide-react";
 import type { Unit } from "@prisma/client";
 import { saveUnit, type UnitFormState } from "@/app/actions/admin-units";
 import { AdminField, AdminSection, adminInput } from "@/components/admin/field";
 import { buttonVariants } from "@/components/ui/button";
+import { Spinner } from "@/components/ui/spinner";
 import { Link } from "@/i18n/navigation";
 
 const AVAIL_OPTIONS: { value: string; label: string }[] = [
@@ -88,7 +89,7 @@ export function UnitForm({
       <div className="sticky bottom-0 flex items-center justify-end gap-3 border-t border-white/10 bg-ink-950/80 py-4 backdrop-blur">
         <Link href="/admin/units" className={buttonVariants({ variant: "ghost", size: "md", className: "text-ink-300" })}>Cancel</Link>
         <button type="submit" disabled={pending} className={buttonVariants({ variant: "gold", size: "md" })}>
-          {pending ? <Loader2 className="h-4 w-4 animate-spin" /> : <Save className="h-4 w-4" />}
+          {pending ? <Spinner /> : <Save className="h-4 w-4" />}
           {initial ? "Save changes" : "Create unit"}
         </button>
       </div>
