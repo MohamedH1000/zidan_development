@@ -1,6 +1,8 @@
 import type { Locale } from "@/i18n/routing";
 import { pick } from "@/lib/i18n";
 
+const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL || "https://zidan-development.vercel.app").replace(/\/$/, "");
+
 /**
  * Central, type-safe site configuration.
  * Every page, the header, the footer and SEO defaults read from this single
@@ -20,8 +22,8 @@ export const siteConfig = {
   description:
     "Zidan Development is an Egyptian real estate developer building lasting value across New Cairo's most strategic districts — Al Narges, Bait Al Watan, Al Andalus, Lotus and beyond — through intelligent planning, precise execution and uncompromising quality.",
 
-  /** Canonical production URL. Update before deploying to the final domain. */
-  url: "https://zidandevelopment.com",
+  /** Canonical production URL. Set NEXT_PUBLIC_SITE_URL when attaching a custom domain. */
+  url: siteUrl,
   locale: "en_US",
 
   contact: {
