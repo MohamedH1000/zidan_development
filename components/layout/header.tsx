@@ -313,7 +313,13 @@ export function Header({ projects = [] }: { projects?: { slug: string; name: str
               <Link
                 href="/contact"
                 onClick={() => setMobileOpen(false)}
-                className={buttonVariants({ variant: "gold", size: "md", className: "mt-3" })}
+                className={buttonVariants({
+                  variant: "gold",
+                  size: "md",
+                  // shrink-0: keep the fixed h-12 height on short screens so the
+                  // scrollable menu scrolls instead of squashing the CTA.
+                  className: "mt-3 shrink-0",
+                })}
               >
                 {tCommon("getInTouch")}
               </Link>
