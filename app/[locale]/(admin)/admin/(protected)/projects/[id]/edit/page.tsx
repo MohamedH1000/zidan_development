@@ -1,4 +1,5 @@
 import { notFound } from "next/navigation";
+import { getTranslations } from "next-intl/server";
 import { prisma } from "@/lib/prisma";
 import { ProjectForm } from "@/components/admin/project-form";
 
@@ -7,13 +8,14 @@ export default async function EditProjectPage({
 }: {
   params: Promise<{ id: string }>;
 }) {
+  const t = await getTranslations("admin.pages");
   const { id } = await params;
   const project = await prisma.project.findUnique({ where: { id } });
   if (!project) notFound();
 
   return (
     <div>
-      <h1 className="font-display text-3xl font-semibold">Edit project</h1>
+      <h1 className="font-display text-3xl font-semibold">{t("editProjectTitle")}</h1>
       <p className="mt-1 text-sm text-ink-400">{project.nameEn} · /{project.slug}</p>
       <div className="mt-6 max-w-4xl">
         <ProjectForm initial={project} />

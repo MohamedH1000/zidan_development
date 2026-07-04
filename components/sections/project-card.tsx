@@ -25,7 +25,7 @@ export function ProjectCard({ project }: { project: ProjectArea }) {
               src={project.images[0]}
               alt={project.name}
               fill
-              sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
+              sizes="(min-width: 1280px) 356px, (min-width: 1024px) 30vw, (min-width: 768px) 45vw, 100vw"
               className="object-cover"
             />
           ) : (

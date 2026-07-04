@@ -65,6 +65,9 @@ Last verified build: 2026-07-04 · Next.js 16.2.9 · React 19 · Turbopack.
 - [x] `routing`/`navigation`/`request` config, `proxy.ts` middleware
 - [x] `app/[locale]` routing, locale-aware root layout (`lang`/`dir`)
 - [x] `messages/{en,ar}.json` UI catalogs (in sync)
+- [x] Admin dashboard pages, CRUD lists, delete actions, and admin forms use the
+  same EN/AR message catalogs, so the admin language toggle localizes page
+  content and not only the sidebar shell.
 - [x] Header **language toggle** (EN ⇄ ع), RTL throughout
 
 ### Forms & backend
@@ -74,6 +77,9 @@ Last verified build: 2026-07-04 · Next.js 16.2.9 · React 19 · Turbopack.
 
 ### Motion
 - [x] Parallax hero, staggered reveals, animated counters, marquee
+- [x] Hero LCP text renders statically without entrance opacity/transform so
+  PageSpeed does not wait on a client-side text animation before painting the
+  main heading.
 - [x] Filter pills + accordion (shared `layoutId` springs)
 - [x] `prefers-reduced-motion` handling (hooks + global CSS)
 - [x] Loading UI: cinematic `app/[locale]/loading.tsx` (black bg, Zidan logo,

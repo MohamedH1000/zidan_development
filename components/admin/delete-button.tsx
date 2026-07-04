@@ -1,6 +1,7 @@
 "use client";
 
 import { useTransition } from "react";
+import { useTranslations } from "next-intl";
 import { Trash2 } from "lucide-react";
 import { Spinner } from "@/components/ui/spinner";
 
@@ -12,28 +13,30 @@ import { Spinner } from "@/components/ui/spinner";
 export function DeleteButton({
   action,
   id,
-  confirmMessage = "Delete this item? This cannot be undone.",
+  confirmMessage,
 }: {
   action: (id: string) => Promise<void>;
   id: string;
   confirmMessage?: string;
 }) {
+  const t = useTranslations("admin.actions");
   const [pending, startTransition] = useTransition();
+  const message = confirmMessage ?? t("confirmDelete");
 
   return (
     <button
       type="button"
       disabled={pending}
       onClick={() => {
-        if (!window.confirm(confirmMessage)) return;
+        if (!window.confirm(message)) return;
         startTransition(() => {
           void action(id);
         });
       }}
       className="inline-flex items-center gap-1 text-xs font-medium text-red-400 transition-colors hover:text-red-300 disabled:opacity-60"
-      title="Delete"
+      title={t("delete")}
     >
-      {pending ? <Spinner className="h-3.5 w-3.5" /> : <Trash2 className="h-3.5 w-3.5" />} Delete
+      {pending ? <Spinner className="h-3.5 w-3.5" /> : <Trash2 className="h-3.5 w-3.5" />} {t("delete")}
     </button>
   );
 }

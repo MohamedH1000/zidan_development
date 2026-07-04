@@ -1,6 +1,7 @@
 "use client";
 
 import { useActionState } from "react";
+import { useTranslations } from "next-intl";
 import { Save } from "lucide-react";
 import type { AdminUser } from "@prisma/client";
 import { saveUser, type UserFormState } from "@/app/actions/admin-users";
@@ -16,6 +17,7 @@ const ROLES = [
 ];
 
 export function UserForm({ initial }: { initial?: AdminUser }) {
+  const t = useTranslations("admin");
   const [state, formAction, pending] = useActionState<UserFormState, FormData>(saveUser, undefined);
 
   return (
@@ -26,35 +28,35 @@ export function UserForm({ initial }: { initial?: AdminUser }) {
         <p className="rounded-lg bg-red-500/10 px-4 py-2 text-sm text-red-400">{state.error}</p>
       ) : null}
 
-      <AdminField label="Name">
+      <AdminField label={t("tables.name")}>
         <input name="name" defaultValue={initial?.name ?? ""} className={adminInput} />
       </AdminField>
-      <AdminField label="Email *">
+      <AdminField label={t("forms.fields.emailRequired")}>
         <input name="email" type="email" required defaultValue={initial?.email ?? ""} className={adminInput} />
       </AdminField>
-      <AdminField label="Role">
+      <AdminField label={t("tables.role")}>
         <select name="role" defaultValue={initial?.role ?? "AUTHOR"} className={adminInput}>
-          {ROLES.map((r) => <option key={r.value} value={r.value}>{r.label}</option>)}
+          {ROLES.map((r) => <option key={r.value} value={r.value}>{t(`roleDescriptions.${r.value}`)}</option>)}
         </select>
       </AdminField>
       <AdminField
-        label={initial ? "New password (optional)" : "Password *"}
-        hint={initial ? "Leave blank to keep the current password." : "Min 8 characters."}
+        label={initial ? t("forms.fields.newPasswordOptional") : t("forms.fields.passwordRequired")}
+        hint={initial ? t("forms.hints.keepPassword") : t("forms.hints.minPassword")}
       >
         <input name="password" type="password" required={!initial} minLength={initial ? 0 : 8} placeholder="••••••••" className={adminInput} />
       </AdminField>
 
-      <AdminSection title="Status" />
+      <AdminSection title={t("tables.status")} />
       <label className="inline-flex items-center gap-2 text-sm text-ink-300">
         <input type="checkbox" name="active" defaultChecked={initial?.active ?? true} className="h-4 w-4 rounded border-white/20 text-gold-500" />
-        Active (can sign in)
+        {t("forms.fields.activeCanSignIn")}
       </label>
 
       <div className="flex items-center justify-end gap-3 pt-2">
-        <Link href="/admin/users" className={buttonVariants({ variant: "ghost", size: "md", className: "text-ink-300" })}>Cancel</Link>
+        <Link href="/admin/users" className={buttonVariants({ variant: "ghost", size: "md", className: "text-ink-300" })}>{t("actions.cancel")}</Link>
         <button type="submit" disabled={pending} className={buttonVariants({ variant: "gold", size: "md" })}>
           {pending ? <Spinner /> : <Save className="h-4 w-4" />}
-          {initial ? "Save user" : "Create user"}
+          {initial ? t("actions.saveUser") : t("actions.createUser")}
         </button>
       </div>
     </form>

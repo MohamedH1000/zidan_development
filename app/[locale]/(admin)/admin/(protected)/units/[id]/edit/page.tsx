@@ -1,4 +1,5 @@
 import { notFound } from "next/navigation";
+import { getTranslations } from "next-intl/server";
 import { prisma } from "@/lib/prisma";
 import { UnitForm } from "@/components/admin/unit-form";
 
@@ -7,6 +8,7 @@ export default async function EditUnitPage({
 }: {
   params: Promise<{ id: string }>;
 }) {
+  const t = await getTranslations("admin.pages");
   const { id } = await params;
   const [unit, projects] = await Promise.all([
     prisma.unit.findUnique({ where: { id } }),
@@ -16,7 +18,7 @@ export default async function EditUnitPage({
 
   return (
     <div>
-      <h1 className="font-display text-3xl font-semibold">Edit unit</h1>
+      <h1 className="font-display text-3xl font-semibold">{t("editUnitTitle")}</h1>
       <p className="mt-1 text-sm text-ink-400">{unit.slug}</p>
       <div className="mt-6 max-w-3xl">
         <UnitForm initial={unit} projects={projects} />

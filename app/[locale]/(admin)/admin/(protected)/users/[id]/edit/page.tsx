@@ -1,4 +1,5 @@
 import { notFound } from "next/navigation";
+import { getTranslations } from "next-intl/server";
 import { prisma } from "@/lib/prisma";
 import { UserForm } from "@/components/admin/user-form";
 
@@ -7,13 +8,14 @@ export default async function EditUserPage({
 }: {
   params: Promise<{ id: string }>;
 }) {
+  const t = await getTranslations("admin.pages");
   const { id } = await params;
   const user = await prisma.adminUser.findUnique({ where: { id } });
   if (!user) notFound();
 
   return (
     <div>
-      <h1 className="font-display text-3xl font-semibold">Edit user</h1>
+      <h1 className="font-display text-3xl font-semibold">{t("editUserTitle")}</h1>
       <p className="mt-1 text-sm text-ink-400">{user.email}</p>
       <div className="mt-6">
         <UserForm initial={user} />

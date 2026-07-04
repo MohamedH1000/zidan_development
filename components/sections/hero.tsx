@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef } from "react";
-import { motion, useReducedMotion, useScroll, useTransform, type Variants } from "motion/react";
+import { motion, useReducedMotion, useScroll, useTransform } from "motion/react";
 import { useTranslations } from "next-intl";
 import { ArrowRight, Phone } from "lucide-react";
 import { Link } from "@/i18n/navigation";
@@ -25,17 +25,6 @@ export function Hero({
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
   const bgY = useTransform(scrollYProgress, [0, 1], ["0%", reduced ? "0%" : "22%"]);
   const bgScale = useTransform(scrollYProgress, [0, 1], [1, reduced ? 1 : 1.12]);
-  const contentY = useTransform(scrollYProgress, [0, 1], ["0%", reduced ? "0%" : "30%"]);
-  const contentOpacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
-
-  const container: Variants = {
-    hidden: {},
-    visible: { transition: { staggerChildren: reduced ? 0 : 0.12, delayChildren: 0.1 } },
-  };
-  const item: Variants = {
-    hidden: { opacity: 0, y: reduced ? 0 : 24 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] } },
-  };
 
   return (
     <section ref={ref} className="relative flex min-h-[100svh] items-center overflow-hidden bg-ink-950 text-cream">
@@ -45,35 +34,26 @@ export function Hero({
       <div className="absolute inset-0 bg-gradient-to-b from-ink-950/80 via-ink-950/55 to-ink-950" />
       <div className="grain-overlay absolute inset-0 opacity-40" aria-hidden="true" />
 
-      <motion.div
-        style={{ y: contentY, opacity: contentOpacity }}
-        className="relative mx-auto w-full max-w-7xl px-5 py-32 sm:px-8 lg:px-12"
-      >
-        <motion.div variants={container} initial="hidden" animate="visible">
-          <motion.span
-            variants={item}
-            className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.3em] text-gold-400"
-          >
+      <div className="relative mx-auto w-full max-w-7xl px-5 py-32 sm:px-8 lg:px-12">
+        <div>
+          <span className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.3em] text-gold-400">
             <span className="h-px w-8 bg-gold-400/60" />
             <span dir="rtl">{content.taglineAr}</span>
             <span className="text-cream/40">·</span>
             <span>{content.tagline}</span>
-          </motion.span>
+          </span>
 
-          <motion.h1
-            variants={item}
-            className="mt-6 max-w-4xl font-display text-5xl font-semibold leading-[1.02] tracking-tight text-balance sm:text-6xl lg:text-7xl"
-          >
+          <h1 className="mt-6 max-w-4xl font-display text-5xl font-semibold leading-[1.02] tracking-tight text-balance sm:text-6xl lg:text-7xl">
             {content.headline[0]}
             <br />
             <span className="text-gold-gradient">{content.headline[1]}</span>
-          </motion.h1>
+          </h1>
 
-          <motion.p variants={item} className="mt-6 max-w-xl text-base leading-relaxed text-cream/75 sm:text-lg">
+          <p className="mt-6 max-w-xl text-base leading-relaxed text-cream/75 sm:text-lg">
             {content.subtitle}
-          </motion.p>
+          </p>
 
-          <motion.div variants={item} className="mt-9 flex flex-col gap-3 sm:flex-row sm:items-center">
+          <div className="mt-9 flex flex-col gap-3 sm:flex-row sm:items-center">
             <Link href="/projects" className={buttonVariants({ variant: "gold", size: "lg" })}>
               {tCommon("exploreAvailability")} <ArrowRight className="h-4 w-4 rtl:rotate-180" />
             </Link>
@@ -87,9 +67,9 @@ export function Hero({
             >
               <Phone className="h-4 w-4" /> {siteConfig.contact.phoneDisplay}
             </a>
-          </motion.div>
-        </motion.div>
-      </motion.div>
+          </div>
+        </div>
+      </div>
 
       <motion.div
         initial={{ opacity: 0 }}

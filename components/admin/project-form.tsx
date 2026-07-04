@@ -2,6 +2,7 @@
 
 import { useActionState, useState } from "react";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 import { Trash2, Save } from "lucide-react";
 import type { Project } from "@prisma/client";
 import { saveProject, type ProjectFormState } from "@/app/actions/admin-projects";
@@ -10,12 +11,7 @@ import { buttonVariants } from "@/components/ui/button";
 import { Spinner } from "@/components/ui/spinner";
 import { Link } from "@/i18n/navigation";
 
-const STATUS_OPTIONS: { value: string; label: string }[] = [
-  { value: "Available", label: "Available" },
-  { value: "UnderConstruction", label: "Under Construction" },
-  { value: "Delivered", label: "Delivered" },
-  { value: "ComingSoon", label: "Coming Soon" },
-];
+const STATUS_OPTIONS = ["Available", "UnderConstruction", "Delivered", "ComingSoon"];
 
 function TextInput(props: React.InputHTMLAttributes<HTMLInputElement>) {
   return <input {...props} className={adminInput} />;
@@ -25,6 +21,7 @@ function TextArea(props: React.TextareaHTMLAttributes<HTMLTextAreaElement>) {
 }
 
 export function ProjectForm({ initial }: { initial?: Project }) {
+  const t = useTranslations("admin");
   const [state, formAction, pending] = useActionState<ProjectFormState, FormData>(saveProject, undefined);
   const [keptImages, setKeptImages] = useState<string[]>(initial?.images ?? []);
 
@@ -41,86 +38,86 @@ export function ProjectForm({ initial }: { initial?: Project }) {
         <p className="rounded-lg bg-red-500/10 px-4 py-2 text-sm text-red-400">{state.error}</p>
       ) : null}
 
-      <AdminSection title="Core" />
+      <AdminSection title={t("forms.sections.core")} />
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-        <AdminField label="Slug *">
+        <AdminField label={t("forms.fields.slugRequired")}>
           <TextInput name="slug" required defaultValue={initial?.slug ?? ""} placeholder="new-narges" />
         </AdminField>
-        <AdminField label="Status">
+        <AdminField label={t("tables.status")}>
           <select name="status" defaultValue={initial?.status ?? "Available"} className={adminInput}>
             {STATUS_OPTIONS.map((s) => (
-              <option key={s.value} value={s.value}>{s.label}</option>
+              <option key={s} value={s}>{t(`statuses.project.${s}`)}</option>
             ))}
           </select>
         </AdminField>
-        <AdminField label="Featured">
+        <AdminField label={t("tables.featured")}>
           <label className="inline-flex items-center gap-2 pt-1">
             <input type="checkbox" name="featured" defaultChecked={initial?.featured ?? false} className="h-4 w-4 rounded border-white/20 text-gold-500" />
-            Show on homepage
+            {t("forms.fields.showOnHomepage")}
           </label>
         </AdminField>
-        <AdminField label="Sort order">
+        <AdminField label={t("forms.fields.sortOrder")}>
           <TextInput name="sortOrder" type="number" defaultValue={initial?.sortOrder ?? 0} />
         </AdminField>
-        <AdminField label="Accent color">
+        <AdminField label={t("forms.fields.accentColor")}>
           <TextInput name="accent" defaultValue={initial?.accent ?? "#c8a45c"} placeholder="#c8a45c" />
         </AdminField>
       </div>
 
-      <AdminSection title="Name & location (EN / AR)" />
+      <AdminSection title={t("forms.sections.nameLocation")} />
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-        <AdminField label="Name (EN) *"><TextInput name="nameEn" required defaultValue={initial?.nameEn ?? ""} /></AdminField>
-        <AdminField label="Name (AR) *"><TextInput name="nameAr" required defaultValue={initial?.nameAr ?? ""} dir="rtl" /></AdminField>
-        <AdminField label="Short name (EN)"><TextInput name="shortNameEn" defaultValue={initial?.shortNameEn ?? ""} /></AdminField>
-        <AdminField label="Short name (AR)"><TextInput name="shortNameAr" defaultValue={initial?.shortNameAr ?? ""} dir="rtl" /></AdminField>
-        <AdminField label="Tagline (EN)"><TextInput name="taglineEn" defaultValue={initial?.taglineEn ?? ""} /></AdminField>
-        <AdminField label="Tagline (AR)"><TextInput name="taglineAr" defaultValue={initial?.taglineAr ?? ""} dir="rtl" /></AdminField>
-        <AdminField label="District (EN)"><TextInput name="districtEn" defaultValue={initial?.districtEn ?? ""} /></AdminField>
-        <AdminField label="District (AR)"><TextInput name="districtAr" defaultValue={initial?.districtAr ?? ""} dir="rtl" /></AdminField>
+        <AdminField label={t("forms.fields.nameEnRequired")}><TextInput name="nameEn" required defaultValue={initial?.nameEn ?? ""} /></AdminField>
+        <AdminField label={t("forms.fields.nameArRequired")}><TextInput name="nameAr" required defaultValue={initial?.nameAr ?? ""} dir="rtl" /></AdminField>
+        <AdminField label={t("forms.fields.shortNameEn")}><TextInput name="shortNameEn" defaultValue={initial?.shortNameEn ?? ""} /></AdminField>
+        <AdminField label={t("forms.fields.shortNameAr")}><TextInput name="shortNameAr" defaultValue={initial?.shortNameAr ?? ""} dir="rtl" /></AdminField>
+        <AdminField label={t("forms.fields.taglineEn")}><TextInput name="taglineEn" defaultValue={initial?.taglineEn ?? ""} /></AdminField>
+        <AdminField label={t("forms.fields.taglineAr")}><TextInput name="taglineAr" defaultValue={initial?.taglineAr ?? ""} dir="rtl" /></AdminField>
+        <AdminField label={t("forms.fields.districtEn")}><TextInput name="districtEn" defaultValue={initial?.districtEn ?? ""} /></AdminField>
+        <AdminField label={t("forms.fields.districtAr")}><TextInput name="districtAr" defaultValue={initial?.districtAr ?? ""} dir="rtl" /></AdminField>
       </div>
 
-      <AdminSection title="Description (EN / AR) — one paragraph per line" />
+      <AdminSection title={t("forms.sections.description")} />
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-        <AdminField label="Summary (EN)"><TextArea name="summaryEn" defaultValue={initial?.summaryEn ?? ""} /></AdminField>
-        <AdminField label="Summary (AR)"><TextArea name="summaryAr" defaultValue={initial?.summaryAr ?? ""} dir="rtl" /></AdminField>
-        <AdminField label="Description (EN)"><TextArea name="descriptionEn" defaultValue={(initial?.descriptionEn ?? []).join("\n")} rows={5} /></AdminField>
-        <AdminField label="Description (AR)"><TextArea name="descriptionAr" defaultValue={(initial?.descriptionAr ?? []).join("\n")} rows={5} dir="rtl" /></AdminField>
+        <AdminField label={t("forms.fields.summaryEn")}><TextArea name="summaryEn" defaultValue={initial?.summaryEn ?? ""} /></AdminField>
+        <AdminField label={t("forms.fields.summaryAr")}><TextArea name="summaryAr" defaultValue={initial?.summaryAr ?? ""} dir="rtl" /></AdminField>
+        <AdminField label={t("forms.fields.descriptionEn")}><TextArea name="descriptionEn" defaultValue={(initial?.descriptionEn ?? []).join("\n")} rows={5} /></AdminField>
+        <AdminField label={t("forms.fields.descriptionAr")}><TextArea name="descriptionAr" defaultValue={(initial?.descriptionAr ?? []).join("\n")} rows={5} dir="rtl" /></AdminField>
       </div>
 
-      <AdminSection title="Card specs (EN / AR)" />
+      <AdminSection title={t("forms.sections.cardSpecs")} />
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-        <AdminField label="Down payment (EN)"><TextInput name="downPaymentEn" defaultValue={initial?.downPaymentEn ?? ""} /></AdminField>
-        <AdminField label="Installment (EN)"><TextInput name="installmentEn" defaultValue={initial?.installmentEn ?? ""} /></AdminField>
-        <AdminField label="Delivery (EN)"><TextInput name="deliveryEn" defaultValue={initial?.deliveryEn ?? ""} /></AdminField>
-        <AdminField label="Down payment (AR)"><TextInput name="downPaymentAr" defaultValue={initial?.downPaymentAr ?? ""} dir="rtl" /></AdminField>
-        <AdminField label="Installment (AR)"><TextInput name="installmentAr" defaultValue={initial?.installmentAr ?? ""} dir="rtl" /></AdminField>
-        <AdminField label="Delivery (AR)"><TextInput name="deliveryAr" defaultValue={initial?.deliveryAr ?? ""} dir="rtl" /></AdminField>
+        <AdminField label={t("forms.fields.downPaymentEn")}><TextInput name="downPaymentEn" defaultValue={initial?.downPaymentEn ?? ""} /></AdminField>
+        <AdminField label={t("forms.fields.installmentEn")}><TextInput name="installmentEn" defaultValue={initial?.installmentEn ?? ""} /></AdminField>
+        <AdminField label={t("forms.fields.deliveryEn")}><TextInput name="deliveryEn" defaultValue={initial?.deliveryEn ?? ""} /></AdminField>
+        <AdminField label={t("forms.fields.downPaymentAr")}><TextInput name="downPaymentAr" defaultValue={initial?.downPaymentAr ?? ""} dir="rtl" /></AdminField>
+        <AdminField label={t("forms.fields.installmentAr")}><TextInput name="installmentAr" defaultValue={initial?.installmentAr ?? ""} dir="rtl" /></AdminField>
+        <AdminField label={t("forms.fields.deliveryAr")}><TextInput name="deliveryAr" defaultValue={initial?.deliveryAr ?? ""} dir="rtl" /></AdminField>
       </div>
 
-      <AdminSection title="Project metadata (from the Zidan fields)" />
+      <AdminSection title={t("forms.sections.projectMetadata")} />
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-        <AdminField label="Project Availability"><TextInput name="projectAvailability" defaultValue={initial?.projectAvailability ?? ""} placeholder="Available / Sold Out" /></AdminField>
-        <AdminField label="Property Status"><TextInput name="propertyStatus" defaultValue={initial?.propertyStatus ?? ""} placeholder="Under Construction / Ready" /></AdminField>
-        <AdminField label="Delivery Date"><TextInput name="deliveryDate" defaultValue={initial?.deliveryDate ?? ""} placeholder="Q4 2027" /></AdminField>
+        <AdminField label={t("forms.fields.projectAvailability")}><TextInput name="projectAvailability" defaultValue={initial?.projectAvailability ?? ""} placeholder="Available / Sold Out" /></AdminField>
+        <AdminField label={t("forms.fields.propertyStatus")}><TextInput name="propertyStatus" defaultValue={initial?.propertyStatus ?? ""} placeholder="Under Construction / Ready" /></AdminField>
+        <AdminField label={t("forms.fields.deliveryDate")}><TextInput name="deliveryDate" defaultValue={initial?.deliveryDate ?? ""} placeholder="Q4 2027" /></AdminField>
       </div>
 
-      <AdminSection title="Features (one per line)" />
+      <AdminSection title={t("forms.sections.features")} />
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-        <AdminField label="Features of Location (EN)"><TextArea name="featuresLocationEn" defaultValue={(initial?.featuresLocationEn ?? []).join("\n")} /></AdminField>
-        <AdminField label="Features of Location (AR)"><TextArea name="featuresLocationAr" defaultValue={(initial?.featuresLocationAr ?? []).join("\n")} dir="rtl" /></AdminField>
-        <AdminField label="Features of Project (EN)"><TextArea name="featuresProjectEn" defaultValue={(initial?.featuresProjectEn ?? []).join("\n")} /></AdminField>
-        <AdminField label="Features of Project (AR)"><TextArea name="featuresProjectAr" defaultValue={(initial?.featuresProjectAr ?? []).join("\n")} dir="rtl" /></AdminField>
+        <AdminField label={t("forms.fields.featuresLocationEn")}><TextArea name="featuresLocationEn" defaultValue={(initial?.featuresLocationEn ?? []).join("\n")} /></AdminField>
+        <AdminField label={t("forms.fields.featuresLocationAr")}><TextArea name="featuresLocationAr" defaultValue={(initial?.featuresLocationAr ?? []).join("\n")} dir="rtl" /></AdminField>
+        <AdminField label={t("forms.fields.featuresProjectEn")}><TextArea name="featuresProjectEn" defaultValue={(initial?.featuresProjectEn ?? []).join("\n")} /></AdminField>
+        <AdminField label={t("forms.fields.featuresProjectAr")}><TextArea name="featuresProjectAr" defaultValue={(initial?.featuresProjectAr ?? []).join("\n")} dir="rtl" /></AdminField>
       </div>
 
-      <AdminSection title="Location & map" />
+      <AdminSection title={t("forms.sections.locationMap")} />
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-        <AdminField label="Google Map Link"><TextInput name="googleMapLink" defaultValue={initial?.googleMapLink ?? ""} /></AdminField>
-        <AdminField label="Map embed (iframe src)" hint="Paste only the src URL from the map embed code.">
+        <AdminField label={t("forms.fields.googleMapLink")}><TextInput name="googleMapLink" defaultValue={initial?.googleMapLink ?? ""} /></AdminField>
+        <AdminField label={t("forms.fields.mapEmbed")} hint={t("forms.hints.mapEmbed")}>
           <TextInput name="mapEmbed" defaultValue={initial?.mapEmbed ?? ""} />
         </AdminField>
       </div>
 
-      <AdminSection title="Images" />
+      <AdminSection title={t("forms.sections.images")} />
       {keptImages.length > 0 ? (
         <div className="mb-3 grid grid-cols-2 gap-3 sm:grid-cols-4">
           {keptImages.map((url) => (
@@ -130,7 +127,7 @@ export function ProjectForm({ initial }: { initial?: Project }) {
                 type="button"
                 onClick={() => removeImage(url)}
                 className="absolute right-1 top-1 rounded bg-black/60 p-1 text-red-400 hover:bg-black/80"
-                aria-label="Remove image"
+                aria-label={t("forms.fields.removeImage")}
               >
                 <Trash2 className="h-3.5 w-3.5" />
               </button>
@@ -138,18 +135,18 @@ export function ProjectForm({ initial }: { initial?: Project }) {
           ))}
         </div>
       ) : null}
-      <AdminField label="Add gallery images" hint="Select multiple — uploaded to Cloudinary.">
+      <AdminField label={t("forms.fields.addGalleryImages")} hint={t("forms.hints.cloudinaryMultiple")}>
         <input type="file" name="images" multiple accept="image/*" className={`${adminInput} file:mr-3 file:rounded file:border-0 file:bg-white/10 file:px-3 file:py-1 file:text-cream`} />
       </AdminField>
 
-      <AdminField label="3D Render">
+      <AdminField label={t("forms.fields.render3d")}>
         {initial?.render3dUrl ? (
           <div className="mb-2 flex items-center gap-3">
             <div className="relative h-16 w-24 overflow-hidden rounded border border-white/10">
               <Image src={initial.render3dUrl} alt="" fill sizes="96px" className="object-cover" />
             </div>
             <label className="inline-flex items-center gap-2 text-xs text-ink-300">
-              <input type="checkbox" name="removeRender" className="h-4 w-4 rounded border-white/20 text-gold-500" /> Remove current render
+              <input type="checkbox" name="removeRender" className="h-4 w-4 rounded border-white/20 text-gold-500" /> {t("forms.fields.removeCurrentRender")}
             </label>
           </div>
         ) : null}
@@ -157,10 +154,10 @@ export function ProjectForm({ initial }: { initial?: Project }) {
       </AdminField>
 
       <div className="sticky bottom-0 flex items-center justify-end gap-3 border-t border-white/10 bg-ink-950/80 py-4 backdrop-blur">
-        <Link href="/admin/projects" className={buttonVariants({ variant: "ghost", size: "md", className: "text-ink-300" })}>Cancel</Link>
+        <Link href="/admin/projects" className={buttonVariants({ variant: "ghost", size: "md", className: "text-ink-300" })}>{t("actions.cancel")}</Link>
         <button type="submit" disabled={pending} className={buttonVariants({ variant: "gold", size: "md" })}>
           {pending ? <Spinner /> : <Save className="h-4 w-4" />}
-          {initial ? "Save changes" : "Create project"}
+          {initial ? t("actions.saveChanges") : t("actions.createProject")}
         </button>
       </div>
     </form>

@@ -1,4 +1,5 @@
 import { notFound } from "next/navigation";
+import { getTranslations } from "next-intl/server";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
@@ -9,6 +10,7 @@ export default async function EditBlogPage({
 }: {
   params: Promise<{ id: string }>;
 }) {
+  const t = await getTranslations("admin.pages");
   const { id } = await params;
   const [blog, projects, session] = await Promise.all([
     prisma.blog.findUnique({ where: { id } }),
@@ -19,7 +21,7 @@ export default async function EditBlogPage({
 
   return (
     <div>
-      <h1 className="font-display text-3xl font-semibold">Edit blog post</h1>
+      <h1 className="font-display text-3xl font-semibold">{t("editBlogTitle")}</h1>
       <p className="mt-1 text-sm text-ink-400">{blog.titleEn} · /{blog.slug}</p>
       <div className="mt-6 max-w-5xl">
         <BlogForm initial={blog} projects={projects} authorId={session?.user?.id ?? blog.authorId} />
