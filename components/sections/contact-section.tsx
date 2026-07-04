@@ -4,6 +4,7 @@ import { siteConfig } from "@/config/site";
 import { Section } from "@/components/ui/section";
 import { Container } from "@/components/ui/container";
 import { Reveal } from "@/components/ui/reveal";
+import { DeferredIframe } from "@/components/ui/deferred-iframe";
 import { ContactForm } from "@/components/forms/contact-form";
 
 export async function ContactSection() {
@@ -56,15 +57,21 @@ export async function ContactSection() {
                 </a>
               </div>
 
-              <div className="relative h-[320px] w-full overflow-hidden bg-sand">
-                <iframe
-                  title="Zidan Development location map"
-                  src={siteConfig.contact.mapEmbedUrl}
-                  className="h-full w-full border-0"
-                  loading="lazy"
-                  referrerPolicy="no-referrer-when-downgrade"
-                />
-              </div>
+              <DeferredIframe
+                className="h-[320px] w-full bg-sand"
+                title="Zidan Development location map"
+                src={siteConfig.contact.mapEmbedUrl}
+                buttonLabel={t("openInMaps")}
+                fallbackHref={siteConfig.contact.mapsUrl}
+                referrerPolicy="no-referrer-when-downgrade"
+              >
+                <span className="font-display text-2xl font-semibold text-cream">
+                  {siteConfig.contact.address.region}
+                </span>
+                <span className="max-w-sm text-sm leading-relaxed text-cream/75">
+                  {siteConfig.contact.address.city}, {siteConfig.contact.address.country}
+                </span>
+              </DeferredIframe>
             </div>
           </Reveal>
 

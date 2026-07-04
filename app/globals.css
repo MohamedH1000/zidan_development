@@ -90,6 +90,11 @@
     -webkit-text-size-adjust: 100%;
   }
 
+  html[lang="ar"] {
+    --font-sans: var(--font-arabic), var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
+    --font-display: var(--font-arabic), var(--font-jakarta), Georgia, serif;
+  }
+
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
@@ -98,8 +103,8 @@
     text-rendering: optimizeLegibility;
   }
 
-  /* Force the Arabic font on Arabic pages so it applies reliably on every
-   * browser/device, instead of depending on per-glyph stack fallback. */
+  /* Force the Arabic font on Arabic pages so utility font classes inherit the
+   * same family order across desktop and mobile browsers. */
   html[lang="ar"] body {
     font-family: var(--font-arabic), var(--font-sans);
   }

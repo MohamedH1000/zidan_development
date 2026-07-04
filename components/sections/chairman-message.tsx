@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { getLocale, getTranslations } from "next-intl/server";
 import { getChairman } from "@/content/company";
 import { Section } from "@/components/ui/section";
@@ -16,9 +17,12 @@ export async function ChairmanMessage() {
           <Reveal direction="right">
             <div className="relative mx-auto w-full max-w-sm overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-b from-white/5 to-transparent">
               <div className="grain-overlay absolute inset-0 opacity-50" aria-hidden="true" />
-              <img
+              <Image
                 src="https://zidandevelopments.com/wp-content/uploads/2026/02/Refaat-Zidan-CEO-scaled.webp"
                 alt={chairman.name}
+                width={900}
+                height={1200}
+                sizes="(min-width: 1024px) 360px, 100vw"
                 className="h-auto w-full object-contain object-center"
               />
               <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-ink-950/80 via-ink-950/20 to-transparent p-6 text-left">

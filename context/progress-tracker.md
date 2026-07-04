@@ -53,8 +53,9 @@ Last verified build: 2026-07-04 · Next.js 16.2.9 · React 19 · Turbopack.
 ### Pages (all bilingual, SSG)
 - [x] Home (with per-page SEO metadata — title/desc/keywords/canonical/hreflang/OG)
 - [x] Home showreel: YouTube iframe (`bH72vA8iHyg`, same as WP site) via
-  `youtube-nocookie`, lazy-loaded; CSP `frame-src` allow-listed. Excellence
-  section uses an animated `MovingTags` wall (replaced the architectural SVG).
+  `youtube-nocookie`, click-to-load so the player JS does not execute during
+  initial page load; CSP `frame-src` allow-listed. Excellence section uses an
+  animated `MovingTags` wall (replaced the architectural SVG).
 - [x] About, Careers, Contact, Delivery, FAQs, Privacy
 - [x] Projects index (+ filter) + `/projects/[slug]` detail
 - [x] Blog index + `/blog/[slug]` post (DB-backed published posts)
@@ -83,6 +84,9 @@ Last verified build: 2026-07-04 · Next.js 16.2.9 · React 19 · Turbopack.
 
 ### SEO
 - [x] Per-page `generateMetadata` (incl. home), `metadataBase`, canonical, hreflang
+- [x] Canonicals include matching EN/AR/x-default alternates for localized pages
+  so Arabic URLs self-canonicalize instead of looking like a different
+  hreflang target.
 - [x] `sitemap.ts` (locale-aware + alternates), `robots.ts`
 - [x] JSON-LD: Organization, RealEstateAgent, WebSite, FAQ, Article, Breadcrumb
 - [x] Generated `public/og.png` (sharp, build-time) + `icon.svg`

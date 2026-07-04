@@ -1,10 +1,10 @@
+import Image from "next/image";
 import { getLocale, getTranslations } from "next-intl/server";
 import { getCompany } from "@/content/company";
 import { Section } from "@/components/ui/section";
 import { Container } from "@/components/ui/container";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { Reveal } from "@/components/ui/reveal";
-import { Scene } from "@/components/visual/scene";
 import { Badge } from "@/components/ui/badge";
 
 export async function AboutIntro() {
@@ -33,9 +33,12 @@ export async function AboutIntro() {
 
           <Reveal direction="left">
             <div className="relative overflow-hidden rounded-2xl shadow-[0_40px_80px_-40px_rgba(0,0,0,0.45)]">
-              <img
+              <Image
                 src="https://zidandevelopments.com/wp-content/uploads/2026/02/D292-750x580.jpeg"
                 alt={company.tagline}
+                width={750}
+                height={580}
+                sizes="(min-width: 1024px) 50vw, 100vw"
                 className="h-full w-full object-cover object-center"
               />
               <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-ink-950/80 to-transparent p-6">

@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { Link } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
 
@@ -19,9 +20,12 @@ export function Logo({
 }) {
   const content = (
     <span className={cn("group inline-flex items-center", className)}>
-      <img
+      <Image
         src={logoUrl}
         alt="Zidan Development"
+        width={740}
+        height={250}
+        sizes="180px"
         className={cn("h-9 w-auto max-w-[180px] object-contain", tone === "dark" ? "brightness-0" : "brightness-100")}
       />
     </span>

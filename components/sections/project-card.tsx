@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { ArrowUpRight, MapPin } from "lucide-react";
@@ -20,8 +21,13 @@ export function ProjectCard({ project }: { project: ProjectArea }) {
       <div className="relative aspect-[16/11] overflow-hidden">
         <div className="absolute inset-0 scale-105 transition-transform duration-700 group-hover:scale-110">
           {project.images && project.images.length > 0 ? (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img src={project.images[0]} alt={project.name} className="h-full w-full object-cover" />
+            <Image
+              src={project.images[0]}
+              alt={project.name}
+              fill
+              sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
+              className="object-cover"
+            />
           ) : (
             <Scene variant="project" accent={project.accent} showLabel={project.shortName} />
           )}

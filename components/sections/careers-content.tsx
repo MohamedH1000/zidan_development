@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { getTranslations } from "next-intl/server";
 import { ArrowRight, Compass, Hammer, HeartHandshake, Trophy } from "lucide-react";
 import { Section } from "@/components/ui/section";
@@ -50,9 +51,12 @@ export async function CareersContent() {
               <div className="space-y-6">
                 <SectionHeading eyebrow={t("applyEyebrow")} title={t("applyTitle")} description={t("applyDescription")} />
                 <div className="overflow-hidden rounded-2xl border border-ink-900/8 bg-ink-950 shadow-[0_20px_50px_-30px_rgba(0,0,0,0.6)]">
-                  <img
+                  <Image
                     src="https://zidandevelopments.com/freepik__a-closeup-black-and-white-shot-shows-a-persons-han__74287/"
                     alt="Career opportunity at Zidan Developments"
+                    width={1200}
+                    height={640}
+                    sizes="(min-width: 1024px) 50vw, 100vw"
                     className="h-56 w-full object-cover object-center sm:h-64"
                   />
                 </div>

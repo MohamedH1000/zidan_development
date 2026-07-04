@@ -23,6 +23,7 @@ components by default; client ones are marked. Import via the `@/` alias.
 | `Reveal` / `Stagger` / `StaggerItem` | **client** | Scroll reveal. `direction`, `delay`, `stagger`. Reduced-motion aware. |
 | `Counter` | **client** | `value`, `prefix?`, `suffix?`, `duration?`. Animates in view. |
 | `Marquee` | **client** | `items`, `reverse?`, `separator?`. Pauses on hover. |
+| `DeferredIframe` | **client** | Click-to-load iframe shell for heavy third-party embeds. Used by the home video and contact map to avoid initial YouTube/OpenStreetMap JS execution. |
 | `Spinner` | server | `className?`. Single source of truth for inline/button loading spinners (lucide `Loader2` + `animate-spin`). Reduced-motion collapses the spin via global CSS. |
 | `loading.tsx` (`app/[locale]/`) | server (async) | The single Suspense fallback for **every** route under `[locale]`. Cinematic black bg + Zidan logo + gold left→right sweep (`animate-loader-sweep`/`animate-loader-fade-in`, defined in globals.css). Localized sr-only label via `common.loading`. |
 

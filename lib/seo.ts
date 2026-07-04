@@ -9,6 +9,16 @@ export function absoluteUrl(path = "/"): string {
   return `${base}${cleanPath}`;
 }
 
+function unlocalizePath(path: string): string {
+  const cleanPath = path.startsWith("/") ? path : `/${path}`;
+  if (cleanPath === "/en" || cleanPath === "/ar") return "/";
+  return cleanPath.replace(/^\/(en|ar)(?=\/)/, "");
+}
+
+function inferLocaleFromPath(path: string) {
+  return path === "/ar" || path.startsWith("/ar/") ? "ar" : "en";
+}
+
 /** Build per-page metadata on top of the site-wide defaults. */
 export function buildMetadata({
   title,
@@ -28,18 +38,28 @@ export function buildMetadata({
   publishedTime?: string;
 }): Metadata {
   const url = absoluteUrl(path);
+  const routePath = unlocalizePath(path);
+  const locale = inferLocaleFromPath(path);
+  const alternatePath = routePath === "/" ? "" : routePath;
 
   return {
     title,
     description,
-    alternates: { canonical: url },
+    alternates: {
+      canonical: url,
+      languages: {
+        en: absoluteUrl(`/en${alternatePath}`),
+        ar: absoluteUrl(`/ar${alternatePath}`),
+        "x-default": absoluteUrl(`/en${alternatePath}`),
+      },
+    },
     openGraph: {
       type,
       url,
       title: `${title} | ${siteConfig.name}`,
       description,
       siteName: siteConfig.name,
-      locale: siteConfig.locale,
+      locale: locale === "ar" ? "ar_EG" : siteConfig.locale,
       // Omit `images` so the file-based opengraph-image is inherited unless
       // a page explicitly supplies one.
       ...(image ? { images: [{ url: image, width: 1200, height: 630, alt: siteConfig.name }] } : {}),

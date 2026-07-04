@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { getLocale } from "next-intl/server";
 import { Building2, DoorOpen, Layers, Plug, ShieldCheck, Sparkles } from "lucide-react";
 import { getSpecs } from "@/content/specs";
@@ -37,9 +38,12 @@ export async function DeliverySpecs() {
         <Container>
           <Reveal>
             <div className="mb-8 overflow-hidden rounded-[1.75rem] border border-ink-900/8 bg-white shadow-[0_30px_70px_-40px_rgba(0,0,0,0.35)]">
-              <img
+              <Image
                 src="https://zidandevelopments.com/wp-content/uploads/2026/02/مواصفات-التشطيب--scaled.jpg"
                 alt="Finishing specifications and quality details"
+                width={1600}
+                height={1067}
+                sizes="(min-width: 1024px) 1120px, 100vw"
                 className="h-72 w-full object-cover object-center sm:h-80 lg:h-[26rem]"
               />
             </div>
