@@ -24,7 +24,8 @@ zidandevelopment/
 │  ├─ globals.css               # Tailwind v4 @theme tokens + base layers
 │  ├─ sitemap.ts                # locale-aware, hreflang alternates
 │  ├─ robots.ts
-│  └─ icon.svg                  # favicon (Z monogram)
+│  ├─ favicon.ico               # browser favicon generated from brand PNG
+│  └─ icon.png                  # Next.js file-based app icon
 ├─ components/
 │  ├─ ui/                       # primitives: Container, Section, Button, SectionHeading,
 │  │                            #   Badge, Card, Field, Reveal/Stagger, Counter, Marquee

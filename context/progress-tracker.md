@@ -102,7 +102,8 @@ Last verified build: 2026-07-04 · Next.js 16.2.9 · React 19 · Turbopack.
   hreflang target.
 - [x] `sitemap.ts` (locale-aware + alternates), `robots.ts`
 - [x] JSON-LD: Organization, RealEstateAgent, WebSite, FAQ, Article, Breadcrumb
-- [x] Generated `public/og.png` (sharp, build-time) + `icon.svg`
+- [x] Generated `public/og.png` (sharp, build-time) + file-based favicon
+  assets (`app/favicon.ico`, `app/icon.png`)
 
 ### Security
 - [x] Headers in `next.config.ts` (CSP, frame/options/referrer/permissions/HSTS)

@@ -28,7 +28,8 @@ Non-negotiable conventions. Follow in every session to prevent pattern drift.
 - `generateStaticParams` returns locale (and slug) combos for dynamic routes.
 - Use `proxy.ts` (not `middleware.ts`) for the next-intl middleware — the
   `middleware` convention is **deprecated** in Next 16.
-- File-based metadata: `app/sitemap.ts`, `app/robots.ts`, `app/icon.svg`.
+- File-based metadata: `app/sitemap.ts`, `app/robots.ts`, `app/favicon.ico`,
+  `app/icon.png`.
 
 ## Internationalization (next-intl)
 
