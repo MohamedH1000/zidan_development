@@ -10,7 +10,7 @@ const source = {
 
   heroHeadline: {
     en: ["Building Value.", "Creating Landmarks."],
-    ar: ["نبني قيمة حقيقية.", "ونصنع عناوين مميزة."],
+    ar: ["نبني قيمة حقيقية.", "ونصنع معالم رئيسية."],
   } as LocalizedStringList,
 
   heroSubtitle: {
