@@ -10,12 +10,12 @@ const source = {
 
   heroHeadline: {
     en: ["Building Value.", "Creating Landmarks."],
-    ar: ["نبني القيمة.", "ونصنع المعالم."],
+    ar: ["نبني قيمة حقيقية.", "ونصنع عناوين مميزة."],
   } as LocalizedStringList,
 
   heroSubtitle: {
     en: "An Egyptian real estate developer crafting lasting value across New Cairo's most strategic districts — through intelligent planning, precise execution and uncompromising quality.",
-    ar: "مطوّر عقاري مصري يصنع قيمةً دائمة في أكثر مناطق القاهرة الجديدة استراتيجية — عبر تخطيط ذكي وتنفيذ دقيق وجودة لا تقبل المساومة.",
+    ar: "مطوّر عقاري مصري يصنع قيمة مستدامة في أهم مناطق القاهرة الجديدة — من خلال تخطيط مدروس وتنفيذ مباشر وجودة لا تقبل المساومة.",
   } as LocalizedString,
 
   whoWeAre: {
@@ -26,10 +26,10 @@ const source = {
       "Every project we deliver is the result of thoughtful architectural planning, functional layouts, premium finishing standards and strict construction supervision. We believe true development goes beyond buildings — it is about shaping environments where families grow, investments appreciate, and communities thrive.",
     ],
     ar: [
-      "زيدان للتطوير شركة مصرية للتطوير العقاري قائمة على رؤية واضحة: خلق قيمة دائمة من خلال التخطيط الذكي والتنفيذ الدقيق والجودة التي لا تقبل المساومة.",
-      "بحضور مركّز في أكثر مناطق القاهرة الجديدة استراتيجية — بما فيها النرجس وبيت الوطن والأندلس واللوتس وجاردينيا هايتس والحي التكميلي — نختار بعناية مواقع تجمع بين القوة الاستثمارية والإمكانات الحقيقية للحياة.",
-      "نحن لسنا مجرد مطوّرين — نحن ملاك ومنفّذون مباشرون لمشاريعنا. هذا النموذج المتكامل يتيح لنا السيطرة الكاملة على الجودة والمواعيد ومعايير التسليم، ليعكس كل مشروع التزامنا بالتميّز.",
-      "كل مشروع نسلّمه هو نتاج تخطيط معماري مدروس وتصاميم وظيفية ومعايير تشطيب راقية وإشراف إنشائي صارم. نؤمن أن التطوير الحقيقي يتجاوز المباني — إنه صناعة بيوات تنمو فيها الأسر وتتضاعف فيها الاستثمارات وتزدهر فيها المجتمعات.",
+      "زيدان للتطوير شركة مصرية للتطوير العقاري تقوم على رؤية واضحة: بناء قيمة مستدامة من خلال التخطيط المدروس والتنفيذ المباشر والجودة التي لا تقبل المساومة.",
+      "نركّز أعمالنا في أهم مناطق القاهرة الجديدة — ومنها النرجس وبيت الوطن والأندلس واللوتس وجاردينيا هايتس والحي التكميلي — ونختار مواقع تجمع بين قوة الاستثمار وجودة الحياة اليومية.",
+      "نحن لا نكتفي بدور المطوّر فقط — بل نمتلك وننفّذ مشاريعنا مباشرة. هذا النموذج المتكامل يمنحنا تحكماً كاملاً في الجودة والجداول الزمنية ومعايير التسليم، ليعكس كل مشروع التزامنا الحقيقي بالتميّز.",
+      "كل مشروع نسلّمه هو نتيجة تخطيط معماري مدروس ومساحات عملية ومعايير تشطيب راقية وإشراف إنشائي دقيق. نؤمن أن التطوير الحقيقي يتجاوز المباني — فهو صناعة بيوت تنمو فيها الأسر، وتزداد فيها قيمة الاستثمار، وتزدهر حولها المجتمعات.",
     ],
   } as LocalizedStringList,
 
@@ -37,7 +37,7 @@ const source = {
     title: { en: "Our Mission", ar: "مهمتنا" } as LocalizedString,
     body: {
       en: "To develop high-quality real estate projects in New Cairo that combine intelligent planning, disciplined execution and sustainable investment value — while maintaining transparency and long-term client relationships.",
-      ar: "تطوير مشاريع عقارية عالية الجودة في القاهرة الجديدة تجمع بين التخطيط الذكي والتنفيذ المنضبط والقيمة الاستثمارية المستدامة — مع الحفاظ على الشفافية وعلاقات طويلة الأمد مع عملائنا.",
+      ar: "تطوير مشاريع عقارية عالية الجودة في القاهرة الجديدة تجمع بين التخطيط المدروس والتنفيذ المنضبط والقيمة الاستثمارية المستدامة — مع الحفاظ على الشفافية وبناء علاقات طويلة الأمد مع عملائنا.",
     } as LocalizedString,
   },
 
@@ -45,7 +45,7 @@ const source = {
     title: { en: "Our Vision", ar: "رؤيتنا" } as LocalizedString,
     body: {
       en: "To become one of the most trusted and recognized real estate developers in Egypt by setting consistent standards of quality, integrity and controlled growth in every project we deliver.",
-      ar: "أن نصبح أحد أكثر المطوّرين العقاريين موثوقيةً واعترافاً في مصر، عبر وضع معايير ثابتة للجودة والنزاهة والنمو المنضبط في كل مشروع نسلّمه.",
+      ar: "أن نصبح من أكثر المطوّرين العقاريين ثقةً وتقديراً في مصر، من خلال معايير ثابتة للجودة والنزاهة والنمو المنضبط في كل مشروع نسلّمه.",
     } as LocalizedString,
   },
 
@@ -64,10 +64,10 @@ const source = {
   } as { en: string[][]; ar: string[][] },
 
   socialProof: {
-    headline: { en: "Trusted across New Cairo", ar: "موثوقون في كل القاهرة الجديدة" } as LocalizedString,
+    headline: { en: "Trusted across New Cairo", ar: "ثقة تمتد عبر القاهرة الجديدة" } as LocalizedString,
     subtext: {
       en: "Zidan units are not subject to the Social Housing Initiative — they are built for buyers who value direct execution, clear terms and lasting quality.",
-      ar: "وحدات زيدان لا تخضع لمبادرة الإسكان الاجتماعي — فهي مبنية للمشترين الذين يقدّرون التنفيذ المباشر والشروط الواضحة والجودة الدائمة.",
+      ar: "وحدات زيدان لا تخضع لمبادرة الإسكان الاجتماعي — فهي موجّهة للمشترين الذين يقدّرون التنفيذ المباشر والشروط الواضحة والجودة طويلة الأمد.",
     } as LocalizedString,
   },
 } as const;
@@ -94,7 +94,7 @@ const valuesSource = [
     title: { en: "Professionalism", ar: "الاحترافية" } as LocalizedString,
     description: {
       en: "We operate with disciplined standards in planning, execution and client service — ensuring accountability and consistent outcomes across every project.",
-      ar: "نعمل وفق معايير منضبطة في التخطيط والتنفيذ وخدمة العملاء — لضمان المساءلة ونتائج متّسقة في كل مشروع.",
+      ar: "نعمل وفق معايير واضحة في التخطيط والتنفيذ وخدمة العملاء — لضمان المسؤولية وجودة النتائج في كل مشروع.",
     } as LocalizedString,
   },
   {
@@ -103,7 +103,7 @@ const valuesSource = [
     title: { en: "Innovation", ar: "الابتكار" } as LocalizedString,
     description: {
       en: "We evolve with the market by adopting modern design thinking, efficient layouts and development strategies that meet real client needs.",
-      ar: "نتطوّر مع السوق عبر تبنّي تفكير تصميمي حديث وتصاميم فعّالة واستراتيجيات تطوير تلبّي احتياجات العملاء الحقيقية.",
+      ar: "نواكب تطور السوق من خلال فكر تصميمي حديث ومساحات عملية واستراتيجيات تطوير تلبّي احتياجات العملاء الحقيقية.",
     } as LocalizedString,
   },
   {
@@ -112,7 +112,7 @@ const valuesSource = [
     title: { en: "Quality", ar: "الجودة" } as LocalizedString,
     description: {
       en: "Quality is our benchmark — from structural integrity to finishing standards. Every detail is carefully supervised to deliver durable, high-value properties.",
-      ar: "الجودة هي معيارنا — من سلامة الهيكل إلى معايير التشطيب. كل تفصيل يخضع لإشراف دقيق لنسلّم عقارات متينة عالية القيمة.",
+      ar: "الجودة هي معيارنا — من سلامة الهيكل إلى أدق تفاصيل التشطيب. كل بند يخضع لإشراف دقيق حتى نسلّم عقارات متينة وعالية القيمة.",
     } as LocalizedString,
   },
 ] as const;
@@ -138,9 +138,9 @@ const chairmanSource = {
       "Looking ahead, our ambition is to expand strategically while establishing Zidan Development as a trusted brand in Egypt's real estate sector — recognized for quality, integrity and transparency.",
     ],
     ar: [
-      "في زيدان للتطوير، نركّز على البناء بهدف واضح. يتمحور عملنا في القاهرة الجديدة والتجمّع الخامس، حيث نسلّم مشاريع سكنية وإدارية مدروسة تستجيب لاحتياجات السوق العصري.",
-      "نؤمن أن الجودة ليست خياراً — بل معيار. من خلال الإشراف المباشر والتنفيذ المنضبط، نضمن تسليماً متّسقاً وتواصلاً واضحاً وشفافية في كل مرحلة.",
-      "ونظرًا إلى المستقبل، طموحنا هو التوسّع الاستراتيجي مع ترسيخ زيدان للتطوير كعلامة موثوقة في القطاع العقاري المصري — تُعرف بالجودة والنزاهة والشفافية.",
+      "في زيدان للتطوير، نركز على البناء بهدف واضح. يتمحور عملنا في القاهرة الجديدة والتجمّع الخامس، حيث نسلّم مشاريع سكنية وإدارية مدروسة تواكب احتياجات السوق الحديثة.",
+      "نؤمن أن الجودة ليست خياراً — بل معيار ثابت. ومن خلال الإشراف المباشر والتنفيذ المنضبط، نضمن تسليماً منتظماً وتواصلاً واضحاً وشفافية في كل مرحلة.",
+      "نتطلع إلى التوسّع بخطوات استراتيجية، مع ترسيخ زيدان للتطوير كعلامة موثوقة في القطاع العقاري المصري — تُعرف بالجودة والنزاهة والشفافية.",
     ],
   } as LocalizedStringList,
 } as const;

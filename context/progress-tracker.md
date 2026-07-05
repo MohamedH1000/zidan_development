@@ -72,6 +72,10 @@ Last verified build: 2026-07-04 · Next.js 16.2.9 · React 19 · Turbopack.
   header menu, CRUD headers stack, tables scroll horizontally, and form action
   bars become full-width touch targets.
 - [x] Header **language toggle** (EN ⇄ ع), RTL throughout
+- [x] Arabic copy reviewed across UI messages and bilingual content, including
+  public marketing pages, project descriptions, FAQs, specs, seed blog posts,
+  forms, and admin labels. Tone is now more natural for an Egyptian real-estate
+  website while preserving placeholders, rich-text tags, and message-key parity.
 
 ### Forms & backend
 - [x] Contact form → `submitContact` Server Action + Zod + Resend

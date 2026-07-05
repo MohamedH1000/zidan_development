@@ -26,10 +26,10 @@ const source: ProjectSource[] = [
     slug: "new-narges",
     name: { en: "New Narges", ar: "النرجس الجديد" },
     shortName: { en: "Narges", ar: "النرجس" },
-    tagline: { en: "Established, in demand, and always appreciating.", ar: "راسخة وعالية الطلب وقيمتها في تزايد دائم." },
+    tagline: { en: "Established, in demand, and always appreciating.", ar: "منطقة راسخة، مطلوبة، وقيمتها في نمو مستمر." },
     summary: {
       en: "One of New Cairo's most established and sought-after districts — a mature community with strong resale demand and consistent rental yield.",
-      ar: "من أكثر مناطق القاهرة الجديدة رسوخاً وطلباً — مجتمع ناضج بطلب قوي على إعادة البيع وعائد إيجاري ثابت.",
+      ar: "إحدى أكثر مناطق القاهرة الجديدة رسوخاً وطلباً — مجتمع مكتمل الخدمات يتمتع بطلب قوي على إعادة البيع وعائد إيجاري مستقر.",
     },
     description: {
       en: [
@@ -37,19 +37,19 @@ const source: ProjectSource[] = [
         "Our Narges buildings combine functional floor plans with the signature Zidan Stone façade, marble entrances and European elevators — built for owners who want a finished, move-in-ready address in a district that rarely loses value.",
       ],
       ar: [
-        "يقع النرجس الجديد في قلب التجمّع الخامس، محاطاً ببنية تحتية مكتملة ومدارس ومنافذ بيع ومساحات خضراء. ولأنه منطقة راسخة، يجد المشتري قيمة حياتية فورية وطلباً مثبتاً.",
-        "مبانينا في النرجس تجمع بين تصاميم وظيفية وواجهة «حجر زيدان» المميزة ومداخل رخامية ومصاعد أوروبية — مبنية لمن يريد عنواناً جاهزاً للسكن الفوري في منطقة نادراً ما تفقد قيمتها.",
+        "يقع النرجس الجديد في قلب التجمّع الخامس، وسط بنية تحتية مكتملة ومدارس ومناطق تجارية ومساحات خضراء. ولأن المنطقة راسخة بالفعل، يحصل المشتري على قيمة معيشية فورية وطلب مثبت.",
+        "مبانينا في النرجس تجمع بين مساحات عملية وواجهة «حجر زيدان» المميزة ومداخل رخامية ومصاعد أوروبية — لتمنحك عنواناً جاهزاً للسكن في منطقة تحافظ على قيمتها.",
       ],
     },
     district: { en: "Fifth Settlement · New Cairo", ar: "التجمّع الخامس · القاهرة الجديدة" },
     status: "Available",
     unitTypes: [
       { en: "Residential Apartments", ar: "شقق سكنية" },
-      { en: "Duplexes", ar: "دوبلكسات" },
+      { en: "Duplexes", ar: "دوبلكس" },
     ],
     downPayment: { en: "From 10%", ar: "من 10%" },
     installment: { en: "Up to 7 years", ar: "حتى 7 سنوات" },
-    delivery: { en: "Semi / Fully finished", ar: "نصف / تشطيب كامل" },
+    delivery: { en: "Semi / Fully finished", ar: "نصف تشطيب / تشطيب كامل" },
     highlights: {
       en: [
         "Established, fully-serviced community",
@@ -59,7 +59,7 @@ const source: ProjectSource[] = [
       ],
       ar: [
         "مجتمع راسخ بكامل خدماته",
-        "طلب قوي على البيع والإيجار",
+        "طلب قوي على إعادة البيع والإيجار",
         "دقائق من شارع التسعين والمحاور الرئيسية",
         "واجهة «حجر زيدان» المميزة",
       ],
@@ -71,10 +71,10 @@ const source: ProjectSource[] = [
     slug: "bait-al-watan",
     name: { en: "Bait Al Watan", ar: "بيت الوطن" },
     shortName: { en: "Bait Al Watan", ar: "بيت الوطن" },
-    tagline: { en: "The investment stronghold of New Cairo.", ar: "معقل الاستثمار في القاهرة الجديدة." },
+    tagline: { en: "The investment stronghold of New Cairo.", ar: "إحدى أقوى وجهات الاستثمار في القاهرة الجديدة." },
     summary: {
       en: "Purpose-built for investors — administrative and residential units engineered for yield, liquidity and fast exit.",
-      ar: "مصمّم للمستثمرين — وحدات إدارية وسكنية هندّست لعائدٍ مرتفع وسيولة وخروج سريع.",
+      ar: "وجهة مناسبة للمستثمرين — وحدات إدارية وسكنية مصمّمة للعائد والسيولة وسهولة إعادة البيع.",
     },
     description: {
       en: [
@@ -82,8 +82,8 @@ const source: ProjectSource[] = [
         "Zidan's projects here are planned around efficient, leasable layouts with controlled common-area costs, giving investors a clear path to rental income and capital appreciation.",
       ],
       ar: [
-        "صُمّم بيت الوطن منذ اليوم الأول كمنطقة استثمارية، بتقسيم إداري وسكني يدفع طلباً ثابتاً من المهنيين والشركات.",
-        "مشاريع زيدان هنا مخططة حول تصاميم قابلة للتأجير بكفاءة وبتكاليف خدمات مضبوطة، مانحةً المستثمر مساراً واضحاً نحو دخل إيجاري وزيادة رأس مالية.",
+        "صُمّم بيت الوطن منذ البداية كمنطقة استثمارية، بتقسيمات إدارية وسكنية تدعم طلباً مستمراً من الأفراد والشركات.",
+        "تُخطط مشاريع زيدان هنا بمساحات فعّالة قابلة للتأجير وتكاليف تشغيل واضحة، لتمنح المستثمر مساراً عملياً نحو دخل إيجاري ونمو في رأس المال.",
       ],
     },
     district: { en: "Fifth Settlement · New Cairo", ar: "التجمّع الخامس · القاهرة الجديدة" },
@@ -103,7 +103,7 @@ const source: ProjectSource[] = [
         "Transparent payment schedules",
       ],
       ar: [
-        "تقسيم يعطي الأولوية للمستثمر",
+        "تخطيط مناسب للمستثمر",
         "تصاميم فعّالة قابلة للتأجير",
         "طلب مرتفع من المهنيين",
         "جداول سداد شفافة",
@@ -116,10 +116,10 @@ const source: ProjectSource[] = [
     slug: "al-lotus",
     name: { en: "Al Lotus", ar: "اللوتس" },
     shortName: { en: "Lotus", ar: "اللوتس" },
-    tagline: { en: "Premium living, beautifully connected.", ar: "حياة راقية واتصال مثالي." },
+    tagline: { en: "Premium living, beautifully connected.", ar: "حياة راقية بالقرب من كل ما يهم." },
     summary: {
       en: "A premium residential district known for its quality of life, wide roads and proximity to top schools and clubs.",
-      ar: "منطقة سكنية راقية تُعرف بجودة حياتها وشوارعها الواسعة وقربها من أفضل المدارس والأندية.",
+      ar: "منطقة سكنية راقية معروفة بجودة الحياة، والشوارع الواسعة، والقرب من المدارس والأندية المميزة.",
     },
     description: {
       en: [
@@ -127,22 +127,22 @@ const source: ProjectSource[] = [
         "Our Lotus buildings emphasize privacy, generous natural light and refined finishing, making them ideal for families seeking a long-term home in a premium community.",
       ],
       ar: [
-        "اللوتس أحد أكثر العناوين السكنية المرغوبة في القاهرة الجديدة — تشتهر بشوارعها الهادئة ووحداتها الواسعة ووصولها الممتاز إلى المدارس الدولية والأندية ومنافذ البيع.",
-        "مبانينا في اللوتس تُولي اهتماماً للخصوصية والإضاءة الطبيعية الوفيرة والتشطيب الراقي، ما يجعلها مثالية للعائلات الباحثة عن بيت دائم في مجتمع راقٍ.",
+        "اللوتس من أكثر العناوين السكنية طلباً في القاهرة الجديدة — تشتهر بشوارعها الهادئة ووحداتها الواسعة وقربها من المدارس الدولية والأندية والمناطق التجارية.",
+        "مبانينا في اللوتس تمنح الأولوية للخصوصية والإضاءة الطبيعية والتشطيبات الراقية، لتناسب العائلات الباحثة عن بيت طويل الأمد في مجتمع مميز.",
       ],
     },
     district: { en: "Lotus District · New Cairo", ar: "حي اللوتس · القاهرة الجديدة" },
     status: "Available",
     unitTypes: [
       { en: "Residential Apartments", ar: "شقق سكنية" },
-      { en: "Duplexes", ar: "دوبلكسات" },
+      { en: "Duplexes", ar: "دوبلكس" },
     ],
     downPayment: { en: "From 10%", ar: "من 10%" },
     installment: { en: "Up to 7 years", ar: "حتى 7 سنوات" },
     delivery: { en: "Fully finished", ar: "تشطيب كامل" },
     highlights: {
       en: ["Premium, family-friendly district", "Close to schools & clubs", "Generous, light-filled layouts", "High-end finishing standards"],
-      ar: ["منطقة راقية وملائمة للعائلات", "قريبة من المدارس والأندية", "تصاميم واسعة مليئة بالإضاءة", "معايير تشطيب راقية"],
+      ar: ["منطقة راقية وملائمة للعائلات", "قرب واضح من المدارس والأندية", "مساحات واسعة وإضاءة طبيعية", "معايير تشطيب راقية"],
     },
     accent: "#D9BC7A",
     featured: true,
@@ -151,10 +151,10 @@ const source: ProjectSource[] = [
     slug: "al-andalus",
     name: { en: "Al Andalus", ar: "الأندلس" },
     shortName: { en: "Andalus", ar: "الأندلس" },
-    tagline: { en: "Balanced family living in a green setting.", ar: "حياة عائلية متوازنة في بيئة خضراء." },
+    tagline: { en: "Balanced family living in a green setting.", ar: "حياة عائلية متوازنة وسط بيئة خضراء." },
     summary: {
       en: "A well-balanced residential district that blends calm, green surroundings with strong access to New Cairo's main arteries.",
-      ar: "منطقة سكنية متوازنة تجمع بين الهدوء والبيئة الخضراء ووصول قوي إلى محاور القاهرة الجديدة الرئيسية.",
+      ar: "منطقة سكنية متوازنة تجمع بين الهدوء والبيئة الخضراء وسهولة الوصول إلى محاور القاهرة الجديدة الرئيسية.",
     },
     description: {
       en: [
@@ -162,8 +162,8 @@ const source: ProjectSource[] = [
         "Zidan's Andalus projects deliver durable construction and practical layouts at an attractive entry point, with the same direct-execution quality standard applied everywhere.",
       ],
       ar: [
-        "يقدّم الأندلس نمط حياة متوازناً — أهدأ من المركز التجاري وعلى بعد دقائق من كل ما يهم. وهو مفضّل للعائلات الباحثة عن قيمة دون التنازل عن الموقع.",
-        "مشاريع زيدان في الأندلس تقدّم إنشاءً متيناً وتصاميم عملية بسعر دخول جذّاب، بنفس معيار الجودة في التنفيذ المباشر المطبّق في كل مكان.",
+        "يقدّم الأندلس نمط حياة متوازناً — أهدأ من المناطق التجارية، ومع ذلك قريب من كل ما تحتاجه. لذلك يفضّله كثير من العائلات الباحثة عن قيمة حقيقية دون التنازل عن الموقع.",
+        "مشاريع زيدان في الأندلس تقدّم إنشاءً متيناً ومساحات عملية بسعر دخول مناسب، مع نفس معيار الجودة والتنفيذ المباشر الذي نلتزم به في كل مشاريعنا.",
       ],
     },
     district: { en: "Andalus · New Cairo", ar: "الأندلس · القاهرة الجديدة" },
@@ -171,10 +171,10 @@ const source: ProjectSource[] = [
     unitTypes: [{ en: "Residential Apartments", ar: "شقق سكنية" }],
     downPayment: { en: "From 10%", ar: "من 10%" },
     installment: { en: "Up to 7 years", ar: "حتى 7 سنوات" },
-    delivery: { en: "Semi / Fully finished", ar: "نصف / تشطيب كامل" },
+    delivery: { en: "Semi / Fully finished", ar: "نصف تشطيب / تشطيب كامل" },
     highlights: {
       en: ["Green, family-oriented setting", "Strong value-to-location ratio", "Practical, efficient layouts", "Direct, supervised execution"],
-      ar: ["بيئة خضراء تركز على العائلة", "نسبة قيمة إلى موقع قوية", "تصاميم عملية فعّالة", "تنفيذ مباشر بإشراف"],
+      ar: ["بيئة خضراء مناسبة للعائلات", "قيمة قوية مقابل الموقع", "مساحات عملية وفعّالة", "تنفيذ مباشر تحت إشراف دقيق"],
     },
     accent: "#C8A45C",
   },
@@ -182,10 +182,10 @@ const source: ProjectSource[] = [
     slug: "gardenia-heights",
     name: { en: "Gardenia Heights", ar: "جاردينيا هايتس" },
     shortName: { en: "Gardenia", ar: "جاردينيا" },
-    tagline: { en: "Elevated, green and calm.", ar: "مرتفعة وخضراء وهادئة." },
+    tagline: { en: "Elevated, green and calm.", ar: "ارتفاع مميز وهدوء ومساحات خضراء." },
     summary: {
       en: "An elevated residential pocket with cooler micro-climate, open views and a relaxed pace of life.",
-      ar: "جيب سكني مرتفع بمناخ أبرد وإطلالات مفتوحة وإيقاع حياة هادئ.",
+      ar: "منطقة سكنية مرتفعة بإطلالات مفتوحة وهدوء أوضح ونمط حياة أكثر راحة.",
     },
     description: {
       en: [
@@ -193,22 +193,22 @@ const source: ProjectSource[] = [
         "Our buildings here are designed to maximise light and views, with landscaped entrances that complement the area's natural character.",
       ],
       ar: [
-        "تقع جاردينيا هايتس في ارتفاع أعلى، فتقدّم إطلالات مفتوحة وبيئة أكثر خضرة وإيقاعاً أهدأ بكثير من المناطق الأكثر كثافة.",
-        "مبانينا هنا مصمّمة لتعظيم الإضاءة والإطلالات، مع مداخل مشجّرة تكمّل الطابع الطبيعي للمنطقة.",
+        "تقع جاردينيا هايتس على ارتفاع مميز، ما يمنحها إطلالات أوسع وبيئة أكثر خضرة وهدوءاً مقارنة بالمناطق الأعلى كثافة.",
+        "صُمّمت مبانينا هنا لتعظيم الإضاءة والإطلالات، مع مداخل مشجّرة تنسجم مع الطابع الهادئ للمنطقة.",
       ],
     },
     district: { en: "Gardenia Heights · New Cairo", ar: "جاردينيا هايتس · القاهرة الجديدة" },
     status: "Available",
     unitTypes: [
       { en: "Residential Apartments", ar: "شقق سكنية" },
-      { en: "Duplexes", ar: "دوبلكسات" },
+      { en: "Duplexes", ar: "دوبلكس" },
     ],
     downPayment: { en: "From 10%", ar: "من 10%" },
     installment: { en: "Up to 7 years", ar: "حتى 7 سنوات" },
     delivery: { en: "Semi-finished", ar: "نصف تشطيب" },
     highlights: {
       en: ["Elevated, open views", "Greener, quieter setting", "Landscaped entrances", "Light-maximising layouts"],
-      ar: ["إطلالات مفتوحة مرتفعة", "بيئة أكثر خضرة وهدوءاً", "مداخل مشجّرة", "تصاميم تعظّم الإضاءة"],
+      ar: ["إطلالات مفتوحة من ارتفاع مميز", "بيئة أكثر خضرة وهدوءاً", "مداخل مشجّرة", "تصميمات تستفيد من الإضاءة الطبيعية"],
     },
     accent: "#B8924A",
   },
@@ -216,10 +216,10 @@ const source: ProjectSource[] = [
     slug: "south-investors",
     name: { en: "South Investors", ar: "المستثمرين الجنوبيين" },
     shortName: { en: "South Investors", ar: "المستثمرين الجنوبيين" },
-    tagline: { en: "Smart commercial yield.", ar: "عائد تجاري ذكي." },
+    tagline: { en: "Smart commercial yield.", ar: "فرص تجارية بعائد مدروس." },
     summary: {
       en: "A commercial and administrative corridor engineered for investors seeking yield and flexibility.",
-      ar: "ممر تجاري وإداري هُندّس للمستثمرين الباحثين عن العائد والمرونة.",
+      ar: "منطقة تجارية وإدارية مناسبة للمستثمرين الباحثين عن عائد واضح ومرونة في الاستخدام.",
     },
     description: {
       en: [
@@ -227,8 +227,8 @@ const source: ProjectSource[] = [
         "Zidan's units here are planned for flexibility and efficient use of space, with clear cost structures that make cashflow projections straightforward.",
       ],
       ar: [
-        "يتموضع المستثمرين الجنوبيين للاستخدام التجاري والإداري، ويجذب الشركات التي تحتاج عنواناً موثوقاً في القاهرة الجديدة بإمكانات حركة قوية.",
-        "وحدات زيدان هنا مخططة للمرونة والاستخدام الفعّال للمساحة، بهياكل تكلفة واضحة تجعل تقديرات التدفّق النقدي مباشرة.",
+        "تتميز منطقة المستثمرين الجنوبيين بطابع تجاري وإداري يجذب الشركات التي تحتاج إلى عنوان موثوق في القاهرة الجديدة مع فرص حركة ونشاط جيدة.",
+        "تُخطط وحدات زيدان هنا بمرونة عالية واستخدام فعّال للمساحات، مع هياكل تكلفة واضحة تساعد على قراءة العائد والتدفقات النقدية بسهولة.",
       ],
     },
     district: { en: "South Investors · New Cairo", ar: "المستثمرين الجنوبيين · القاهرة الجديدة" },
@@ -239,10 +239,10 @@ const source: ProjectSource[] = [
     ],
     downPayment: { en: "From 15%", ar: "من 15%" },
     installment: { en: "Up to 6 years", ar: "حتى 6 سنوات" },
-    delivery: { en: "Core & shell / Semi-finished", ar: "هيكل / نصف تشطيب" },
+    delivery: { en: "Core & shell / Semi-finished", ar: "هيكل خرساني / نصف تشطيب" },
     highlights: {
       en: ["Commercial & administrative zoning", "Flexible, efficient unit plans", "Strong business demand", "Clear cost structures"],
-      ar: ["تقسيم تجاري وإداري", "تصاميم وحدات مرنة فعّالة", "طلب أعمال قوي", "هياكل تكلفة واضحة"],
+      ar: ["تقسيم تجاري وإداري", "مساحات مرنة وفعّالة", "طلب قوي من الأنشطة التجارية", "هياكل تكلفة واضحة"],
     },
     accent: "#D9BC7A",
   },
@@ -250,10 +250,10 @@ const source: ProjectSource[] = [
     slug: "al-takmely",
     name: { en: "Al Takmely District", ar: "حي التكميلي" },
     shortName: { en: "Al Takmely", ar: "التكميلي" },
-    tagline: { en: "The new-era growth zone.", ar: "منطقة نمط العصر الجديد." },
+    tagline: { en: "The new-era growth zone.", ar: "منطقة واعدة للنمو المستقبلي." },
     summary: {
       en: "An emerging district with early-mover pricing and the infrastructure momentum that drives long-term appreciation.",
-      ar: "منطقة صاعدة بأسعار دخول مبكرة وزخم بنية تحتية يدفع الزيادة طويلة الأمد.",
+      ar: "منطقة صاعدة بأسعار دخول مناسبة وزخم بنية تحتية يدعم نمو القيمة على المدى الطويل.",
     },
     description: {
       en: [
@@ -261,22 +261,22 @@ const source: ProjectSource[] = [
         "It is a strategic pick for investors with a medium-to-long-term horizon who understand that value follows infrastructure.",
       ],
       ar: [
-        "حي التكميلي أحد أسرع مناطق القاهرة الجديدة تطوّراً، حيث يستفيد المشترون الأوائل من أسعار دخول قبل اكتمال البنية التحتية.",
-        "وهو اختيار استراتيجي للمستثمرين بأفق متوسط إلى طويل يدركون أن القيمة تتبع البنية التحتية.",
+        "حي التكميلي من أسرع مناطق القاهرة الجديدة تطوراً، حيث يستفيد المشترون الأوائل من أسعار دخول مبكرة قبل اكتمال نضج البنية التحتية.",
+        "يمثل الحي اختياراً استراتيجياً للمستثمرين أصحاب الرؤية المتوسطة والطويلة الأجل، ممن يدركون أن القيمة تنمو مع اكتمال الطرق والخدمات.",
       ],
     },
     district: { en: "Al Takmely · New Cairo", ar: "حي التكميلي · القاهرة الجديدة" },
     status: "Coming Soon",
     unitTypes: [
       { en: "Residential Apartments", ar: "شقق سكنية" },
-      { en: "Duplexes", ar: "دوبلكسات" },
+      { en: "Duplexes", ar: "دوبلكس" },
     ],
     downPayment: { en: "From 10%", ar: "من 10%" },
     installment: { en: "Up to 9 years", ar: "حتى 9 سنوات" },
     delivery: { en: "Semi-finished", ar: "نصف تشطيب" },
     highlights: {
       en: ["Early-mover entry pricing", "Infrastructure-driven growth", "Long-horizon appreciation", "Extended payment plans"],
-      ar: ["أسعار دخول مبكرة", "نمو مدفوع بالبنية التحتية", "زيادة طويلة الأمد", "خطط سداد ممتدة"],
+      ar: ["أسعار دخول مناسبة", "نمو مدعوم بالبنية التحتية", "زيادة متوقعة في القيمة على المدى الطويل", "خطط سداد ممتدة"],
     },
     accent: "#C8A45C",
   },
@@ -287,7 +287,7 @@ const source: ProjectSource[] = [
     tagline: { en: "The heart of New Cairo.", ar: "قلب القاهرة الجديدة." },
     summary: {
       en: "The established centre of New Cairo — unmatched connectivity, services and a proven address that buyers and tenants recognise.",
-      ar: "مركز القاهرة الجديدة الراسخ — اتصال لا يُضاهى وخدمات وعنوان مثبت يعرفه المشترون والمستأجرون.",
+      ar: "مركز القاهرة الجديدة الراسخ — شبكة طرق وخدمات قوية وعنوان معروف لدى المشترين والمستأجرين.",
     },
     description: {
       en: [
@@ -295,8 +295,8 @@ const source: ProjectSource[] = [
         "A Fifth Settlement address carries instant recognition and liquidity, making it a cornerstone of any Zidan portfolio.",
       ],
       ar: [
-        "التجمّع الخامس هو قلب القاهرة الجديدة النابض، بأكثف شبكة خدمات وتجزئة ومدارس ومحاور في المنطقة.",
-        "يحمل عنوان التجمّع الخامس اعترافاً وسيولة فورية، ما يجعله حجر الزاوية في أي محفظة لزيدان.",
+        "التجمّع الخامس هو قلب القاهرة الجديدة النابض، بأقوى شبكة من الخدمات والمناطق التجارية والمدارس والمحاور الرئيسية.",
+        "يحمل عنوان التجمّع الخامس شهرة فورية وسيولة قوية، ما يجعله ركناً أساسياً في أي محفظة مشاريع لزيدان.",
       ],
     },
     district: { en: "Fifth Settlement · New Cairo", ar: "التجمّع الخامس · القاهرة الجديدة" },
@@ -307,10 +307,10 @@ const source: ProjectSource[] = [
     ],
     downPayment: { en: "From 10%", ar: "من 10%" },
     installment: { en: "Up to 7 years", ar: "حتى 7 سنوات" },
-    delivery: { en: "Semi / Fully finished", ar: "نصف / تشطيب كامل" },
+    delivery: { en: "Semi / Fully finished", ar: "نصف تشطيب / تشطيب كامل" },
     highlights: {
       en: ["Unmatched connectivity", "Dense services & retail", "Instantly recognised address", "High liquidity & demand"],
-      ar: ["اتصال لا يُضاهى", "خدمات وتجزئة كثيفة", "عنوان معروف فوراً", "سيولة وطلب مرتفعان"],
+      ar: ["سهولة وصول قوية", "خدمات ومناطق تجارية كثيفة", "عنوان معروف فوراً", "سيولة وطلب مرتفعان"],
     },
     accent: "#B8924A",
   },

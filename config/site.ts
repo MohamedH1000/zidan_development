@@ -49,11 +49,11 @@ export const siteConfig = {
 /** Districts offered, with bilingual names + taglines. `slug` is the stable key. */
 export const areas = [
   { slug: "al-andalus", en: "Al Andalus", ar: "الأندلس", tagline: { en: "Balanced family living", ar: "حياة عائلية متوازنة" } },
-  { slug: "gardenia-heights", en: "Gardenia Heights", ar: "جاردينيا هايتس", tagline: { en: "Elevated, green & calm", ar: "مرتفعة وخضراء وهادئة" } },
-  { slug: "al-lotus", en: "Al Lotus", ar: "اللوتس", tagline: { en: "Premium & well-connected", ar: "راقية ومتصلة بكل الخدمات" } },
+  { slug: "gardenia-heights", en: "Gardenia Heights", ar: "جاردينيا هايتس", tagline: { en: "Elevated, green & calm", ar: "مرتفعة وهادئة ومحاطة بالخضرة" } },
+  { slug: "al-lotus", en: "Al Lotus", ar: "اللوتس", tagline: { en: "Premium & well-connected", ar: "رقي سكني قريب من كل الخدمات" } },
   { slug: "south-investors", en: "South Investors", ar: "المستثمرين الجنوبيين", tagline: { en: "Smart commercial yield", ar: "عائد تجاري ذكي" } },
-  { slug: "bait-al-watan", en: "Bait Al Watan", ar: "بيت الوطن", tagline: { en: "Investment stronghold", ar: "معقل استثماري" } },
-  { slug: "al-takmely", en: "Al Takmely District", ar: "حي التكميلي", tagline: { en: "New-era growth zone", ar: "منطقة نمط العصر الجديد" } },
+  { slug: "bait-al-watan", en: "Bait Al Watan", ar: "بيت الوطن", tagline: { en: "Investment stronghold", ar: "منطقة استثمارية قوية" } },
+  { slug: "al-takmely", en: "Al Takmely District", ar: "حي التكميلي", tagline: { en: "New-era growth zone", ar: "منطقة واعدة للنمو" } },
   { slug: "new-narges", en: "New Narges", ar: "النرجس الجديد", tagline: { en: "Established & in demand", ar: "راسخة وعالية الطلب" } },
   { slug: "fifth-settlement", en: "Fifth Settlement", ar: "التجمع الخامس", tagline: { en: "The heart of New Cairo", ar: "قلب القاهرة الجديدة" } },
 ] as const;
