@@ -55,6 +55,7 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       { protocol: "https", hostname: "res.cloudinary.com" },
       { protocol: "https", hostname: "i.ytimg.com" },
+      { protocol: "https", hostname: "lavenderblush-cassowary-465541.hostingersite.com" },
       { protocol: "https", hostname: "zidandevelopments.com" },
       { protocol: "https", hostname: "*.zidandevelopments.com" },
     ],
