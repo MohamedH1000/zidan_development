@@ -2,7 +2,7 @@ import Image from "next/image";
 import { Link } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
 
-const logoUrl = "https://lavenderblush-cassowary-465541.hostingersite.com/wp-content/uploads/2025/07/Zidan_White-e1770805439461.png";
+const logoUrl = "/Logo.png";
 
 /**
  * Brand logo used across the header and footer.
