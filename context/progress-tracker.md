@@ -97,6 +97,9 @@ Last verified build: 2026-07-04 · Next.js 16.2.9 · React 19 · Turbopack.
 
 ### SEO
 - [x] Per-page `generateMetadata` (incl. home), `metadataBase`, canonical, hreflang
+- [x] Canonical production domain defaults to `https://zidandevelopments.com`,
+  so sitemap and robots URLs use the live custom domain when no host env var is
+  provided.
 - [x] Canonicals include matching EN/AR/x-default alternates for localized pages
   so Arabic URLs self-canonicalize instead of looking like a different
   hreflang target.

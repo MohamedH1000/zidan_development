@@ -1,7 +1,7 @@
 import type { Locale } from "@/i18n/routing";
 import { pick } from "@/lib/i18n";
 
-const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL || "https://zidan-development.vercel.app").replace(/\/$/, "");
+const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL || "https://zidandevelopments.com").replace(/\/$/, "");
 
 /**
  * Central, type-safe site configuration.
