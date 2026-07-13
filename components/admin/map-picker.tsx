@@ -46,7 +46,7 @@ export function MapPicker({
   mapLat?: number | null;
   mapLng?: number | null;
 }) {
-  const t = useTranslations("admin.forms");
+  const t = useTranslations("admin");
   const initialLat = toNum(mapLat);
   const initialLng = toNum(mapLng);
   const hasInitial = initialLat !== null && initialLng !== null;
@@ -107,16 +107,16 @@ export function MapPicker({
 
       <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-ink-400">
         <MapPin className="h-3.5 w-3.5 text-gold-400" />
-        <span>{t("hints.mapPicker")}</span>
+        <span>{t("forms.hints.mapPicker")}</span>
       </div>
 
       <div className="flex flex-wrap gap-4 text-xs text-ink-300">
         <span>
-          <span className="text-ink-500">{t("fields.latitude")}: </span>
+          <span className="text-ink-500">{t("forms.fields.latitude")}: </span>
           {pos ? pos[0].toFixed(6) : "—"}
         </span>
         <span>
-          <span className="text-ink-500">{t("fields.longitude")}: </span>
+          <span className="text-ink-500">{t("forms.fields.longitude")}: </span>
           {pos ? pos[1].toFixed(6) : "—"}
         </span>
         {pos ? (
