@@ -1,6 +1,7 @@
 "use client";
 
 import { useActionState, useState } from "react";
+import dynamic from "next/dynamic";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { Trash2, Save } from "lucide-react";
@@ -10,6 +11,12 @@ import { AdminField, AdminSection, adminInput } from "@/components/admin/field";
 import { buttonVariants } from "@/components/ui/button";
 import { Spinner } from "@/components/ui/spinner";
 import { Link } from "@/i18n/navigation";
+
+// Leaflet requires `window`, so the map picker is loaded client-only.
+const MapPicker = dynamic(
+  () => import("@/components/admin/map-picker").then((m) => m.MapPicker),
+  { ssr: false },
+);
 
 const STATUS_OPTIONS = ["Available", "UnderConstruction", "Delivered", "ComingSoon"];
 
@@ -110,6 +117,12 @@ export function ProjectForm({ initial }: { initial?: Project }) {
       </div>
 
       <AdminSection title={t("forms.sections.locationMap")} />
+      <AdminField label={t("forms.fields.pickLocationOnMap")} hint={t("forms.hints.mapPicker")}>
+        <MapPicker mapLat={initial?.mapLat ?? null} mapLng={initial?.mapLng ?? null} />
+      </AdminField>
+      <p className="mb-2 mt-5 text-xs font-semibold uppercase tracking-wide text-ink-500">
+        {t("forms.fields.mapOptionalAdvanced")}
+      </p>
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         <AdminField label={t("forms.fields.googleMapLink")}><TextInput name="googleMapLink" defaultValue={initial?.googleMapLink ?? ""} /></AdminField>
         <AdminField label={t("forms.fields.mapEmbed")} hint={t("forms.hints.mapEmbed")}>

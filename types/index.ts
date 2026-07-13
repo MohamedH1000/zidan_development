@@ -60,6 +60,8 @@ export interface ProjectArea {
   render3dUrl?: string | null;
   googleMapLink?: string | null;
   mapEmbed?: string | null;
+  mapLat?: number | null;
+  mapLng?: number | null;
   projectAvailability?: string | null;
   propertyStatus?: string | null;
   deliveryDate?: string | null;

@@ -52,6 +52,8 @@ function mapProject(p: ProjectWithUnits, locale: Locale): ProjectArea {
     render3dUrl: p.render3dUrl,
     googleMapLink: p.googleMapLink,
     mapEmbed: p.mapEmbed,
+    mapLat: p.mapLat,
+    mapLng: p.mapLng,
     projectAvailability: p.projectAvailability,
     propertyStatus: p.propertyStatus,
     deliveryDate: p.deliveryDate,

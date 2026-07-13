@@ -31,8 +31,18 @@ Build + lint pass with 0 errors.
   article metadata, related project, tags, gallery, SEO, OG and Twitter fields.
   **Pending:** Phase C — wire the public projects/units pages to read Postgres
   via Prisma + ISR (currently they still read the static `content/*` files).
+- **Admin UX (2026-07-14):**
+  - Mobile admin menu converted from a native `<details>` to a controlled
+    `<MobileNav>` client component — closes on nav-link click and on
+    outside-click / Escape (desktop sidebar unchanged).
+  - Free map picker added to the project form (Leaflet + react-leaflet on
+    OpenStreetMap tiles, click-or-drag pin → `mapLat`/`mapLng`). The public
+    project page renders a keyless Google Maps embed from those coordinates.
+    Legacy `googleMapLink`/`mapEmbed` fields kept as an optional override.
+    New `Project.mapLat`/`mapLng` Float columns (sync via
+    `prisma db push --url "$DIRECT_URL"`).
 
-Last verified build: 2026-07-04 · Next.js 16.2.9 · React 19 · Turbopack.
+Last verified build: 2026-07-14 · Next.js 16.2.9 · React 19 · Turbopack.
 
 ## Progress
 

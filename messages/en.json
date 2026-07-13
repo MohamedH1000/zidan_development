@@ -324,7 +324,8 @@
       "publishSave": "Publish / save",
       "saveUser": "Save user",
       "createUser": "Create user",
-      "confirmDelete": "Delete this item? This cannot be undone."
+      "confirmDelete": "Delete this item? This cannot be undone.",
+      "clearLocation": "Clear location"
     },
     "dashboard": {
       "title": "Dashboard",
@@ -477,6 +478,10 @@
         "featuresProjectAr": "Features of project (AR)",
         "googleMapLink": "Google Map link",
         "mapEmbed": "Map embed (iframe src)",
+        "pickLocationOnMap": "Pick location on map",
+        "mapOptionalAdvanced": "Optional (advanced)",
+        "latitude": "Latitude",
+        "longitude": "Longitude",
         "removeImage": "Remove image",
         "addGalleryImages": "Add gallery images",
         "render3d": "3D render",
@@ -534,6 +539,7 @@
       },
       "hints": {
         "mapEmbed": "Paste only the src URL from the map embed code.",
+        "mapPicker": "Click the map or drag the pin to set the location shown on the public project page.",
         "cloudinaryMultiple": "Select multiple - uploaded to Cloudinary.",
         "keepPassword": "Leave blank to keep the current password.",
         "minPassword": "Min 8 characters.",

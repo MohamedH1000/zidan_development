@@ -68,6 +68,13 @@ components by default; client ones are marked. Import via the `@/` alias.
 | `ContactForm` | `submitContact` | `compact` prop. Area select from `areas` config (value=slug). Sends through Resend when configured. |
 | `CareersForm` | `submitCareers` | CV upload (PDF/DOC/DOCX ≤5MB), cover letter, consent rich-link. Honeypot `website`. |
 
+## Admin — `components/admin/`
+
+| Component | Type | Notes |
+|-----------|------|-------|
+| `MobileNav` | **client** | Admin mobile drawer. Props `{ nav: {href,label}[], email }`. Stateful open state; closes on nav-link click, outside `pointerdown`, and Escape. Icons mapped by `href` inside the file (lucide components can't cross the server→client boundary). Used by the admin `(protected)` layout (server) — only serializable props cross over. |
+| `MapPicker` | **client** | OpenStreetMap picker (Leaflet + react-leaflet). Click-to-place + draggable pin → hidden `mapLat`/`mapLng` inputs read by `saveProject`. Always loaded via `next/dynamic({ ssr:false })` from the client `ProjectForm` (Leaflet needs `window`). `L.divIcon` inline SVG pin (no marker-image assets). Default centre New Cairo. |
+
 ## Visual & SEO
 
 | Component | Type | Notes |

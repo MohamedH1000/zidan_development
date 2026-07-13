@@ -98,6 +98,8 @@ model Project {
   featuresProjectAr   String[] @default([])
   googleMapLink       String? // "Google Map Link"
   mapEmbed            String? // "Map" (iframe embed src)
+  mapLat              Float? // latitude chosen via the OSM map picker
+  mapLng              Float? // longitude chosen via the OSM map picker
   images              String[] @default([]) // gallery URLs (Supabase Storage)
   render3dUrl         String? // "3D Render"
 

@@ -150,7 +150,27 @@ export default async function ProjectDetailPage({
                 </div>
               ) : null}
 
-              {project.mapEmbed ? (
+              {project.mapLat != null && project.mapLng != null ? (
+                <div className="mt-10">
+                  <h2 className="font-display text-2xl font-semibold text-ink-900">Location</h2>
+                  <div className="relative mt-4 aspect-video overflow-hidden rounded-2xl border border-ink-900/8 shadow-lg">
+                    <iframe
+                      src={`https://www.google.com/maps?q=${project.mapLat},${project.mapLng}&output=embed`}
+                      className="h-full w-full"
+                      loading="lazy"
+                      title={`${project.name} map`}
+                    />
+                  </div>
+                  <a
+                    href={project.googleMapLink || `https://www.google.com/maps?q=${project.mapLat},${project.mapLng}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-2 inline-block text-sm font-medium text-gold-700 underline"
+                  >
+                    Open in Google Maps ↗
+                  </a>
+                </div>
+              ) : project.mapEmbed ? (
                 <div className="mt-10">
                   <h2 className="font-display text-2xl font-semibold text-ink-900">Location</h2>
                   <div className="relative mt-4 aspect-video overflow-hidden rounded-2xl border border-ink-900/8 shadow-lg">

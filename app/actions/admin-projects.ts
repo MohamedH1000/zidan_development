@@ -12,6 +12,12 @@ function str(fd: FormData, k: string): string {
   const v = fd.get(k);
   return typeof v === "string" ? v.trim() : "";
 }
+function num(fd: FormData, k: string): number | null {
+  const v = str(fd, k);
+  if (!v) return null;
+  const n = Number(v);
+  return Number.isFinite(n) ? n : null;
+}
 function lines(v: string): string[] {
   return v.split("\n").map((l) => l.trim()).filter(Boolean);
 }
@@ -89,6 +95,8 @@ export async function saveProject(_prev: ProjectFormState, formData: FormData): 
       featuresProjectAr: lines(str(formData, "featuresProjectAr")),
       googleMapLink: str(formData, "googleMapLink") || null,
       mapEmbed: str(formData, "mapEmbed") || null,
+      mapLat: num(formData, "mapLat"),
+      mapLng: num(formData, "mapLng"),
       images: [...keepImages, ...uploaded],
       render3dUrl,
     };
