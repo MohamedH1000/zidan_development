@@ -29,7 +29,7 @@ export async function generateMetadata({
   const { locale, slug } = await params;
   const activeLocale = locale as Locale;
   const post = await getBlogBySlugFromDB(slug, activeLocale);
-  if (!post) return buildMetadata({ title: "Article not found", description: "", path: "/blog" });
+  if (!post) return buildMetadata({ title: "Article not found", description: "", path: localizedPath(activeLocale, "/blog"), noIndex: true });
   const title = post.seoTitle || post.ogTitle || post.twitterTitle || post.title;
   const description = post.seoDescription || post.ogDescription || post.twitterDescription || post.excerpt || "";
   return buildMetadata({

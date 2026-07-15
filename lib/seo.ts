@@ -84,6 +84,7 @@ const organizationJsonLd = {
   legalName: siteConfig.legalName,
   alternateName: "Zidan Developments",
   url: siteConfig.url,
+  logo: absoluteUrl("/icon.png"),
   description: siteConfig.description,
   telephone: `+20${siteConfig.contact.phone}`,
   email: siteConfig.contact.email,
@@ -103,7 +104,8 @@ const localBusinessJsonLd = {
   url: siteConfig.url,
   telephone: `+20${siteConfig.contact.phone}`,
   email: siteConfig.contact.email,
-  image: absoluteUrl("/opengraph-image"),
+  image: absoluteUrl("/icon.png"),
+  logo: absoluteUrl("/icon.png"),
   priceRange: "$$$",
   address: {
     "@type": "PostalAddress",
@@ -164,7 +166,7 @@ export function getArticleJsonLd(article: {
     publisher: {
       "@type": "Organization",
       name: siteConfig.name,
-      logo: { "@type": "ImageObject", url: absoluteUrl("/icon.svg") },
+      logo: { "@type": "ImageObject", url: absoluteUrl("/icon.png") },
     },
     mainEntityOfPage: { "@type": "WebPage", "@id": absoluteUrl(article.path) },
   };

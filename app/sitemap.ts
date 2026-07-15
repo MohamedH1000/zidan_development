@@ -1,7 +1,6 @@
 import type { MetadataRoute } from "next";
 import { absoluteUrl } from "@/lib/seo";
-import { projectSlugs } from "@/content/projects";
-import { postSlugs } from "@/content/posts";
+import { prisma } from "@/lib/prisma";
 import type { Locale } from "@/i18n/routing";
 import { localizedPath } from "@/lib/i18n";
 
@@ -28,7 +27,7 @@ function alternates(path: string): { languages: Record<Locale, string> } {
   };
 }
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const now = new Date();
 
   const staticEntries: MetadataRoute.Sitemap = staticRoutes.flatMap(({ route, priority }) =>
@@ -41,25 +40,48 @@ export default function sitemap(): MetadataRoute.Sitemap {
     })),
   );
 
-  const projectEntries: MetadataRoute.Sitemap = projectSlugs.flatMap((slug) =>
-    locales.map((locale) => ({
-      url: absoluteUrl(localizedPath(locale, `/projects/${slug}`)),
-      lastModified: now,
-      changeFrequency: "monthly",
-      priority: 0.7,
-      alternates: alternates(`/projects/${slug}`),
-    })),
-  );
+  // Dynamic entries are sourced from the database so the sitemap only ever
+  // advertises URLs that actually resolve. If the DB is unreachable, fall back
+  // to the static routes alone — never ship dynamic URLs we can't verify.
+  let projectEntries: MetadataRoute.Sitemap = [];
+  let postEntries: MetadataRoute.Sitemap = [];
 
-  const postEntries: MetadataRoute.Sitemap = postSlugs.flatMap((slug) =>
-    locales.map((locale) => ({
-      url: absoluteUrl(localizedPath(locale, `/blog/${slug}`)),
-      lastModified: now,
-      changeFrequency: "monthly",
-      priority: 0.6,
-      alternates: alternates(`/blog/${slug}`),
-    })),
-  );
+  try {
+    const projects = await prisma.project.findMany({
+      select: { slug: true, updatedAt: true },
+      orderBy: [{ sortOrder: "asc" }, { createdAt: "desc" }],
+    });
+
+    projectEntries = projects.flatMap(({ slug, updatedAt }) =>
+      locales.map((locale) => ({
+        url: absoluteUrl(localizedPath(locale, `/projects/${slug}`)),
+        lastModified: updatedAt,
+        changeFrequency: "monthly" as const,
+        priority: 0.7,
+        alternates: alternates(`/projects/${slug}`),
+      })),
+    );
+
+    // Only PUBLISHED posts belong in the sitemap — drafts, scheduled and
+    // archived articles must never be discoverable by crawlers.
+    const posts = await prisma.blog.findMany({
+      where: { status: "PUBLISHED" },
+      select: { slug: true, updatedAt: true, publishedAt: true },
+      orderBy: [{ publishedAt: "desc" }],
+    });
+
+    postEntries = posts.flatMap(({ slug, updatedAt, publishedAt }) =>
+      locales.map((locale) => ({
+        url: absoluteUrl(localizedPath(locale, `/blog/${slug}`)),
+        lastModified: updatedAt ?? publishedAt ?? now,
+        changeFrequency: "monthly" as const,
+        priority: 0.6,
+        alternates: alternates(`/blog/${slug}`),
+      })),
+    );
+  } catch {
+    // DB unreachable: ship the static routes only.
+  }
 
   return [...staticEntries, ...projectEntries, ...postEntries];
 }

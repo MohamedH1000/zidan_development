@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { getServerSession } from "next-auth";
 import { getTranslations } from "next-intl/server";
@@ -13,6 +14,11 @@ import { Logo } from "@/components/layout/logo";
 
 // Admin pages are always rendered on demand (session + DB).
 export const dynamic = "force-dynamic";
+
+// The whole admin area is private — never indexed.
+export const metadata: Metadata = {
+  robots: { index: false, follow: false },
+};
 
 export default async function AdminProtectedLayout({
   children,

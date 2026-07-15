@@ -1,4 +1,5 @@
 export const dynamicParams = true;
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { setRequestLocale } from "next-intl/server";
 import { ArrowLeft, BedDouble, Bath, Maximize, Sofa, TreePalm } from "lucide-react";
@@ -10,7 +11,36 @@ import { Reveal } from "@/components/ui/reveal";
 import { buttonVariants } from "@/components/ui/button";
 import { Link } from "@/i18n/navigation";
 import { getProjectBySlugFromDB } from "@/lib/db-content";
+import { buildMetadata } from "@/lib/seo";
+import { localizedPath } from "@/lib/i18n";
 import { type Locale } from "@/i18n/routing";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string; slug: string; unitSlug: string }>;
+}): Promise<Metadata> {
+  const { locale, slug, unitSlug } = await params;
+  const activeLocale = locale as Locale;
+  const [project, unit] = await Promise.all([
+    getProjectBySlugFromDB(slug, activeLocale).catch(() => undefined),
+    prisma.unit.findFirst({ where: { slug: unitSlug, project: { slug } } }).catch(() => null),
+  ]);
+  if (!project || !unit) {
+    return buildMetadata({
+      title: "Unit not found",
+      description: "",
+      path: localizedPath(activeLocale, "/projects"),
+      noIndex: true,
+    });
+  }
+  const unitType = activeLocale === "ar" ? unit.unitTypeAr || unit.unitTypeEn : unit.unitTypeEn;
+  return buildMetadata({
+    title: `${unit.slug} — ${project.name}`,
+    description: `${unitType} at ${project.name}`,
+    path: localizedPath(activeLocale, `/projects/${project.slug}/units/${unit.slug}`),
+  });
+}
 
 
 export default async function UnitDetailPage({

@@ -41,8 +41,24 @@ Build + lint pass with 0 errors.
     Legacy `googleMapLink`/`mapEmbed` fields kept as an optional override.
     New `Project.mapLat`/`mapLng` Float columns (sync via
     `prisma db push --url "$DIRECT_URL"`).
+- **SEO indexing fix (2026-07-15):** root-caused every GSC "not indexed" row
+  against the live site and fixed all four systemic causes:
+  1. **Canonical host** → `www.` (`config/site.ts` default), so canonicals,
+     sitemap, hreflang, OG and JSON-LD URLs all match the www production host
+     (was non-www → every canonical 308-redirected).
+  2. **Sitemap now DB-driven** (`app/sitemap.ts`) — projects + *published* blogs
+     only, real `updatedAt`. No more advertising static-`content/*` slugs that
+     404 against the empty DB. Falls back to static-only routes if DB is down.
+  3. **Killed soft-404s** — `generateMetadata` on projects/blog/units `[slug]`
+     pages returns `noIndex: true` when the DB lookup misses (was rendering a
+     200 "Project not found" page). Units detail page gained a `generateMetadata`.
+  4. **Admin noindexed** — `(protected)/layout.tsx` + `login/page.tsx` export
+     `robots: { index:false, follow:false }`. robots.txt sitemap/host auto-www.
+  5. **JSON-LD assets fixed** — Article/Organization/LocalBusiness now reference
+     `/icon.png` (was dead `/icon.svg` + 307 `/opengraph-image`).
+  GSC follow-up: submit the www sitemap, set preferred domain to www.
 
-Last verified build: 2026-07-14 · Next.js 16.2.9 · React 19 · Turbopack.
+Last verified build: 2026-07-15 · Next.js 16.2.9 · React 19 · Turbopack.
 
 ## Progress
 

@@ -31,7 +31,7 @@ export async function generateMetadata({
   const { locale, slug } = await params;
   const activeLocale = locale as Locale;
   const project = await getProjectBySlugFromDB(slug, activeLocale);
-  if (!project) return buildMetadata({ title: "Project not found", description: "", path: "/projects" });
+  if (!project) return buildMetadata({ title: "Project not found", description: "", path: localizedPath(activeLocale, "/projects"), noIndex: true });
   return buildMetadata({
     title: project.name,
     description: project.summary || project.tagline || "",
