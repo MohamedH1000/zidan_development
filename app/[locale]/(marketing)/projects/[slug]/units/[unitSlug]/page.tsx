@@ -11,7 +11,8 @@ import { Reveal } from "@/components/ui/reveal";
 import { buttonVariants } from "@/components/ui/button";
 import { Link } from "@/i18n/navigation";
 import { getProjectBySlugFromDB } from "@/lib/db-content";
-import { buildMetadata } from "@/lib/seo";
+import { buildMetadata, getBreadcrumbJsonLd } from "@/lib/seo";
+import { JsonLd } from "@/components/seo/json-ld";
 import { localizedPath } from "@/lib/i18n";
 import { type Locale } from "@/i18n/routing";
 
@@ -35,10 +36,20 @@ export async function generateMetadata({
     });
   }
   const unitType = activeLocale === "ar" ? unit.unitTypeAr || unit.unitTypeEn : unit.unitTypeEn;
+  const description = [
+    unitType,
+    unit.area ? `${unit.area} m²` : "",
+    unit.bedrooms ? `${unit.bedrooms} bedrooms` : "",
+    project.district || "",
+    project.name,
+  ].filter(Boolean).join(" · ");
+
   return buildMetadata({
     title: `${unit.slug} — ${project.name}`,
-    description: `${unitType} at ${project.name}`,
+    description,
     path: localizedPath(activeLocale, `/projects/${project.slug}/units/${unit.slug}`),
+    image: unit.planImageUrl ?? project.images?.[0] ?? undefined,
+    keywords: [unit.slug, unitType ?? "", project.name, project.district ?? "", "New Cairo"].filter(Boolean),
   });
 }
 
@@ -65,6 +76,13 @@ export default async function UnitDetailPage({
 
   return (
     <>
+      <JsonLd
+        data={getBreadcrumbJsonLd([
+          { name: "Projects", path: localizedPath(activeLocale, "/projects") },
+          { name: project.name, path: localizedPath(activeLocale, `/projects/${project.slug}`) },
+          { name: unit.slug, path: localizedPath(activeLocale, `/projects/${project.slug}/units/${unit.slug}`) },
+        ])}
+      />
       <Section tone="dark" className="pt-32 pb-10 sm:pt-40">
         <Container>
           <Reveal>

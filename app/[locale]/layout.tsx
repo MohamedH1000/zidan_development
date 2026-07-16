@@ -64,7 +64,7 @@ export async function generateMetadata({
     openGraph: {
       type: "website",
       locale: locale === "ar" ? "ar_EG" : "en_US",
-      url: siteConfig.url,
+      url: absoluteUrl(localizedPath(activeLocale, "/")),
       siteName: siteConfig.name,
       title: `${siteConfig.name} — ${company.tagline}`,
       description: siteConfig.description,
@@ -72,6 +72,7 @@ export async function generateMetadata({
     },
     twitter: {
       card: "summary_large_image",
+      site: "@zidan_develop",
       title: `${siteConfig.name} — ${company.tagline}`,
       description: siteConfig.description,
       images: [absoluteUrl("/og.png")],

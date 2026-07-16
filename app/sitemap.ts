@@ -34,7 +34,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     locales.map((locale) => ({
       url: absoluteUrl(localizedPath(locale, route)),
       lastModified: now,
-      changeFrequency: "weekly",
+      changeFrequency: "weekly" as const,
       priority,
       alternates: alternates(route),
     })),
@@ -44,6 +44,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // advertises URLs that actually resolve. If the DB is unreachable, fall back
   // to the static routes alone — never ship dynamic URLs we can't verify.
   let projectEntries: MetadataRoute.Sitemap = [];
+  let unitEntries: MetadataRoute.Sitemap = [];
   let postEntries: MetadataRoute.Sitemap = [];
 
   try {
@@ -59,6 +60,26 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         changeFrequency: "monthly" as const,
         priority: 0.7,
         alternates: alternates(`/projects/${slug}`),
+      })),
+    );
+
+    // Include individual unit pages so Google can index each floor-plan.
+    const units = await prisma.unit.findMany({
+      select: {
+        slug: true,
+        updatedAt: true,
+        project: { select: { slug: true } },
+      },
+      orderBy: { createdAt: "desc" },
+    });
+
+    unitEntries = units.flatMap(({ slug: unitSlug, updatedAt, project }) =>
+      locales.map((locale) => ({
+        url: absoluteUrl(localizedPath(locale, `/projects/${project.slug}/units/${unitSlug}`)),
+        lastModified: updatedAt,
+        changeFrequency: "monthly" as const,
+        priority: 0.5,
+        alternates: alternates(`/projects/${project.slug}/units/${unitSlug}`),
       })),
     );
 
@@ -83,7 +104,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // DB unreachable: ship the static routes only.
   }
 
-  return [...staticEntries, ...projectEntries, ...postEntries];
+  return [...staticEntries, ...projectEntries, ...unitEntries, ...postEntries];
 }
 
 export const revalidate = 86400; // refresh the sitemap daily.

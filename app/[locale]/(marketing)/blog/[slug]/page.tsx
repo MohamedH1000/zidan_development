@@ -18,7 +18,20 @@ import { buildMetadata, getArticleJsonLd, getBreadcrumbJsonLd } from "@/lib/seo"
 import { JsonLd } from "@/components/seo/json-ld";
 import { formatDate } from "@/lib/utils";
 import { localizedPath } from "@/lib/i18n";
-import { type Locale } from "@/i18n/routing";
+import { type Locale, locales } from "@/i18n/routing";
+import { prisma } from "@/lib/prisma";
+
+export async function generateStaticParams() {
+  try {
+    const posts = await prisma.blog.findMany({
+      where: { status: "PUBLISHED" },
+      select: { slug: true },
+    });
+    return locales.flatMap((locale) => posts.map(({ slug }) => ({ locale, slug })));
+  } catch {
+    return [];
+  }
+}
 
 
 export async function generateMetadata({
@@ -39,6 +52,7 @@ export async function generateMetadata({
     image: post.ogImageUrl || post.coverImageUrl || undefined,
     type: "article",
     publishedTime: post.date,
+    keywords: post.seoKeywords?.length ? post.seoKeywords : post.tags?.length ? post.tags : undefined,
   });
 }
 

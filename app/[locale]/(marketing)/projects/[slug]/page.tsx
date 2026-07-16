@@ -16,11 +16,21 @@ import { ProjectCard } from "@/components/sections/project-card";
 import { buttonVariants } from "@/components/ui/button";
 import { Link } from "@/i18n/navigation";
 import { getProjectBySlugFromDB, getProjectsFromDB } from "@/lib/db-content";
-import { buildMetadata, getBreadcrumbJsonLd } from "@/lib/seo";
+import { buildMetadata, getBreadcrumbJsonLd, getProjectJsonLd } from "@/lib/seo";
 import { JsonLd } from "@/components/seo/json-ld";
 import { localizedPath } from "@/lib/i18n";
 import { type Locale } from "@/i18n/routing";
 import { siteConfig } from "@/config/site";
+import { locales } from "@/i18n/routing";
+
+export async function generateStaticParams() {
+  try {
+    const projects = await prisma.project.findMany({ select: { slug: true } });
+    return locales.flatMap((locale) => projects.map(({ slug }) => ({ locale, slug })));
+  } catch {
+    return [];
+  }
+}
 
 
 export async function generateMetadata({
@@ -32,10 +42,16 @@ export async function generateMetadata({
   const activeLocale = locale as Locale;
   const project = await getProjectBySlugFromDB(slug, activeLocale);
   if (!project) return buildMetadata({ title: "Project not found", description: "", path: localizedPath(activeLocale, "/projects"), noIndex: true });
+  const description = project.summary || project.tagline || "";
+  const keywords = project.district
+    ? [project.name, project.district, "New Cairo", "real estate", "Zidan Development"]
+    : [project.name, "New Cairo", "real estate", "Zidan Development"];
   return buildMetadata({
     title: project.name,
-    description: project.summary || project.tagline || "",
+    description,
     path: localizedPath(activeLocale, `/projects/${project.slug}`),
+    image: project.images?.[0] ?? undefined,
+    keywords,
   });
 }
 
@@ -67,10 +83,20 @@ export default async function ProjectDetailPage({
   return (
     <>
       <JsonLd
-        data={getBreadcrumbJsonLd([
-          { name: tNav("projects"), path: localizedPath(activeLocale, "/projects") },
-          { name: project.name, path: localizedPath(activeLocale, `/projects/${project.slug}`) },
-        ])}
+        data={[
+          getBreadcrumbJsonLd([
+            { name: tNav("projects"), path: localizedPath(activeLocale, "/projects") },
+            { name: project.name, path: localizedPath(activeLocale, `/projects/${project.slug}`) },
+          ]),
+          getProjectJsonLd({
+            name: project.name,
+            description: project.summary || project.tagline || "",
+            path: localizedPath(activeLocale, `/projects/${project.slug}`),
+            district: project.district || undefined,
+            image: project.images?.[0] ?? undefined,
+            status: project.status,
+          }),
+        ]}
       />
       <PageHero
         eyebrow={project.district || ""}

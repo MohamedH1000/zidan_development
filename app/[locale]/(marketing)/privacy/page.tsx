@@ -4,7 +4,8 @@ import { PageHero } from "@/components/layout/page-hero";
 import { Section } from "@/components/ui/section";
 import { Container } from "@/components/ui/container";
 import { siteConfig } from "@/config/site";
-import { buildMetadata } from "@/lib/seo";
+import { buildMetadata, getBreadcrumbJsonLd } from "@/lib/seo";
+import { JsonLd } from "@/components/seo/json-ld";
 import { localizedPath } from "@/lib/i18n";
 import type { Locale } from "@/i18n/routing";
 
@@ -35,6 +36,11 @@ export default async function PrivacyPage({
 
   return (
     <>
+      <JsonLd
+        data={getBreadcrumbJsonLd([
+          { name: t("title"), path: localizedPath(locale as Locale, "/privacy") },
+        ])}
+      />
       <PageHero
         eyebrow={t("eyebrow")}
         title={t("title")}

@@ -28,6 +28,7 @@ export function buildMetadata({
   type = "website",
   noIndex = false,
   publishedTime,
+  keywords,
 }: {
   title: string;
   description: string;
@@ -36,6 +37,7 @@ export function buildMetadata({
   type?: "website" | "article";
   noIndex?: boolean;
   publishedTime?: string;
+  keywords?: string[];
 }): Metadata {
   const url = absoluteUrl(path);
   const routePath = unlocalizePath(path);
@@ -45,6 +47,7 @@ export function buildMetadata({
   return {
     title,
     description,
+    ...(keywords?.length ? { keywords } : {}),
     alternates: {
       canonical: url,
       languages: {
@@ -62,11 +65,12 @@ export function buildMetadata({
       locale: locale === "ar" ? "ar_EG" : siteConfig.locale,
       // Omit `images` so the file-based opengraph-image is inherited unless
       // a page explicitly supplies one.
-      ...(image ? { images: [{ url: image, width: 1200, height: 630, alt: siteConfig.name }] } : {}),
+      ...(image ? { images: [{ url: image, width: 1200, height: 630, alt: title }] } : {}),
       ...(publishedTime ? { publishedTime } : {}),
     },
     twitter: {
       card: "summary_large_image",
+      site: "@zidan_develop",
       title: `${title} | ${siteConfig.name}`,
       description,
       ...(image ? { images: [image] } : {}),
@@ -122,6 +126,14 @@ const websiteJsonLd = {
   "@type": "WebSite",
   name: siteConfig.name,
   url: siteConfig.url,
+  potentialAction: {
+    "@type": "SearchAction",
+    target: {
+      "@type": "EntryPoint",
+      urlTemplate: `${siteConfig.url}/en/projects?q={search_term_string}`,
+    },
+    "query-input": "required name=search_term_string",
+  },
 } as const;
 
 export function getOrganizationJsonLd() {
@@ -182,5 +194,39 @@ export function getBreadcrumbJsonLd(items: { name: string; path: string }[]) {
       name: item.name,
       item: absoluteUrl(item.path),
     })),
+  };
+}
+
+/** JSON-LD for a project (RealEstateListing) */
+export function getProjectJsonLd(project: {
+  name: string;
+  description: string;
+  path: string;
+  district?: string;
+  image?: string;
+  status?: string;
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "RealEstateListing",
+    name: project.name,
+    description: project.description,
+    url: absoluteUrl(project.path),
+    ...(project.image ? { image: project.image } : {}),
+    ...(project.district
+      ? {
+          address: {
+            "@type": "PostalAddress",
+            addressLocality: project.district,
+            addressCountry: "EG",
+          },
+        }
+      : {}),
+    ...(project.status ? { availability: `https://schema.org/${project.status === "Available" ? "InStock" : "PreOrder"}` } : {}),
+    provider: {
+      "@type": "Organization",
+      name: siteConfig.name,
+      url: siteConfig.url,
+    },
   };
 }
