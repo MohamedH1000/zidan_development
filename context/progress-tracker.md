@@ -57,6 +57,48 @@ Build + lint pass with 0 errors.
   5. **JSON-LD assets fixed** — Article/Organization/LocalBusiness now reference
      `/icon.png` (was dead `/icon.svg` + 307 `/opengraph-image`).
   GSC follow-up: submit the www sitemap, set preferred domain to www.
+- **SEO indexing follow-up (2026-07-18):** Google sent a fresh GSC "not
+  indexed" report (Not found 404, Page with redirect, Alternative page with
+  canonical, Blocked by robots.txt, Blocked due to other 4xx). Live-site +
+  local-dev audit found:
+  1. **`app/robots.ts` had no `revalidate` export** — it's a build-time-only
+     static route, so the 2026-07-15 admin-disallow fix (commit `b4b69d9`)
+     never actually shipped to production; the live robots.txt (checked
+     2026-07-18) was still serving the pre-fix 2-rule version, ~23h stale.
+     Fixed: added `export const revalidate = 3600` so future robots.ts edits
+     can only ever be at most an hour stale, independent of deploy cadence.
+     **Still needs a fresh production deploy** to pick up the admin-disallow
+     rules that were already correct in source — not something fixable from
+     code alone.
+  2. **Soft-404 status code on `projects/[slug]`, `blog/[slug]`,
+     `projects/[slug]/units/[unitSlug]`** — confirmed both on prod and local
+     dev that unknown slugs render the `notFound()` UI + `noindex` meta but
+     ship HTTP **200**, not 404. Root-caused via
+     `node_modules/next/dist/docs/01-app/03-api-reference/03-file-conventions/loading.md`:
+     Next.js 16 can only set a real 404 status for *non-streamed* responses;
+     because `app/[locale]/loading.tsx` wraps every route in a Suspense
+     boundary, these routes stream, and the status is locked in as 200 once
+     the first chunk flushes — this is documented, intentional Next 16
+     behavior, and Next's own docs confirm it does **not** hurt indexing
+     (Google still respects the `noindex` meta regardless of status code).
+     Added `export const dynamic = "force-dynamic"` to all three pages
+     anyway — it doesn't change the status-code ceiling, but it closes a
+     separate real bug: `admin-projects.ts`/`admin-units.ts` server actions
+     only `revalidatePath` the `/projects` index on edit, never the
+     individual detail route, so an edited project/unit could serve stale
+     cached content indefinitely. Now every request reads fresh from Postgres.
+  3. Verified as already correct (no fix needed): canonical self-reference on
+     `/ar/*` pages, sitemap only lists real DB-backed URLs, non-www→www 308,
+     trailing-slash normalization, old WordPress-style URLs (`/2024/01/x/`,
+     `/category/x/`) already 404 correctly.
+  4. **Not yet actionable without more data**: the "Not found (404)" bucket is
+     most likely old WordPress-site URLs Google still has indexed with no
+     mapping to their new equivalents. Needs the exact URL list exported from
+     GSC before writing redirects — see `prompts/01-legacy-url-redirects.md`.
+  - Future feature backlog written to `prompts/` (12 prompts, prioritized,
+    covering analytics, payment calculator, WhatsApp widget, testimonials,
+    brochure lead-gen, favorites, area map, comparison tool, site search,
+    perf/a11y audit, and blog content expansion).
 
 Last verified build: 2026-07-15 · Next.js 16.2.9 · React 19 · Turbopack.
 
@@ -176,6 +218,16 @@ Last verified build: 2026-07-15 · Next.js 16.2.9 · React 19 · Turbopack.
 - [ ] No CMS — content edits require code changes.
 - [ ] No automated tests yet (consider Playwright for the two forms + locale switch).
 - [ ] `public/og.png` is English-only by design.
+- [ ] Production needs a fresh deploy to pick up the `robots.ts` admin-disallow
+  rules that have been correct in source since commit `b4b69d9` but never
+  actually shipped (see 2026-07-18 entry above).
+- [ ] Legacy WordPress URL redirects — needs the exact "Not found (404)" URL
+  list exported from Search Console before writing redirects; see
+  `prompts/01-legacy-url-redirects.md`.
+- [ ] See `prompts/` for the full prioritized next-features backlog
+  (analytics, payment calculator, WhatsApp widget, testimonials, brochure
+  lead-gen, favorites, area map, comparison tool, site search, perf/a11y
+  audit, blog content expansion).
 
 ## Notes
 

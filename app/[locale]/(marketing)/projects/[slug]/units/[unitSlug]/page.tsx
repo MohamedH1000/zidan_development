@@ -1,4 +1,8 @@
 export const dynamicParams = true;
+// Force per-request rendering so `notFound()` can set a real HTTP 404 for
+// unknown slugs — with static optimization, Next can't flip an already
+// flushed 200 response, which was causing Google to see soft-404s.
+export const dynamic = "force-dynamic";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { setRequestLocale } from "next-intl/server";
